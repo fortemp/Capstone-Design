@@ -1,0 +1,69 @@
+@font-face {
+    font-family: "navfont";
+    src: url(../../assets/RioGrande.ttf);
+}
+span{
+    font-family: navfont;
+    color: #222222;
+}
+a:link { 
+
+color: #ffffff;
+
+text-decoration: none;
+
+}
+
+a:visited {
+
+color: #ffffff;
+
+text-decoration: none;
+
+}
+
+a:hover {
+
+color: #ffffff;
+
+text-decoration: none;
+
+}
+
+a:active {
+
+color: #ffffff;
+
+text-decoration: none;
+
+}
+
+#logo {
+    align-items: left;
+    float:left;
+    flex-grow: 1;
+}
+#logotype{
+    font-family: navfont;
+    font-size: 40px;
+    position: absolute;
+    padding-top: 5%;
+}
+#rightside{
+    align-items: right;
+    float: right;
+}
+
+#toggleBox{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+}
+#toggleBox:hover{
+    cursor: pointer;
+}
+#toggleBoxContainer{
+    padding-left: 2px;
+}
