@@ -1,0 +1,21 @@
+    .Submit{
+        width: 100%;
+        height: 100%;
+    }
+    .Msg{
+        width: 88%;
+        height: 94%;
+        vertical-align: middle;
+        font-size: 20px;
+        border: 1px solid;
+        margin-right: 2px;
+    }
+
+    .SubmitBtn{
+        width: 10%;
+        height: 100%;
+        vertical-align: middle; 
+        font-size: 40px;
+        background-color: bisque;
+        border: 1px solid;
+    }
