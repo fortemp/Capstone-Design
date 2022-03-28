@@ -1,1 +1,1 @@
-react boardgame project
+캡스톤 디자인 5조 / 온라인 저지
