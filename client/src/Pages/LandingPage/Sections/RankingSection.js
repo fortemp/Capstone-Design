@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useLayoutEffect, useState} from 'react'
 import Box from '@material-ui/core/Box'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -36,7 +36,7 @@ function createData(               //테이블 각 셀에 들어갈 데이터 �
 function RankingSection(props) {
   
   return (
-    <Box style={props.style} bgcolor={"#888888"} p={2}>
+    <Box className='Over' style={props.style} bgcolor={"#888888"} p={2} >
           RankingSection
           <TableContainer>
       <Table aria-label="simple table"bgcolor={"#888888"}>

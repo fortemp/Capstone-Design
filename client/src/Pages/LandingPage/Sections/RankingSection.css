@@ -1,3 +1,6 @@
 .Cell{
-        font-size: 20px;
+        font-size: 1vw;
+}
+.Over{
+        overflow: auto;
 }
