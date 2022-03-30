@@ -41,7 +41,7 @@ text-decoration: none;
 #logo {
     align-items: left;
     float:left;
-    flex-grow: 1;
+    margin: 0 200px 0 0 ;
 }
 #logotype{
     font-family: navfont;
@@ -72,6 +72,7 @@ text-decoration: none;
     height: 73px;
     width: 30%;
     margin-right: 300px;
+    display: absolute;
 }
 .InfoMsg{
     top: 0;
