@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import './RankingSection.css'
 
 
-function createData(               //테이블 각 셀에 들어갈 데이터 타입(임시 작성)
+function createData(              //테이블 각 셀에 들어갈 데이터 타입(임시 작성)
     name: string,
     calories: number,
     fat: number,
