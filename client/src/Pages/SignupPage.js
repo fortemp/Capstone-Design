@@ -9,15 +9,24 @@ import { Typography } from '@material-ui/core';
 import * as Yup from "yup"
 import moment from "moment"
 import {registerUser} from '../actions/index';
+import { dupcheck } from '../api/auth';
+
 function SignupPage(props) {
 
   const dispatch = useDispatch();
+  const [idText, setIdText] = useState('');
+  const [dup, setDup] = useState(false);
 
+  function idHandleChange(event) {
+    setIdText(event.target.event);
+  }
+  
     return (
         <Formik
             initialValues={{
-                email: '',
+                id: '',
                 name: '',
+                email:'',
                 password: '',
                 passwordConfirm: ''
             }}
@@ -26,6 +35,13 @@ function SignupPage(props) {
                         .required('이름을 입력해주세요')
                         .min(2, '2글자 이상이여야 합니다.')
                         .max(10, '10글자 이하로 해주세요'),
+                    id: Yup.string()
+                        .required('아이디를 입력해주세요')
+                        .min(5, '5글자 이상이여야 합니다.')
+                        .max(15, '15글자 이하로 해주세요')
+                        .test("Unique","중복입니다",function seedup(){
+                          return !dup;
+                        }),
                     email: Yup.string()
                         .email('이메일 형식으로 작성해주세요')
                         .required('이메일을 입력해주세요'),
@@ -41,6 +57,7 @@ function SignupPage(props) {
             onSubmit={(values, {setSubmitting}) => {
                 setTimeout(() => {
                     let data = {
+                        id: idText,
                         name: values.name,
                         email: values.email,
                         password: values.password,
@@ -94,13 +111,44 @@ function SignupPage(props) {
                   autoFocus={true}
                   />
                   <br/>
+                  <TextField
+                  error={errors.id && touched.id}
+                  required
+                  name="id"
+                  id="outlined-basic"
+                  type="id"
+                  label="아이디 입력"
+                  value={idText}
+                  onChange={e=>{
+                    handleChange(e);
+                    idHandleChange(e);
+                    let data = {
+                      id:e.target.value
+                    };
+                    dupcheck(data)
+                    .then(res=>{
+                      if(res.data.success){
+                        if(res.data.message==="dup"){
+                          setDup(true);
+                        }else{
+                          setDup(false);
+                        }
+                      }
+                    })
+                  }}
+                  onBlur={handleBlur}
+                  variant="outlined"
+                  helperText={errors.id && touched.id ? errors.id : ""}
+                  autoComplete="off"
+                  />
+                  <br/>
                 <TextField
                   error={errors.email && touched.email}
                   required
                   name="email"
                   id="outlined-basic"
                   type="email"
-                  label="이메일 입력"
+                  label="이메일 입력(선택)"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
