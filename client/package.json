@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^4.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.12.3",
@@ -14,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.0",
     "formik": "^2.2.9",
+    "html-react-parser": "^1.4.10",
     "http-proxy-middleware": "^2.0.3",
     "moment": "^2.29.1",
     "package.json": "^2.0.1",
