@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 function createData(ID,Name,URL){  
-  var Ranking_Table_Cell={ 
+  var Shoping_Table_Cell={ 
     Item_ID:ID,
     Alt_Name: Name,
     ImageURL:URL
   }
-    return Ranking_Table_Cell ;
+    return Shoping_Table_Cell ;
   
 }
 
@@ -53,7 +53,7 @@ function ShopPage(props) {
                 <div>
                   <img className="phoneImage" alt={row.Alt_Name} src={row.ImageURL}/>
                 </div>
-                <div className='buysection'><span className='shopspan'>8000pt</span>
+                <div className='buysection'><span className='shopspan'>9000pt</span>
                   <input className="BuyBtn" type="button" value="구매하기" /></div>
               </div>
             </Box>
