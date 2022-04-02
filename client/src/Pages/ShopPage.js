@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
 import { makeStyles } from "@material-ui/core/styles";
 import "./Shoppage.css"
@@ -14,13 +14,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function createData(            
-    Item_ID: number,
-    Alt_Name: string,
-    ImageURL:string
-  ) {
-    return { Item_ID,  Alt_Name, ImageURL };
-  } 
+function createData(ID,Name,URL){  
+  var Ranking_Table_Cell={ 
+    Item_ID:ID,
+    Alt_Name: Name,
+    ImageURL:URL
+  }
+    return Ranking_Table_Cell ;
+  
+}
 
 const rows = [                      
   createData(1,"ch1","img/ch1.png"),
