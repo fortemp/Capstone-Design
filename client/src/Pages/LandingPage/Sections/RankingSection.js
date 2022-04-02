@@ -11,14 +11,14 @@ import TableRow from '@mui/material/TableRow';
 import './RankingSection.css'
 
 
-function createData(              //테이블 각 셀에 들어갈 데이터 타입(임시 작성)
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-  ) {
-    return { name, calories, fat, carbs, protein };
+function createData(rank,name,elo,quiz){       //테이블 각 셀에 들어갈 데이터 타입(임시 작성)
+var Ranking_Cell={
+    rank: rank,
+    name: name,
+    elo: elo,
+    quiz: quiz
+} 
+    return  Ranking_Cell ;
   } 
   const rows = [                         //테이블 각 셀에 들어갈 내용(임시 데이터)
     createData(1,'임시1',100+"%",999999),
@@ -54,10 +54,10 @@ function RankingSection(props) {
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell className='Cell'component="th" scope="row"> {row.name} </TableCell>
-              <TableCell className='Cell'align="right">{row.calories}</TableCell>
-              <TableCell className='Cell'align="right">{row.fat}</TableCell>
-              <TableCell className='Cell'align="right">{row.carbs}</TableCell>
+              <TableCell className='Cell'component="th" scope="row"> {row.rank} </TableCell>
+              <TableCell className='Cell'align="right">{row.name}</TableCell>
+              <TableCell className='Cell'align="right">{row.elo}</TableCell>
+              <TableCell className='Cell'align="right">{row.quiz}</TableCell>
             </TableRow>
           ))}
         </TableBody>
