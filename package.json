@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^33.0.0",
+    "@ckeditor/ckeditor5-react": "^4.0.1",
     "antd": "^4.19.3",
     "bcrypt": "^5.0.1",
     "concurrently": "^7.0.0",

@@ -4,7 +4,19 @@ import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import parse from 'html-react-parser'
 import Axios from 'axios'
+import Grid from '@material-ui/core/Grid';
+import { Container } from '@material-ui/core';
+import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
+import { makeStyles } from "@material-ui/core/styles";
 //참고 https://velog.io/@sky/React-node-js%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90
+
+
+const useStyles = makeStyles((theme) => ({   //grid 속성
+  container: {
+    background: "white",
+    height: "800px"
+  },
+}));
 
 function Posting() { 
     const [movieContent, setMovieContent] = useState({
@@ -37,7 +49,12 @@ function Posting() {
         })
       };
     
+      const classes = useStyles();
       return (
+
+        <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
+         <Container fixed maxWidth="md" className={classes.container}>
+        <Grid container spacing={3}>
         <div className="App">
         <h1>게시글작성</h1>
         <div className='movie-container'>
@@ -77,8 +94,17 @@ function Posting() {
             }}
           />
         </div>
+        
         <button className="submit-button" onClick={submitReview}>입력</button>
       </div>
+        </Grid>
+      </Container>
+
+
+
+    </SocketContext.Provider>
+
+        
       );
 }
 
