@@ -3,6 +3,12 @@
     width: auto;
     height:90%;
     border: 2px solid;
+    overflow-y: auto;
+    display:fixed;
+  
+    
+    
+
 }
 
 .Submit{
@@ -26,4 +32,11 @@
     font-size: 40px;
     background-color: bisque;
 
+}
+.chatlog{
+    margin-bottom: 10px;
+}
+.chat{
+    display:block;
+    font-family: initial;
 }
