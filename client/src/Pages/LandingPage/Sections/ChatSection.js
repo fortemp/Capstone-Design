@@ -62,5 +62,5 @@ function ChatSection(props) {
     </Box>
   )
 }
-
+  
 export default ChatSection
