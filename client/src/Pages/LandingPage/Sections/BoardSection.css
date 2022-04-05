@@ -1,0 +1,28 @@
+.Boardtitle{
+    display: block;
+    font-weight: bolder;
+    font-size:20px;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    text-align: center;
+    border: 7px solid white;
+}
+.Cell1,.Cell2,.Cell3,.HeadCell1,.HeadCell2,.HeadCell3{
+    border-right: 1px solid white;
+}
+.Cell1,.HeadCell1{
+    width: 10%;
+}
+.Cell2,.HeadCell2{
+    width: 65%;
+}
+.Cell3,.HeadCell3{
+    width: 15%;
+}
+.Cell4,.HeadCell4{
+    width: 10%;
+}
+.HeadCell1,.HeadCell2,.HeadCell3,.HeadCell4{
+    font-size: 15px;
+    font-weight: bolder;
+}

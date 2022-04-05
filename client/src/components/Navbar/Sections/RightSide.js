@@ -27,11 +27,12 @@ function RightSide() {
         fontSize:'15px'
     }
 
+
     if(!isAuth)
     {
         return (
             <div id="rightside">
-    
+
                 <Button color="inherit">
                         <a href="/signup">
                             <BorderColorIcon 
@@ -41,7 +42,7 @@ function RightSide() {
                             <span style={fontStyle}>register</span>
                         </a>
                 </Button>
-    
+  
                 <Button color="inherit">
                         <a href="/login">
                             <LoginIcon
@@ -51,7 +52,7 @@ function RightSide() {
                             <span style={fontStyle}>login</span>
                         </a>
                 </Button>
-    
+
             </div>
         )
     }else{

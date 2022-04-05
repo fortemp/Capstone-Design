@@ -6,19 +6,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-
-
 import './RankingSection.css'
 
 
-function createData(               //테이블 각 셀에 들어갈 데이터 타입(임시 작성)
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-  ) {
-    return { name, calories, fat, carbs, protein };
+function createData(rank,name,elo,quiz){       //테이블 각 셀에 들어갈 데이터 타입(임시 작성)
+var Ranking_Cell={
+    rank: rank,
+    name: name,
+    elo: elo,
+    quiz: quiz
+} 
+    return  Ranking_Cell ;
   } 
   const rows = [                         //테이블 각 셀에 들어갈 내용(임시 데이터)
     createData(1,'임시1',100+"%",999999),
@@ -42,7 +40,7 @@ function RankingSection(props) {
       <Table aria-label="simple table"bgcolor={"#888888"}>
         <TableHead>
           <TableRow>
-            <TableCell className='Cell'>순위</TableCell>
+            <TableCell className='Cell' align="center">순위</TableCell>
             <TableCell className='Cell'align="center">ID</TableCell>
             <TableCell className='Cell'align="center">승률</TableCell>
             <TableCell className='Cell'align="center">정답 갯수</TableCell>
@@ -52,12 +50,12 @@ function RankingSection(props) {
           {rows.map((row) => (
             <TableRow
               key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ '&:last-child td, &:last-child th': { borderBottom: 0 } }}
             >
-              <TableCell className='Cell'component="th" scope="row"> {row.name} </TableCell>
-              <TableCell className='Cell'align="right">{row.calories}</TableCell>
-              <TableCell className='Cell'align="right">{row.fat}</TableCell>
-              <TableCell className='Cell'align="right">{row.carbs}</TableCell>
+              <TableCell className='Cell'component="th" scope="row" align="center">  {row.rank} </TableCell>
+              <TableCell className='Cell'align="center">{row.name}</TableCell>
+              <TableCell className='Cell'align="center">{row.elo}</TableCell>
+              <TableCell className='Cell'align="center">{row.quiz}</TableCell>
             </TableRow>
           ))}
         </TableBody>

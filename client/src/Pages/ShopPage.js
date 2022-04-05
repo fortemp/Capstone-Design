@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
 import { makeStyles } from "@material-ui/core/styles";
-
+import "./Shoppage.css"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -14,98 +14,55 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+function createData(ID,Name,URL){  
+  var Shoping_Table_Cell={ 
+    Item_ID:ID,
+    Alt_Name: Name,
+    ImageURL:URL
+  }
+    return Shoping_Table_Cell ;
+  
+}
+
+const rows = [                      
+  createData(1,"ch1","img/ch1.png"),
+  createData(2,"ch2","img/ch2.png"),
+  createData(3,"ch3","img/ch3.png"),
+  createData(4,"ch4","img/ch4.png"),
+  createData(5,"ch5","img/ch5.png"),
+  createData(6,"ch6","img/ch6.png"),
+  createData(7,"ch7","img/ch7.png"),  
+  createData(8,"ch8","img/ch8.png"),
+  createData(9,"ch9","img/ch9.png"),
+  createData(10,"ch10","img/ch10.png"),
+  createData(11,"ch11","img/ch11.png"),
+  createData(12,"ch12","img/ch12.png"),
+  ];
 
 function ShopPage(props) {
   const classes = useStyles();
-  const test = {
-    height: '340px'
-  }
+
   return (
     <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
-      <Container fixed maxWidth="lg" className={classes.container}>
-        <Grid container spacing={1}>  
+      <Container fixed maxWidth="md" className={classes.container}>
+        <Grid container spacing={3}>
+        {rows.map((row) => (
           <Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
+            <Box style={props.style} className="shopbox" >
               <div>
-              <div style={test}>
-                <img className="phoneImage" alt="ch1" src="img/ch1.png" />
+                <div>
+                  <img className="phoneImage" alt={row.Alt_Name} src={row.ImageURL}/>
                 </div>
-                <div><span>8000pt</span>
-                <input className="BuyBtn"type="button" value="구매하기"/></div>
-                </div>
+                <div className='buysection'><span className='shopspan'>9000pt</span>
+                  <input className="BuyBtn" type="button" value="구매하기" /></div>
+              </div>
             </Box>
           </Grid>
-          <Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid><Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid><Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid><Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid><Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid><Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Box style={props.style} bgcolor={"#888888"} color={"#222222"}  >
-              <div style={test}><img className="phoneImage" alt="ch1" src="img/ch1.png" />
-              <input className="BuyBtn"type="button" value="구매하기"/></div>
-            </Box>
-          </Grid>
-          </Grid>
-          
+        ))}
+        </Grid>
       </Container>
     </SocketContext.Provider>
   )
 }
 
 export default ShopPage
-/* <Container fixed maxWidth="xs" className={classes.container}>
-        <Typography variant="h6" color="secondary">
-          Fixed
-        </Typography>
-      </Container>*/

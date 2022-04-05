@@ -12,6 +12,7 @@ import HostRoomPage from "./Pages/HostRoomPage";
 import ShopPage from"./Pages/ShopPage";
 import CommunityPage from"./Pages/CommunityPage";
 import withAuth from "./hoc/withAuth"
+import Posting from "./Pages/Posting";
 function App() {
   return (
     <div style={{minWidth:'730px'}}>
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/host" element={ withAuth(HostRoomPage,true) } />
           <Route exact path="/shop" element={ withAuth(ShopPage,true) } />
           <Route exact path="/community" element={ withAuth(CommunityPage,true) } />
+          <Route exact path="/posting" element={ withAuth(Posting,null) } /> 
         </Routes>
       </div>
 

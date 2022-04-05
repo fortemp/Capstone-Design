@@ -3,15 +3,13 @@ import ChatSection from './Sections/ChatSection'
 import GameSection from './Sections/GameSection'
 import RoomSection from './Sections/RoomsSection'
 import RankingSection from './Sections/RankingSection'
-import SubmitSection from './Sections/SubmitSection'
 import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
 function LandingPage() {
     const RankingStyle = { height: '740px' }
     const roomStyle = { height: '200px' }
-    const chatStyle = { height: '460px'}
+    const chatStyle = { height: '532px'}
     const gameStyle = { height: '740px' }
-    const submitStyle = { height: '65px' }
 
   
 
@@ -40,9 +38,6 @@ function LandingPage() {
                             <ChatSection style={chatStyle} />
                         </Grid>
 
-                        <Grid item>
-                            <SubmitSection style={submitStyle} />
-                        </Grid>
                     </Grid>
 
                 </Grid>

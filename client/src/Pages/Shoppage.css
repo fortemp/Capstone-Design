@@ -1,0 +1,27 @@
+.phoneImage{
+    width: 204px;
+    height: 310px;
+}
+.shopbox{
+    border: 3px solid black;
+}
+
+.shopspan{
+    float: left;
+    vertical-align: middle;
+}
+
+.BuyBtn{
+    float: right;
+    vertical-align: middle;
+    height: 30px;
+}
+.buysection{
+    border-top: 3px solid black;
+    height:30px;
+    font-size:20px;
+}
+.buysection>span{
+    font-family: initial;
+    padding-left: 10px;
+}
