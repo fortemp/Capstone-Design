@@ -6,8 +6,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-
-
 import './RankingSection.css'
 
 
@@ -42,7 +40,7 @@ function RankingSection(props) {
       <Table aria-label="simple table"bgcolor={"#888888"}>
         <TableHead>
           <TableRow>
-            <TableCell className='Cell'>순위</TableCell>
+            <TableCell className='Cell' align="center">순위</TableCell>
             <TableCell className='Cell'align="center">ID</TableCell>
             <TableCell className='Cell'align="center">승률</TableCell>
             <TableCell className='Cell'align="center">정답 갯수</TableCell>
@@ -52,12 +50,12 @@ function RankingSection(props) {
           {rows.map((row) => (
             <TableRow
               key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ '&:last-child td, &:last-child th': { borderBottom: 0 } }}
             >
-              <TableCell className='Cell'component="th" scope="row"> {row.rank} </TableCell>
-              <TableCell className='Cell'align="right">{row.name}</TableCell>
-              <TableCell className='Cell'align="right">{row.elo}</TableCell>
-              <TableCell className='Cell'align="right">{row.quiz}</TableCell>
+              <TableCell className='Cell'component="th" scope="row" align="center">  {row.rank} </TableCell>
+              <TableCell className='Cell'align="center">{row.name}</TableCell>
+              <TableCell className='Cell'align="center">{row.elo}</TableCell>
+              <TableCell className='Cell'align="center">{row.quiz}</TableCell>
             </TableRow>
           ))}
         </TableBody>
