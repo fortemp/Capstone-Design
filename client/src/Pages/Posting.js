@@ -1,4 +1,5 @@
 import { useEffect, useState} from 'react'
+import{Link} from "react-router-dom";
 import './Posting.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
@@ -18,7 +19,9 @@ const useStyles = makeStyles((theme) => ({   //grid 속성
   },
 }));
 
-function Posting() { 
+
+function Posting() { //임시로 null\
+
     const [movieContent, setMovieContent] = useState({
         title: '',
         content: ''
@@ -26,18 +29,13 @@ function Posting() {
     
       const [viewContent , setViewContent] = useState([]);
     
-      useEffect(()=>{
-        Axios.get('http://localhost:8000/api/get').then((response)=>{
-          setViewContent(response.data);
-        })
-      },[viewContent])
-    
       const submitReview = ()=>{ // 입력포트값으로 정보 전달
         Axios.post('http://localhost:8000/api/insert', {
           title: movieContent.title,
           content: movieContent.content
         }).then(()=>{
           alert('등록 완료!');
+          <Link to = '/community'></Link>
         })
       };
     
@@ -96,6 +94,7 @@ function Posting() {
         </div>
         
         <button className="submit-button" onClick={submitReview}>입력</button>
+        <Link to = '/community'><button className="submit-button">뒤로가기</button></Link>        
       </div>
         </Grid>
       </Container>
