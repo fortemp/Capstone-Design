@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {User} = require('../models/User')
+const User = require('../models/User')
 const passport = require('passport');
-const { is } = require('express/lib/request');
+const Crypto = require('crypto');
 
 //로그인
 router.post('/login',(req,res,next)=>{
@@ -12,9 +12,8 @@ router.post('/login',(req,res,next)=>{
         }
         if(!user){
             //unauthorized 헤더:401
-            return res.status(401).json({success:false,message})
+            return res.status(200).json({success:false,message})
         }
-        
         return req.logIn(user,(loginError)=>{
             if(loginError){
                 console.log(err);
@@ -26,18 +25,34 @@ router.post('/login',(req,res,next)=>{
         
     })(req,res,next);
 })
-//회원가입
-router.post('/register',(req,res)=>{
-    const user = new User(req.body);
-    user.save((err,userInfo)=>{
-        if(err){
-            return res.status(400).json({success:false,err})
-        }else{
-            return res.status(200).json({success:true});
-        }
-    })
-})
 
+//회원가입
+router.post('/register',async (req,res)=>{
+
+    console.log(req.body);
+    let object =
+    {
+        img_url: req.body.image,//임시 이미지(gravatar)
+        password: req.body.password,
+        name: req.body.name,
+        id: req.body.id,//아이디
+    };
+    try{
+        const salt = Crypto.randomBytes(64).toString('base64');//salt생성
+        const hash = Crypto.createHash('sha256').update(object.password+salt).digest('hex');//hash생성
+        object.salt = salt;
+        object.password = hash;
+        await User.create(object);
+        return res.status(200).json({success:true})
+        
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(400).json({success:false})
+    }
+})
+//로그아웃
 router.get('/logout',(req,res)=>{
     if(req.isAuthenticated())
     {
@@ -55,12 +70,22 @@ router.get('/auth',(req,res)=>{
     let user = null
 
     if(req.isAuthenticated()){
-        user = {_id:req.user._id,name:req.user.name, email:req.user.email,
-            money:req.user.money, image: req.user.image}
+        user = {_id:req.user.user_id,name:req.user.name, email:req.user.email,
+            point:req.user.point, img_url: req.user.img_url,elo:req.user.elo}
     }
 
     res.status(status).json({auth:req.isAuthenticated(),user})
 })
-
+//회원가입시 아이디 중복확인
+router.post('/dupcheck',async (req,res)=>{
+    const id = req.body.id
+    console.log(id);
+    const result = await User.findAll({where:{id}});
+    if(result.length>0){
+        return res.json({success:true,message:"dup"})
+    }else{
+        return res.json({success:true,message:"nodup"});
+    }
+})
 
 module.exports = router;

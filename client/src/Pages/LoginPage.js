@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from '@material-ui/core';
 import * as Yup from 'yup';
+
 function LoginPage() {
 
     const dispatch = useDispatch();
@@ -18,29 +19,27 @@ function LoginPage() {
       
         <Formik
             initialValues={{  
-                email: '',
+                id: '',
                 password: '',
             }}
             validationSchema={Yup.object().shape({
-                email: Yup.string()
-                    .required('이메일을 입력해주세요'),
+                id: Yup.string()
+                    .required('아이디를 입력해주세요'),
                 password: Yup.string()
                     .required('비밀번호를 입력해주세요')
             })}
             onSubmit={(values, {setSubmitting}) => {
                 setTimeout(() => {
                     let data = {
-                        email: values.email,
+                        id: values.id,
                         password: values.password,
                     }
                     dispatch(loginUser(data))
                     .then(res=>{
                       if(res.payload.success){
-                        if(res.payload.success){
-                          window.location.replace('/')
-                        }
+                        window.location.replace('/')
                       }else{
-                        console.log(res.payload.err);
+                        alert(res.payload.message.message);
                       }
                     })
                     setSubmitting(false);
@@ -67,17 +66,17 @@ function LoginPage() {
               <br/>
               <FormControl style={{width:'100%'}} onSubmit={handleSubmit} component="fieldset">
                 <TextField
-                  error={errors.email && touched.email}
+                  error={errors.id && touched.id}
                   required
-                  name="email"
+                  name="id"
                   id="outlined-basic"
-                  type="email"
-                  label="이메일 입력"
-                  value={values.email}
+                  type="id"
+                  label="아이디 입력"
+                  value={values.id}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   variant="outlined"
-                  helperText={errors.email && touched.email ? errors.email : ""}
+                  helperText={errors.id && touched.id ? errors.id : ""}
                   autoFocus={true}
                   />
                   <br/>

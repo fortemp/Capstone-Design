@@ -18,3 +18,7 @@ export async function logout(){
     const res = await api.get('/auth/logout');
     return res;
 }
+export async function dupcheck(data){
+    const res = await api.post('/auth/dupcheck',data);
+    return res;
+}

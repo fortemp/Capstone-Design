@@ -1,50 +1,63 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const saltRounds = 2;
+const Sequelize = require('sequelize');
 
-const RoomSchema = mongoose.Schema({
-    name:{
-        type:String,
-        maxlength:50
-    },
-    people:{
-        type:Number,
-        default:2,
-        max:7,
-    },
-    password:{
-        type: String,
-        minlength: 4
-    },
-})
-
-RoomSchema.pre('save',function(next){//save함수 하기전에하는 함수
-    let room = this;
-
-    if(room.isModified('password'))
+module.exports = class Room extends Sequelize.Model
+{
+    static init(sequelize)
     {
-        bcrypt.genSalt(saltRounds,function(err,salt){
-            if(err)
-                return next(err)
-    
-            bcrypt.hash(room.password,salt,function(err,hash){
-                if(err)
-                    return next(err)
-                room.password = hash;
-                next()
-            })
-    
-        })
-    }else{
-        next();
+        return super.init({
+            title:
+            {
+                type: Sequelize.STRING(64),
+                allowNull:false,
+            },
+            max_people:
+            {
+                type: Sequelize.INTEGER,
+                allowNull:false,
+            },
+            people:
+            {
+                type: Sequelize.INTEGER,
+                allowNull:false,
+            },
+            password:
+            {
+                type: Sequelize.STRING(100),
+                allowNull:true,
+            },
+            language:
+            {
+                type: Sequelize.STRING(16),
+                allowNull:false,
+            },
+            ispass:
+            {
+                type:Sequelize.INTEGER,//0또는 1만 넣도록 한다
+                allowNull:false,
+            },
+            is_running:
+            {
+                type:Sequelize.BOOLEAN,
+                defaultValue:false,
+                allowNull:false
+            },
+            room_id: //PK
+            {
+                allowNull: false,
+                primaryKey: true,
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+            },
+        },
+        {
+            sequelize,
+            timestamps: true,//생성한날짜, 업데이트한날짜 row를 만들어줌.
+            paranoid: true,//deletedAt일자 만들어줌(softdelete)
+            modelName: 'Room',//모델이름
+            tableName: 'rooms',//테이블명 즉 sql에서 쓰는이름 
+            charset: 'utf8',
+            collate: 'utf8_general_ci',
+        }
+        )
     }
-})
-RoomSchema.methods.comparePassword = function(plainPassword,cb){
-    bcrypt.compare(plainPassword, this.password, function(err,isMatch){
-        if(err)
-            return cb(err)
-        cb(null,isMatch)
-    })
 }
-const Room= mongoose.model('Room',RoomSchema)
-module.exports = {Room}
