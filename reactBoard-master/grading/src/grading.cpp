@@ -1,83 +1,148 @@
 #include <iostream>
+#include <fstream>
+#include <algorithm>
 #include "inout.hpp"
 #include "compiler.hpp"
+
+//usercode/<uuid>/<id>.<ext>
+
+//code file path example
+//usercode/12345678-1234-1234-012345678912/0123456789.cpp
+
+//out file path example
+//usercode/12345678-1234-1234-012345678912/0123456789.out
+
+//result file path example
+//usercode/12345678-1234-1234-012345678912/0123456789.result
+
+//log file path example
+//usercode/12345678-1234-1234-012345678912/0123456789.log
+
+
+//
 
 namespace Grading{
     class Grading{
         public:
-            Grading(ProblemAnswerIterator pa, CppCompiler gcc)
-                :pa_(pa), gcc_(gcc){};
+            Grading(std::string problem, uint length, std::string lang,
+                    std::string UUID, std::string codeID,
+                    ProblemAnswerIterator pa, CppCompiler gcc)
+                :targetProblem_(problem), targetLength_(length), targetLang_(lang),
+                 targetUUID_(UUID), targetCodeID_(codeID), pa_(pa), gcc_(gcc){
+                    targetGrade_ = 0;
+                    is_finish_ = false;
+                 }; 
 
-            uint grade_code(const char* problemID, uint length){
-                
-                //테스트용 정보
-                const char* test_problem = "1000";
-                uint test_length = 4;
-                const char* test_lang = "cpp";
+            uint gradeCode(){
+                //유저코드 소스
+                std::string filepath = string_format("../usercode/%s/%s", targetUUID_.c_str(), targetCodeID_.c_str());
 
-                const char* test_uuid = "12345678-1234-1234-012345678912";
-                const char* test_codeid = "0123456789";
+                //유저코드 로그
 
-
-                //유저 코드 링크 빌드
-                std::string filepath = "../usercode/";
-                filepath += test_uuid;
-                filepath += "/";
-                filepath += test_codeid;
+                //유저코드 결과
+                std::string resultPath = string_format("../usercode/%s/%s.result", targetUUID_.c_str(), targetCodeID_.c_str());
 
                 //유저코드 빌드
                 auto excutor = gcc_ << filepath;
 
-                pa_.set_problem(test_problem, test_length);
+                pa_.set_problem(targetProblem_, targetLength_);
 
                 for(auto& path: pa_){
+                    int is_correct = 1;
+
                     std::string problemPath = path.first;
                     std::string answerPath = path.second;
 
                     //유저코드 실행
                     excutor << problemPath;
-                }
 
+                    //런타임 에러 핸들 필요
+
+                    //런타임 에러가 없을때
+
+                    std::fstream answerFile{answerPath}; std::fstream resultFile{resultPath};
+                    std::string answerString; std::string resultString;
+
+                    std::vector<std::string> answers; std::vector<std::string> results;
+
+                    while(std::getline(answerFile, answerString)){
+                        answers.push_back(answerString);
+                    }
+
+                    while(std::getline(resultFile, resultString)){
+                        results.push_back(resultString);
+                    }
+
+                    //만약 answers와 results의 길이가 다를 경우
+                    if(answers.size() != results.size()) is_correct = 0;
+
+                    //all[(answers[i] == results[i])]
+                    for(uint i = 0; i < std::min(answers.size(), results.size()); i ++){
+                        is_correct |= (answers[i] == results[i]);   
+                    }
+
+                    targetGrade_ += is_correct;
+
+                    answerFile.close(); 
+                    resultFile.close();
+                }
                 pa_.release_problem();
 
-                return 1;
+                is_finish_ = true;
+
+                return 0;
+            }
+
+            std::string getResult(){
+                if(is_finish_ == false) return std::string("");
+                return string_format(
+                    "problem number: %s\ntarget UUID: %s\ntarget code: %s\ntarget lang: %s\ntotal problem: %d\nanswer problem: %d\n", 
+                     targetProblem_.c_str(), 
+                     targetUUID_.c_str(), 
+                     targetCodeID_.c_str(),
+                     targetLang_.c_str(),
+                     targetLength_,
+                     targetGrade_
+                );
             }
 
 
         private:
-            ProblemAnswerIterator pa_;
-            CppCompiler gcc_;
+            std::string targetProblem_;     //채점 대상 문제
+            uint targetLength_;             //채점할 문제 개수
+            uint targetGrade_;              //맞은 갯수
+            std::string targetLang_;        //타켓 언어
+            std::string targetUUID_;        //채점하는 유저아이디
+            std::string targetCodeID_;      //채점할 유저코드 아이디
+
+            bool is_finish_;                //채점끝났는지
+
+            ProblemAnswerIterator pa_;      //(문제, 정답) 경로 이터레이터
+            CppCompiler gcc_;               //컴파일러  추상화 할 것
     };
 }
 
-int main(){
+int main(int argc, const char* argv[]){
+    //테스트 정보
+    std::string testProblem = "1000";
+    uint testLength = 4;
+    std::string testLang = "cpp";
+    std::string testUUID = "12345678-1234-1234-012345678912";
+    std::string testCodeID = "0123456789";
+
+
+    Grading::ProblemAnswerIterator pa{"../problem/%s/in/%d.in", "../problem/%s/result/%d.result"};
+    Grading::CppCompiler gcc{ "-O2 -Wall -lm -static -std=gnu++17" };
+
 
     Grading::Grading gr(
-        Grading::ProblemAnswerIterator("../problem/%s/in/%d.in", "../problem/%s/out/%d.out"),
-        Grading::CppCompiler("-O2 -Wall -lm -static -std=gnu++17")
+        testProblem, testLength, testLang, 
+        testUUID, testCodeID, pa, gcc
     );
-    
 
-    //usercode/<uuid>/<id>.<ext>
-
-    //code file path example
-    //usercode/12345678-1234-1234-012345678912/0123456789.cpp
-
-    //out file path example
-    //usercode/12345678-1234-1234-012345678912/0123456789.out
-
-    //result file path example
-    //usercode/12345678-1234-1234-012345678912/0123456789.result
-
-    //log file path example
-    //usercode/12345678-1234-1234-012345678912/0123456789.log
-
-
-    //
-    
     //유저 이름 받고 코드 경로받고
-    gr.grade_code("1000", 4);
-
+    gr.gradeCode();
+    std::cout << gr.getResult();
     
     return 0;
 }
