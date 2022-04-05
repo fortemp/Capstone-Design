@@ -3,7 +3,6 @@ import ChatSection from './Sections/ChatSection'
 import GameSection from './Sections/GameSection'
 import RoomSection from './Sections/RoomsSection'
 import RankingSection from './Sections/RankingSection'
-import SubmitSection from './Sections/SubmitSection'
 import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
 function LandingPage() {
