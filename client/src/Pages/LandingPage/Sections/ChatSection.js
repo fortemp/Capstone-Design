@@ -56,7 +56,7 @@ function ChatSection(props) {
       <div id="Chatting" >
         {animalList}<div ref={messageRef}/></div>
       <div className='Submit'>
-        <input className='Msg' type='text' value={text} name="txtChat" onChange={onChange} onKeyPress={Enter} />
+        <input className='Msg' type='text' value={text} name="txtChat" onChange={onChange} onKeyPress={Enter} autocomplete="off"/>
         <button className='SubmitBtn' type='button' name="txtChat" onClick={submitChat}>↑</button>
       </div>
     </Box>
