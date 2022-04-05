@@ -8,7 +8,7 @@ import LandingPage from "./Pages/LandingPage/LandingPage";
 import LoginPage from "./Pages/LoginPage";
 import SignupPage from"./Pages/SignupPage";
 import Footer from "./components/Footer/Footer";
-import HostPockerPage from "./Pages/HostPockerPage";
+import HostRoomPage from "./Pages/HostRoomPage";
 import ShopPage from"./Pages/ShopPage";
 import CommunityPage from"./Pages/CommunityPage";
 import withAuth from "./hoc/withAuth"
@@ -23,7 +23,7 @@ function App() {
           <Route exact path="/" element={withAuth(LandingPage,null)}/>
           <Route exact path="/login" element={ withAuth(LoginPage,false) }/>
           <Route exact path="/signup" element={ withAuth(SignupPage,false) } />
-          <Route exact path="/host" element={ withAuth(HostPockerPage,true) } />
+          <Route exact path="/host" element={ withAuth(HostRoomPage,true) } />
           <Route exact path="/shop" element={ withAuth(ShopPage,true) } />
           <Route exact path="/community" element={ withAuth(CommunityPage,true) } />
         </Routes>
