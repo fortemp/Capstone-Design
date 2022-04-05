@@ -17,13 +17,13 @@ namespace Grading{
             ProblemAnswerIterator(ProblemAnswerIterator&& pa)
                 :infmt_(pa.infmt_), outfmt_(pa.outfmt_){};
 
-            void set_problem(const char* problemID, uint length){
+            void set_problem(std::string problemID, uint length){
                 if(isProblem_ == true) return;
 
                 for(int i = 1; i <= length; i ++){
                     this->push_back(std::make_pair<const std::string, const std::string>(
-                        string_format(this->infmt_, problemID, i), 
-                        string_format(this->outfmt_, problemID, i)
+                        string_format(this->infmt_, problemID.c_str(), i), 
+                        string_format(this->outfmt_, problemID.c_str(), i)
                         )
                     );
                 }
