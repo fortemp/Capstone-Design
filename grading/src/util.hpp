@@ -26,7 +26,19 @@ namespace Grading{
 
     template<typename... Args>
     int execute(const std::string& fmt, Args ... args){
+        // 다중인자를 받는 시스템 함수
 	    return system(string_format(fmt, args...).c_str());
+    }
+
+    //경로 만드는 함수
+    template<typename T>
+    std::string buildPath(T head) noexcept {
+        return std::string{head};
+    }
+
+    template<typename T, typename... Args>
+    std::string buildPath(T head, Args ... args) noexcept {
+        return std::string{ head } + "/" + buildPath(args...);
     }
 
 }
