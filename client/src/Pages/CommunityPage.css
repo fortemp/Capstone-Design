@@ -9,21 +9,33 @@
     margin:auto;
 }
 
-.th {
-    width: 150px;
-    padding: 10px;
-    font-weight: bold;
-    vertical-align: top;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
-    background: #eee;
-  }
+.thid {
+  width: 50px;
+  padding: 5px;
+  font-weight: bold;
+  vertical-align: top;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  background: #eee;
+}
 
-  .thid {
-    width: 50px;
-    padding: 5px;
+.thtitle {
+  width: 250px;
+  padding: 5px;
+  font-weight: bold;
+  vertical-align: top;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  background: #eee;
+}
+
+.th {
+    width: 80px;
+    padding: 10px;
     font-weight: bold;
     vertical-align: top;
     border-right: 1px solid #ccc;
@@ -40,4 +52,30 @@
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     background: #eee;
+  }
+
+  .tdid{
+    width: 50px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #eee;
+  }
+
+  .tdUser{
+    width: 200px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #eee;
+  }
+
+  .button{
+    float: right;
+    background: #eee;
+    width: 100px;
+    height: 50px;
+    font-size: large;
   }
