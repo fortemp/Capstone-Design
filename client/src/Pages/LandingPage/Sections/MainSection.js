@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 
 
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import { getRoom } from '../../../actions';
 
 
@@ -17,16 +17,16 @@ function MainSection(props) {
     const dispatch = useDispatch();
 
     const [login, setlogin] = useState("false");
-
+    const isAuth = useSelector(state=>state.authReducer.authData.auth); // 사용자 정보 객체
+    
 //여기에 로그인이 성공하면 login을 true로 바꿔주는 코드가 필요함 roomsection 처럼하면 될듯?
 
- useEffect(()=>{
-    dispatch(getRoom())
-    .then(res=>{
-      if(res.payload.success){
+ useEffect(()=>{          //로그인 확인 코드
+    console.log(isAuth);
+    if(isAuth==true)
         setlogin("true"); 
-      }
-    })
+        
+      
   })
 
 
@@ -37,7 +37,7 @@ function MainSection(props) {
                 {login == 'false' ?
                     <>
                         <div className='User_Avatar'>
-                            <img className="phoneImage" alt="플레이어아바타" src="img/ch1.png" />
+                            <img className="phoneImage" alt="img/ch1.png" src="img/ch1.png" />
                         </div><div className='User_Info'>
                             <TableContainer>
                                 <Table aria-label="simple table" bgcolor={"#ffffff"}>
