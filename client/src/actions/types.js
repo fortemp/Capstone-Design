@@ -11,3 +11,7 @@ export const ROOM_LEAVE = "ROOM_LEAVE";
 export const CHAT_SEND = "CHAT_SEND";
 export const CHAT_RECEIVE = "CHAT_RECEIVE"
 //GAME
+
+//POST
+export const POST_POSTING = "POST_POSTING";
+export const POST_GETPOST = "POST_GETPOST";
