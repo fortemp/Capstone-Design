@@ -57,7 +57,7 @@ function SignupPage(props) {
             onSubmit={(values, {setSubmitting}) => {
                 setTimeout(() => {
                     let data = {
-                        id: idText,
+                        id: values.id,
                         name: values.name,
                         email: values.email,
                         password: values.password,
