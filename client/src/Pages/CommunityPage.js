@@ -57,32 +57,51 @@ import { useEffect, useState} from 'react'
 import Axios from 'axios';
 import parse from 'html-react-parser'
 import './CommunityPage.css'
-import { GetPost } from "../actions/index";
+import {GetPost} from "../actions/index";
 import {useDispatch} from 'react-redux'
 
 function CommunityPage() { //임시로 null\
+  
+  const [inputData, setInputData] = useState([{
+    post_id: '',
+    title: '',
+    description: '',
+    language: '',
+    posted_date: '',
+    user_id:'',
+    created_at:'',
+    updated_at:'',
+    deleted_at:''
+  }])
 
+  useEffect(async() => {
+    try{
+    // 데이터를 받아오는 동안 시간이 소요됨으로 await 로 대기
+      const res = await Axios.get(GetPost())
+      // 받아온 데이터로 다음 작업을 진행하기 위해 await 로 대기
+      // 받아온 데이터를 map 해주어 rowData 별로 _inputData 선언
+      const _inputData = await res.data.map((rowData) => ({
+        post_id: rowData.post_id,
+        title: rowData.title,
+        description: rowData.description,
+        language: rowData.language,
+        user_id: rowData.user_id,
+        created_at: rowData.created_at,
+        updated_at: rowData.updated_at,
+        deleted_at: rowData.deleted_at
+            })
+      )
+      // 선언된 _inputData 를 최초 선언한 inputData 에 concat 으로 추가
+      setInputData(inputData.concat(_inputData))
+    } catch(e){
+      console.error(e.message)
+    }
+  },[inputData])
 
-const [users, setUsers] = useState([]);
-
-useEffect(()=>{
-  async function fetch() {
-      const response = await Axios.get(GetPost());
-  // 일단 response의 형태를 확인하고
-  console.log(response.data);
-  // fetch 함수 아래에 setUsers를 해주어야 한다.
-  setUsers(response.data);
-  };
-  fetch();
-}, [])
-
-const userName = users.map(
-  (user) => (<li key={user.id}> {user.name} </li>)
-);
+  console.log('App :: inputData :: ', inputData)
 
   return(
     <div>
-      
       <table className="table">
       <thead>
         <tr >
@@ -93,16 +112,19 @@ const userName = users.map(
           <th className="th">조회수</th>
         </tr>
       </thead>
-      <tbody>
+
+      <tbody >
         <tr>
-        <td className="tdid" >{userName.post_id}</td>
+        <td className="tdid"></td>
         <td className="td" ></td>
         <td className="td" ></td>
         <td className="td" ></td>
         <td className="td" ></td>
         </tr>
       </tbody>
+
       </table>
+  
 
       <Link to='/Posting'> 
         <button className="button"> 글작성 </button>

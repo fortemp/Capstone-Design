@@ -1,9 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const router = express();
 const Posting = require('../models/Posting')
 const passport = require('passport');
 const Crypto = require('crypto');
-const db = require('../config/config.json')
+const db = require('../config/db')
+
+
 let count = 0;
 
 //게시물 입력
@@ -34,21 +36,17 @@ router.post('/postings',async (req,res)=>{
 })
 
 //게시물 가져오기
-router.get("/getpost", (req, res)=>{  //가져오질 못하고 있음
-    try{
-        db.query('SELECT * FROM postings', (err, rows, fields) => {
-            if (err) {
-              console.log('데이터 가져오기 실패');
-            } else {
-              res.send(rows);
-            }
-          });
-        return res.status(200).json({success:true})
-    }
-    catch{
-        console.log(err);
-        return res.status(400).json({success:false})
-    }
+router.get('/getpost', (req, res)=>{
+    const sql = 'select* from postings;';
+    db.query(sql, (err, data) => {
+        if(!err){ res.send(data);
+            return data;
+        }
+        else {
+            res.send(err);
+            return res.status(400).json({success:false});
+        }
+    })
 })
 
 
