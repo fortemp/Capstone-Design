@@ -61,7 +61,6 @@ function RoomsSection(props) {
   return (
     <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
       <button onClick={function(e){e.preventDefault(); props.onChangeMode('test');}.bind(this)}>방에 들어갔다 치고 하는 버튼</button>
-      <button onClick={function(e){e.preventDefault(); props.onChangeMode('normal');}.bind(this)}>방에 나갔을 때 버튼 </button>
       <TableContainer>
       <Table size="small">
         <TableHead>
