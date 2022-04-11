@@ -1,7 +1,8 @@
-import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT} from "./types";
+import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,POST_POSTING,POST_GETPOST} from "./types";
 import { ROOM_GET,ROOM_JOIN,ROOM_OUT } from "./types";
 import * as authApi from '../api/auth'
 import * as roomApi from '../api/room'
+import * as postApi from '../api/post'
 export async function registerUser(data){
     const req = await authApi.register(data)
     .then(res=>(res.data))
@@ -45,6 +46,24 @@ export async function getRoom(){
 
     return {
         type:ROOM_GET,
+        payload:req
+    }
+}
+//posting
+export async function UserPosting(data){
+    const req = await postApi.postings(data)
+    .then(res=>(res.data))
+    return {
+        type:POST_POSTING,
+        payload: req
+    }
+}
+
+export async function GetPost(){
+    const req = await postApi.getpost()
+    .then(res=>res.data);
+    return {
+        type:POST_GETPOST,
         payload:req
     }
 }

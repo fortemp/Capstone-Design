@@ -1,5 +1,6 @@
 import { useEffect, useState} from 'react'
 import{Link} from "react-router-dom";
+import {useDispatch} from 'react-redux'
 import './Posting.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
@@ -9,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
 import { makeStyles } from "@material-ui/core/styles";
-//참고 https://velog.io/@sky/React-node-js%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EA%B2%8C%EC%8B%9C%ED%8C%90
+import {UserPosting} from '../actions/index';
 
 
 const useStyles = makeStyles((theme) => ({   //grid 속성
@@ -19,30 +20,19 @@ const useStyles = makeStyles((theme) => ({   //grid 속성
   },
 }));
 
-
 function Posting() { //임시로 null\
 
-    const [movieContent, setMovieContent] = useState({
-        title: '',
-        content: ''
-      })
-    
-      const [viewContent , setViewContent] = useState([]);
-    
-      const submitReview = ()=>{ // 입력포트값으로 정보 전달
-        Axios.post('http://localhost:8000/api/insert', {
-          title: movieContent.title,
-          content: movieContent.content
-        }).then(()=>{
-          alert('등록 완료!');
-          <Link to = '/community'></Link>
-        })
-      };
+  const dispatch = useDispatch();
+
+  const [values, setContent] = useState({
+    title: '' ,
+    description: ''
+  })
     
       const getValue = e => { // 입력물 확인
         const { name, value } = e.target;
-        setMovieContent({
-          ...movieContent,
+        setContent({
+          ...values,
           [name]: value
         })
       };
@@ -55,16 +45,7 @@ function Posting() { //임시로 null\
         <Grid container spacing={3}>
         <div className="App">
         <h1>게시글작성</h1>
-        <div className='movie-container'>
-          {viewContent.map(element =>
-            <div className="title">
-              <h2>{element.title}</h2>
-              <div className="cont">
-                {parse('<li>Item 1</li><li>Item 2</li>')}
-              </div>
-            </div>
-          )}
-        </div>
+
         <div className='form-wrapper'>
           <input className="title-input" // 제목
             type='text'
@@ -79,9 +60,9 @@ function Posting() { //임시로 null\
             onChange={(event, editor) => {
               const data = editor.getData();
               console.log({ event, editor, data });
-              setMovieContent({
-                ...movieContent,
-                content: data
+              setContent({
+                ...values,
+                description: data
               })
             }}
             onBlur={(event, editor) => {
@@ -93,16 +74,29 @@ function Posting() { //임시로 null\
           />
         </div>
         
-        <button className="submit-button" onClick={submitReview}>입력</button>
+        <button className="submit-button" onClick={() =>{ // 입력!
+                          setTimeout(() => {
+                            let data = {
+                              title: values.title,
+                              description: values.description,
+                            }
+                            dispatch(UserPosting(data))
+                            .then(res=>{
+                              if(res.payload.success){
+                                alert('작성완료')
+                              }else{
+                                alert('오류가 발생했습니다.')
+                              }
+                            })
+                        }, 500)
+        }
+        }>입력</button>
         <Link to = '/community'><button className="submit-button">뒤로가기</button></Link>        
       </div>
         </Grid>
       </Container>
 
-
-
     </SocketContext.Provider>
-
         
       );
 }

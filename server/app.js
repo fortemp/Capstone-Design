@@ -8,6 +8,7 @@ const MySqlStore = require('express-mysql-session')(expressSession);
 
 const roomRouter = require('./routes/room');
 const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
 const morgan = require('morgan');
 const passport = require('passport')
 const passportConfig = require('./passport')
@@ -51,6 +52,7 @@ app.use(passport.session());
 passportConfig();
 app.use('/api/room',roomRouter);
 app.use('/api/auth',authRouter);
+app.use('/api/post',postRouter);
 
 const server = app.listen(port, ()=>{
   console.log(`${port}번 포트에서 돌아가는중`)
