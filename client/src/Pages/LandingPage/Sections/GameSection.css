@@ -1,0 +1,59 @@
+.Over{
+    overflow: hidden;
+}
+.gameroom_title{
+    width: 100%;
+    height: 5%;
+}
+.lating_room{
+    width: 100%;
+    height: 90%;
+    border: 1px solid black;
+    border-top: 5px solid black;
+}
+.player{
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    width: 210px;
+    height: 330px;
+    float: left;
+    margin-right: 60px;
+    margin-left: 60px;
+}
+.player_name{
+    width: 100%;
+    border: 1px solid black;
+    height: 30px;
+    text-align: center;
+    float: left;
+}
+.exit{
+    float:right;    
+    width: 15%;
+    height: 100%;
+}
+
+.exit_btn{
+    float:right;
+    box-shadow: none;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    padding: 0 0 0 0;
+}
+.exit_btn:hover> .exit_img2{
+    opacity:1;
+}
+.exit_img{
+    position:absolute;
+    width: 30px;
+    height: 30px;
+}
+.exit_img2{
+    position:   relative;
+    width: 30px;
+    height: 30px;
+    opacity:0;  
+}
