@@ -62,43 +62,13 @@ import {useDispatch} from 'react-redux'
 
 function CommunityPage() { //임시로 null\
   
-  const [inputData, setInputData] = useState([{
-    post_id: '',
-    title: '',
-    description: '',
-    language: '',
-    posted_date: '',
-    user_id:'',
-    created_at:'',
-    updated_at:'',
-    deleted_at:''
-  }])
+  const [inputData, setInputData] = useState([])
 
   useEffect(async() => {
-    try{
-    // 데이터를 받아오는 동안 시간이 소요됨으로 await 로 대기
-      const res = await Axios.get(GetPost())
-      // 받아온 데이터로 다음 작업을 진행하기 위해 await 로 대기
-      // 받아온 데이터를 map 해주어 rowData 별로 _inputData 선언
-      const _inputData = await res.data.map((rowData) => ({
-        post_id: rowData.post_id,
-        title: rowData.title,
-        description: rowData.description,
-        language: rowData.language,
-        user_id: rowData.user_id,
-        created_at: rowData.created_at,
-        updated_at: rowData.updated_at,
-        deleted_at: rowData.deleted_at
-            })
-      )
-      // 선언된 _inputData 를 최초 선언한 inputData 에 concat 으로 추가
-      setInputData(inputData.concat(_inputData))
-    } catch(e){
-      console.error(e.message)
-    }
+    await Axios.get('/api/post/getpost').then((response)=>{
+      setInputData(response.data);
+    })
   },[inputData])
-
-  console.log('App :: inputData :: ', inputData)
 
   return(
     <div>
@@ -112,17 +82,17 @@ function CommunityPage() { //임시로 null\
           <th className="th">조회수</th>
         </tr>
       </thead>
-
+{inputData.map(element =>
       <tbody >
         <tr>
-        <td className="tdid"></td>
-        <td className="td" ></td>
+        <td className="tdid">{element.post_id}</td>
+        <td className="td" >{element.title}</td>
         <td className="td" ></td>
         <td className="td" ></td>
         <td className="td" ></td>
         </tr>
       </tbody>
-
+        )}
       </table>
   
 

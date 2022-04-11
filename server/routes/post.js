@@ -36,16 +36,10 @@ router.post('/postings',async (req,res)=>{
 })
 
 //게시물 가져오기
-router.get('/getpost', (req, res)=>{
+router.get('/getpost',async (req, res)=>{
     const sql = 'select* from postings;';
     db.query(sql, (err, data) => {
-        if(!err){ res.send(data);
-            return data;
-        }
-        else {
-            res.send(err);
-            return res.status(400).json({success:false});
-        }
+     res.send(data);
     })
 })
 
