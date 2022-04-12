@@ -64,7 +64,8 @@ function LandingPage() {
                         <Grid container spacing={1} direction="column" padding={"0 0 0 0"}>
 
                             <Grid item>
-                                <GameSettingSection onChangeMode={function (_mode) { setmode(_mode) }.bind(this)} onChangeReady={function (_ready) { setready(_ready) }.bind(this)}
+                                <GameSettingSection  ready={ready}  onChangeMode={function (_mode) { setmode(_mode) }.bind(this)}
+                                 onChangeReady={function (_ready) { setready(_ready) }.bind(this)}
                                 style={roomStyle} />
                             </Grid>
 
