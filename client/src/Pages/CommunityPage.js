@@ -68,7 +68,7 @@ function CommunityPage() { //임시로 null\
     await Axios.get('/api/post/getpost').then((response)=>{
       setInputData(response.data);
     })
-  },[inputData])
+  },[])
 
   return(
     <div>
@@ -86,7 +86,7 @@ function CommunityPage() { //임시로 null\
       <tbody >
         <tr>
         <td className="tdid">{element.post_id}</td>
-        <td className="td" >{element.title}</td>
+        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} >{element.title }</Link></td>
         <td className="td" ></td>
         <td className="td" ></td>
         <td className="td" ></td>

@@ -13,6 +13,7 @@ import ShopPage from"./Pages/ShopPage";
 import CommunityPage from"./Pages/CommunityPage";
 import withAuth from "./hoc/withAuth"
 import Posting from "./Pages/Posting";
+import PostPage from "./Pages/PostPage";
 function App() {
   return (
     <div style={{minWidth:'730px'}}>
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/shop" element={ withAuth(ShopPage,true) } />
           <Route exact path="/community" element={ withAuth(CommunityPage,true) } />
           <Route exact path="/posting" element={ withAuth(Posting,true) } /> 
+          <Route  path={"/PostPage/:post_id"} element={ withAuth(PostPage,true)} />
         </Routes>
       </div>
 
