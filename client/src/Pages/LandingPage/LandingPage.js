@@ -19,11 +19,18 @@ function LandingPage() {
 
     const [ready, setready] = useState("false");  // 게임 준비 기능을 위한 useState // false = 준비 안됨 true = 준비됨
 
+    const [start, setstart] = useState("false");
+
     const onReady = (e) => {
         setready("true");
       };
+      const onstart = (e) => {
+        setstart("true");
+      };
+
       useEffect(()=>{
         setready('false'); 
+        setstart('false');
        },[]);
     return (
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
@@ -56,7 +63,8 @@ function LandingPage() {
                                                     //모드가 test로 변경되면 발생하는 컴포넌트들
                 <>
                     <Grid item xs={12} md={9}>
-                        <GameSection style={gameStyle} ready={ready} onChangeReady={function (_ready) { setready(_ready) }.bind(this)}/>
+                        <GameSection style={gameStyle} ready={ready} onChangeReady={function (_ready) { setready(_ready) }.bind(this)}
+                         start={start} onChangeStart={function (_start) { setstart(_start) }.bind(this)}/>
                     </Grid>
                     
                     <Grid item xs={12} md={3}>
@@ -66,6 +74,7 @@ function LandingPage() {
                             <Grid item>
                                 <GameSettingSection  ready={ready}  onChangeMode={function (_mode) { setmode(_mode) }.bind(this)}
                                  onChangeReady={function (_ready) { setready(_ready) }.bind(this)}
+                                 start={start} onChangeStart={function (_start) { setstart(_start) }.bind(this)}
                                 style={roomStyle} />
                             </Grid>
 
