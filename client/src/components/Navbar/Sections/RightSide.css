@@ -1,0 +1,34 @@
+.Info {
+    height: 100%;
+    width: 500px;
+    float: left;
+    position: relative;
+    margin-right: 50px;
+}
+
+.InfoMsg {
+    resize: none;
+    height: 100%;
+    width: 500px;
+    float: left;
+    position: relative;
+    font-size: 30px;
+    border: 0px;
+    background-color: #A47C6D;
+}
+.InfoMsg::placeholder{
+    color: black;
+}
+.Info2 {
+    float: right;
+    left:150px;
+    top:10px;
+position: relative;
+}
+.Info2 Button{
+    margin-right: 50px;
+}
+.rightside {
+    height: 100%;
+    position: relative;
+}
