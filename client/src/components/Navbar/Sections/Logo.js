@@ -9,8 +9,6 @@ function Logo() {
     <div id="logo" >
         <Button  color="inherit" variant="h6" component="div">
             <a href="/">
-                <img src={require('../../../assets/logo64.png')} 
-                alt={"온라인 저지"}/>
                 <span id="logotype">(C.C.C)</span>
             </a>
         </Button>
