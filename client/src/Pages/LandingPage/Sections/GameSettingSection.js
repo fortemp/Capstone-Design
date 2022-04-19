@@ -9,10 +9,14 @@ function GameSettingSection(props) {
     return (
         <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
             <button onClick={function (e) { e.preventDefault(); props.onChangeMode('normal'); }.bind(this)}>방에 나갔을 때 버튼 </button>
-            {props.ready == "false" ?
-                <button className="raady_btn" onClick={function (e) { e.preventDefault(); props.onChangeReady('true'); }.bind(this)}>레디 버튼 </button> :
-
-                <button className="raady_btn2" onClick={function (e) { e.preventDefault(); props.onChangeReady('false'); }.bind(this)}>레디 풀기 버튼 </button>
+            {props.start == "false" ?
+                <>
+                {props.ready == "false" ?
+                <button className="raady_btn" onClick={function (e) { e.preventDefault(); props.onChangeReady('true'); }.bind(this)}>레디 버튼 </button>:
+                <button className="raady_btn2" onClick={function (e) { e.preventDefault(); props.onChangeReady('false'); }.bind(this)}>레디 풀기 버튼 </button>}
+                <button className="start_btn" onClick={function (e) { e.preventDefault(); props.onChangeStart('true'); }.bind(this)}>시작 버튼</button></>  //방장만 보이도록 해야함
+                :
+                <button className="start_btn2" onClick={function (e) { e.preventDefault(); props.onChangeStart('false'); }.bind(this)}>시작 풀기 버튼</button>
               }
 
         </Box>
