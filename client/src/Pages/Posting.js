@@ -54,6 +54,7 @@ function Posting() { //임시로 null\
             name='title'
           />
           <CKEditor  //CKEditor 내용작성
+          className='editor'
             editor={ClassicEditor}
             onReady={editor => {
             }}
