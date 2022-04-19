@@ -93,12 +93,17 @@ function CommunityPage() { //임시로 null\
         </tr>
       </tbody>
         )}
+        <tfoot>
+          <td ColSpan="5">
+        <Link to='/Posting'> 
+        <button className="button"> 글작성 </button>
+      </Link>
+      </td>
+        </tfoot>
       </table>
   
 
-      <Link to='/Posting'> 
-        <button className="button"> 글작성 </button>
-      </Link>
+      
     </div>
   ); 
 }
