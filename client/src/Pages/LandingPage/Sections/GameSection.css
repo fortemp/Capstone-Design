@@ -16,18 +16,19 @@
     border-right: 2px solid black;
     border-left: 2px solid black;
     border-bottom: 2px solid black;
-    width: 210px;
-    height: 330px;
+    width: 200px;
+    height: 326px;
     float: left;
     margin-right: 60px;
     margin-left: 60px;
+    margin-bottom: 5px;
 }
 .player_name{
     width: 100%;
     border: 1px solid black;
     height: 30px;
     text-align: center;
-    float: left;
+    float: top;
 }
 .exit{
     float:right;    
@@ -63,15 +64,19 @@
     float:left;
     border: 1px solid black;
     height: 90%;
-    width: 30%;
+    width: 40%;
     margin-left: -10px;
     margin-top: -10px;
     padding-top: 10px;
+    overflow: auto;
+    font-size: 18px;
+    color: #B2C0CC;
+    background-color:#263747;
 }
 .inputsection{
     float:right;
     height: 90%;
-    width: 70%;
+    width: 60%;
     margin-top: -10px;
 }
 .inputsection>textarea{
@@ -99,4 +104,8 @@
 }
 .playername{
     vertical-align: middle;
+}
+.playerimg{
+    height: 300px;
+    width: 100%;
 }
