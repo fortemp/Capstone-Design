@@ -6,14 +6,10 @@ import Table from '@mui/material/Table';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-
-
 import {useDispatch,useSelector} from 'react-redux';
 import { getRoom } from '../../../actions';
 
-
-
-function MainSection(props) {
+function MainSection(props){
     const dispatch = useDispatch();
 
     const [login, setlogin] = useState("false");
@@ -25,8 +21,6 @@ function MainSection(props) {
     console.log(isAuth);
     if(isAuth==true)
         setlogin("true"); 
-        
-      
   })
 
 
