@@ -9,9 +9,9 @@ function GameSection(props) {
     setcodeInput(" ");
   }, []);
   useEffect(() => {
-  
+
     setcodeInput(" ");
-  },[]);
+  }, []);
 
   const [codeInput, setcodeInput] = useState("");
 
@@ -25,23 +25,32 @@ function GameSection(props) {
     setcodeInput(event.currentTarget.value);
   }
 
-  const submit_text=()=>{
-    alert("제출성공\n코드: "+codeInput.replace(/(\s*)/g, "")); 
+  const submit_text = () => {
+    alert("제출성공\n코드: " + codeInput.replace(/(\s*)/g, ""));
   }
 
   return (
     <Box className="Over2" style={props.style} bgcolor={"#888888"} color={"#222222"} p={2}>
-      {props.ready == "false" ?
-        <><div className='gameroom_title'>
-          <h3>NO.{"방제목 들어감"}</h3>
-        </div><div className='lating_room'>
+      {props.start == "false" ?                           //랜딩페이지에서 받아오는 usestate 시작, 게임세팅섹션에서도 이용해야해서 랜딩페이지로부터 호출
+        <>                                          
+          <div className='gameroom_title'>
+            <h3>NO.{"방제목 들어감"}</h3>
+          </div>
+          <div className='lating_room'>
             <div className='player'>
               <div className='player_name'>
-                <span>플레이어1</span>
-                <div className='exit'><button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 1강퇴"); }}>
-                  <img className="exit_img" src="img/delete_47751.png"></img>
-                  <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
-                </button>
+                <div className='readydiv'>
+                {props.ready == "false" ?
+                 <img></img>:<img src="img/ready.png"></img>}
+                </div>
+                <div className="player_infodiv">
+                  <span className='playername'>플레이어1</span>
+                  <div className='exit'>
+                    <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 1강퇴"); }}>
+                      <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -110,7 +119,7 @@ function GameSection(props) {
               </div>
             </div>
           </div>
-        </> :
+        </> : // 게임 시작하면 화면이 아래와 같이 바뀜
         <>
           <div className='Indexsection'>
             문제 들어갈곳
