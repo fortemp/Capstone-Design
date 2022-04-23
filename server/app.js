@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const expressSession = require('express-session');
 const helmet = require('helmet');
-const port = "3001";
+const port = process.env.PORT;
 const MySqlStore = require('express-mysql-session')(expressSession);
 
 const roomRouter = require('./routes/room');
@@ -29,13 +29,13 @@ const sessionMid = expressSession({
   saveUninitialized:true,
   HttpOnly:true,
   resave:true,
-  secret: "secrettt",
+  secret: process.env.COOKIE_SECRET,
   cookie:{maxAge:86400000},//세션 지속시간 30분
   store:new MySqlStore({
     host:'localhost',
-    port: "3306",
-    user: "root",
-    password:"1234",
+    port: process.env.MYSQLPORT,
+    user: process.env.MYSQLUSER,
+    password:process.env.MYSQLPASSWORD,
     database: 'capstone'//db이름은 임시로 capstone으로 해놓았습니다. 변경하셔도 무관.
   })
 })
