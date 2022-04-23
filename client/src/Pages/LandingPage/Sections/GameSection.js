@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Box from '@material-ui/core/Box'
 import './GameSection.css'
-
+import {useDispatch,useSelector} from 'react-redux';
 function GameSection(props) {
 
+  const playername= useSelector(state=>state.authReducer.authData.user.name);
+  const banish= useSelector(state=>state.authReducer.authData.user.name)+'  강퇴';
+  
   useEffect(() => {
     props.onChangeReady('false');
     setcodeInput(" ");
@@ -45,9 +48,9 @@ function GameSection(props) {
                     <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  <span className='playername'>플레이어1</span>
+                  <span className='playername'>{playername}</span>
                   <div className='exit'>
-                    <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 1강퇴"); }}>
+                    <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert(banish); }}>
                       <img className="exit_img" src="img/delete_47751.png"></img>
                       <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>

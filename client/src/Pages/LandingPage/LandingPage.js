@@ -9,6 +9,7 @@ import MainSection from './Sections/MainSection'
 import GameSettingSection from './Sections/GameSettingSection'
 import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
+
 function LandingPage() {
     const RankingStyle = { height: '740px' }
     const roomStyle = { height: '200px' }

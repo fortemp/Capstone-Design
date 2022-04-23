@@ -36,6 +36,7 @@ router.post('/register',async (req,res)=>{
         password: req.body.password,
         name: req.body.name,
         id: req.body.id,//아이디
+        email: req.body.email
     };
     try{
         const salt = Crypto.randomBytes(64).toString('base64');//salt생성
