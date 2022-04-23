@@ -137,7 +137,7 @@ function RightSide() {
                         </a>
                     </Button>
                     <Button color="inherit">
-                        <a onClick={logoutHandler}>
+                        <a onClick={logoutHandler} href="/">
                             <LogoutIcon
                                 sx={{
                                     color: "#333333"

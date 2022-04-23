@@ -5,7 +5,7 @@
 
 a:link { 
 
-color: #ffffff;
+color: #000000;
 
 text-decoration: none;
 
@@ -15,15 +15,15 @@ text-decoration: none;
 
 a:hover {
 
-color: #ffffff;
+color: #000000;
 
 text-decoration: none;
 
 }
 
-a:active {
+a:visited {
 
-color: #ffffff;
+color: #000000;
 
 text-decoration: none;
 
