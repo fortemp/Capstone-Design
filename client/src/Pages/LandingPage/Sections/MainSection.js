@@ -11,18 +11,23 @@ import { getRoom } from '../../../actions';
 
 function MainSection(props){
     const dispatch = useDispatch();
-
     const [login, setlogin] = useState("false");
     const isAuth = useSelector(state=>state.authReducer.authData.auth); // 사용자 정보 객체
-    
+    const playername= useSelector(state=>state.authReducer.authData.user.name);
+    const playerpoint= useSelector(state=>state.authReducer.authData.user.point)+'pt';
+    const playerelo= useSelector(state=>state.authReducer.authData.user.elo);
+    const playeravartar = useSelector(state=>state.authReducer.authData.user.img_url);
+
+
 //여기에 로그인이 성공하면 login을 true로 바꿔주는 코드가 필요함 roomsection 처럼하면 될듯?
 
  useEffect(()=>{          //로그인 확인 코드
     console.log(isAuth);
-    if(isAuth==true)
+    if(isAuth==true){
         setlogin("true"); 
+    }      
   })
-
+ 
 
     return (
         <Box style={props.style} bgcolor={"#888888"} color={"#222222"} p={2}>
@@ -55,21 +60,21 @@ function MainSection(props){
 
                     <>
                         <div className='User_Avatar'>
-                            <img className="phoneImage" alt="플레이어아바타" src="img/ch1.png" />
+                            <img className="phoneImage" alt="플레이어아바타" src={playeravartar} />
                         </div><div className='User_Info'>
                             <TableContainer>
                                 <Table aria-label="simple table" bgcolor={"#ffffff"}>
                                     <TableRow>
                                         <TableCell className='Head_Cell' align="center" style={{ fontWeight: 'bolder', fontSize: '15px' }}>ID</TableCell>
-                                        <TableCell className='Cell' align="center">prototype</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell className='Head_Cell' align="center" style={{ fontWeight: 'bolder', fontSize: '15px' }}>이메일</TableCell>
-                                        <TableCell className='Cell' align="center">prototype@naver.com</TableCell>
-                                    </TableRow>
+                                        <TableCell className='Cell' align="center">{playername}</TableCell>
+                                    </TableRow> 
                                     <TableRow>
                                         <TableCell className='Head_Cell' align="center" style={{ fontWeight: 'bolder', fontSize: '15px' }}>포인트</TableCell>
-                                        <TableCell className='Cell' align="center">999pt</TableCell>
+                                        <TableCell className='Cell' align="center">{playerpoint}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className='Head_Cell' align="center" style={{ fontWeight: 'bolder', fontSize: '15px' }}>elo포인트</TableCell>
+                                        <TableCell className='Cell' align="center">{playerelo}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className='Cell' align="center"></TableCell>
