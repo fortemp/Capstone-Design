@@ -68,8 +68,8 @@ export async function GetPost(){
     }
 }
 
-export async function SetComment(){
-    const req = await postApi.setcomment()
+export async function SetComment(data){
+    const req = await postApi.setcomment(data)
     .then(res=>res.data);
     return {
         type:COMMENT_SETCOMMENT,

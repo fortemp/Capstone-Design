@@ -12,23 +12,43 @@ const PostPage = ({ onInsert }) => {
     const [values, setContent] = useState({ // 댓글 입력용
       description: ''
     })
-    const [ datacomment, setDatacomment ] = useState({});//댓글데이터
+    const [ datacomment, setDatacomment ] = useState({
+      description: '',
+      user_id: '',
+      post_id: '',
+      commented_date: '',
+      comment_id: '',
+      created_at: '',
+      updated_at: '',
+      deleted_at: ''
+    });//댓글데이터
 
     const dispatch = useDispatch();
     const no = useParams().post_id; // post id로 글 내용 찾기
   
     useEffect(async() => {// 글내용가져오기
         Axios.get('/api/post/getpost').then((response)=>{
-         setData(response.data[no]);
+         setData(response.data[no-1]);
        })
      },[])
 
      useEffect(async() => { // 댓글가져오기
-      Axios.get('/api/post/getcomment').then((response)=>{
-      setDatacomment(response.datacomment[no]);
-     })
+      try{
+        const res = await Axios.get('/api/post/getcomment', {
+            params: {
+                'idx': no
+            }
+        })
+        setDatacomment(res.data);
+    } catch(e) {
+        console.error(e.message)
+    }
    },[])
 
+   console.log(datacomment)
+   let commentArr = Array.from(datacomment);
+   console.log(commentArr)
+   
     return (
       <>
 
@@ -42,7 +62,7 @@ const PostPage = ({ onInsert }) => {
                 </div>
                 <div className="post-view-row">
                   <label>작성일</label>
-                  <label>{ data.createDate }</label>
+                  <label>{ data.posted_date}</label>
                 </div>
                 <div className="post-view-row">
                   <label>조회수</label>
@@ -93,15 +113,12 @@ const PostPage = ({ onInsert }) => {
         }
         }>입력</button>
 
-        {
-          datacomment ?(
-            <>
-            <div className="comment">
-                  <label>{ datacomment.post_id }</label><label>{ datacomment.description }</label>
-                </div>
-            </>
-            ):'댓글없음'
+        
+        {commentArr.map((element) =>
+                  <label dangerouslySetInnerHTML={ {__html: element.description}}>{}</label>
+          )
         }
+
           <Link to='/community'> 
         <button className="post-view-go-list-btn"> 돌아가기 </button>
       </Link>
