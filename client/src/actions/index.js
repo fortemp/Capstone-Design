@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,Change_Img,POST_POSTING,POST_GETPOST} from "./types";
-=======
+
 import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,Change_Img,POST_POSTING,POST_GETPOST,COMMENT_SETCOMMENT,COMMENT_GETCOMMENT} from "./types";
->>>>>>> 38de433d7881f5eb65208df35987cdefd2dbe254
 import { ROOM_GET,ROOM_JOIN,ROOM_OUT } from "./types";
 import * as authApi from '../api/auth'
 import * as roomApi from '../api/room'
