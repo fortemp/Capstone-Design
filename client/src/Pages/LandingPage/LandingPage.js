@@ -9,7 +9,8 @@ import MainSection from './Sections/MainSection'
 import GameSettingSection from './Sections/GameSettingSection'
 import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
-
+import  Axios  from 'axios';
+import {GetName} from '../../actions/index'
 function LandingPage() {
     const RankingStyle = { height: '740px' }
     const roomStyle = { height: '200px' }
@@ -33,6 +34,8 @@ function LandingPage() {
         setready('false'); 
         setstart('false');
        },[]);
+
+ 
     return (
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
             <Grid container spacing={1}>

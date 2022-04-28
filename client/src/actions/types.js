@@ -3,6 +3,8 @@ export const AUTH_REGISTER = "AUTH_REGISTER";
 export const AUTH_LOGIN = "AUTH_LOGIN";
 export const AUTH_USER = "AUTH_USER";
 export const AUTH_LOGOUT = "AUTH_LOGOUT"
+export const GET_USER = "GET_USER";
+export const Change_Img = "Change_Img";
 //ROOM
 export const ROOM_GET = "ROOM_GET"
 export const ROOM_JOIN = "ROOM_JOIN";
