@@ -1,4 +1,4 @@
-import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,POST_POSTING,POST_GETPOST} from "./types";
+import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,Change_Img,POST_POSTING,POST_GETPOST} from "./types";
 import { ROOM_GET,ROOM_JOIN,ROOM_OUT } from "./types";
 import * as authApi from '../api/auth'
 import * as roomApi from '../api/room'
@@ -37,6 +37,20 @@ export async function logoutUser(){
     return {
         type:AUTH_LOGOUT,
         payload:req
+    }
+}
+export async function GetUser(){
+    const req = await authApi.getuser().then(res=>res.data);
+    return {
+        type:GET_USER,
+        payload : req
+    }
+}
+export async function ChangeImg(data){
+    const req = await authApi.changeimg(data).then(res=>res.data);
+    return {
+        type:Change_Img,
+        payload : req
     }
 }
 
