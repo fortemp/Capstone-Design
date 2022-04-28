@@ -24,20 +24,20 @@ function MainSection(props) {
 
     const no = useParams().name;
     useEffect(() => {          //로그인 확인 코드
-        if (isAuth == true) {
-            setlogin("true");
-            /*   Axios.get('/api/auth/getuser',{
+        if (isAuth == true) {                         
+            setlogin("true"); 
+               Axios.get('/api/auth/getuser',{              //일단 이렇게 하면 유저 정보 가져오긴 함
                    params: { 
                      'user': playername,
                    }
                  }).then((response)=>{
                       setdata(response.data);    
                     
-                })*/
+                })
         }
     })
     const [data, setdata] = useState([]);
-    
+    /*
       useEffect(async()=>{   
        Axios.get('/api/auth/getuser',{
         params: { 
@@ -50,7 +50,7 @@ function MainSection(props) {
      })
        },[])
     
-
+*/
     return (
         <Box style={props.style} bgcolor={"#888888"} color={"#222222"} p={2}>
 
@@ -92,11 +92,11 @@ function MainSection(props) {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className='Head_Cell' align="center" style={{ fontWeight: 'bolder', fontSize: '15px' }}>포인트</TableCell>
-                                        <TableCell className='Cell' align="center">{playerpoint}</TableCell>
+                                        <TableCell className='Cell' align="center">{data.point}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className='Head_Cell' align="center" style={{ fontWeight: 'bolder', fontSize: '15px' }}>elo포인트</TableCell>
-                                        <TableCell className='Cell' align="center">{playerelo}</TableCell>
+                                        <TableCell className='Cell' align="center">{data.elo}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className='Cell' align="center"></TableCell>
@@ -105,7 +105,7 @@ function MainSection(props) {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className='Head_Cell' align="center">
-                                            <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>ID 변경</Link></TableCell>
+                                            <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>이름 변경</Link></TableCell>
                                         <TableCell className='Head_Cell' align="center">
                                             <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>비밀번호 변경</Link></TableCell>
                                     </TableRow>
