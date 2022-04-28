@@ -10,3 +10,13 @@ export async function getpost(){
     const res = await api.get('/post/getpost');
     return res;
 }
+
+export async function setcomment(data){
+    const res = await api.post('/post/setcomment',data)
+    return res;
+}
+
+export async function getcomment(){
+    const res = await api.get('/post/getcomment');
+    return res;
+}

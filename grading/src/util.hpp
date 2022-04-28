@@ -30,7 +30,7 @@ namespace Grading{
         int result = system(command.c_str());
 
         if(result != 0)
-            throw std::runtime_error("ERROR: execute error \"%s\"", command.c_str());
+            throw std::runtime_error(command);
 	    return result;
     }
 
@@ -42,7 +42,7 @@ namespace Grading{
 
     template<typename T, typename... Args>
     std::string build_path(T head, Args ... args) noexcept {
-        return std::string{ head } + "/" + buildPath(args...);
+        return std::string{ head } + "/" + build_path(args...);
     }
 
 }
