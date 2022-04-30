@@ -7,8 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
 function LandingPage() {
     const RankingStyle = { height: '740px' }
-    const roomStyle = { height: '200px' }
-    const chatStyle = { height: '532px'}
+    const roomStyle = { height: '220px' }
+    const chatStyle = { height: '512px'}
     const gameStyle = { height: '740px' }
 
   
