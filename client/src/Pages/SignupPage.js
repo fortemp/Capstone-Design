@@ -43,8 +43,7 @@ function SignupPage(props) {
                           return !dup;
                         }),
                     email: Yup.string()
-                        .email('이메일 형식으로 작성해주세요')
-                        .required('이메일을 입력해주세요'),
+                        .email('이메일 형식으로 작성해주세요'),
                     password: Yup.string()
                         .required('비밀번호를 입력해주세요')
                         .min(4, '적어도 4글자 이상으로 해주세요'),
@@ -57,7 +56,7 @@ function SignupPage(props) {
             onSubmit={(values, {setSubmitting}) => {
                 setTimeout(() => {
                     let data = {
-                        id: idText,
+                        id: values.id,
                         name: values.name,
                         email: values.email,
                         password: values.password,
