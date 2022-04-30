@@ -28,27 +28,6 @@ function Navbar(props) {
                     <Toolbar>
                 
                         <Logo/>
-                    <div className='Info'>
-                        <textarea className='InfoMsg'>
-                            메시지
-                        </textarea>
-                    </div>
-                        <a href="/community">
-                            <BorderColorIcon 
-                            sx={{
-                                color:"#333333"
-                            }}/>
-                            <span style={fontStyle}>COMMUNITY</span>
-                        </a>
-               
-                        <a href="/shop">
-                            <BorderColorIcon 
-                            sx={{
-                                color:"#333333"
-                            }}/>
-                            <span style={fontStyle}>SHOP</span>
-                        </a>
-             
                         <RightSide/>
                         <Toggle/>
                         

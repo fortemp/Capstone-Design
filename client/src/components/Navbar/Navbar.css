@@ -49,10 +49,15 @@ text-decoration: none;
     position: absolute;
     padding-top: 5%;
 }
-#rightside{
-    align-items: right;
-    float: right;
+
+#rightside {
+    float: right !important;
+    margin-left: auto !important;
 }
+
+/* #rightside{
+    float: right;
+} */
 
 #toggleBox{
     text-align: center;

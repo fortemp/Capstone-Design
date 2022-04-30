@@ -26,12 +26,21 @@ function RightSide() {
     const fontStyle = { 
         fontSize:'15px'
     }
-
-
+    
     if(!isAuth)
     {
         return (
             <div id="rightside">
+
+                <Button color="inherit">
+                    <a href="/community">
+                        <BorderColorIcon 
+                        sx={{
+                            color:"#333333"
+                        }}/>
+                        <span style={fontStyle}>COMMUNITY</span>
+                    </a>
+                </Button>
 
                 <Button color="inherit">
                         <a href="/signup">
@@ -58,7 +67,17 @@ function RightSide() {
     }else{
         return (
             <div id="rightside">
-    
+                
+                <Button color="inherit">
+                    <a href="/shop">
+                        <BorderColorIcon 
+                        sx={{
+                            color:"#333333"
+                        }}/>
+                        <span style={fontStyle}>SHOP</span>
+                    </a>
+                </Button>
+
                 <Button color="inherit">
                         <a href="/host">
                             <GiteIcon
