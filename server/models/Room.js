@@ -19,6 +19,7 @@ module.exports = class Room extends Sequelize.Model
             {
                 type: Sequelize.INTEGER,
                 allowNull:false,
+                defaultValue:0,
             },
             password:
             {
@@ -35,13 +36,30 @@ module.exports = class Room extends Sequelize.Model
                 type:Sequelize.INTEGER,//0또는 1만 넣도록 한다
                 allowNull:false,
             },
-            is_running:
+            is_running://방이 돌아가고 있으면 방row색깔을 파란색으로, 인원 모집중이면 초록색으로,
             {
                 type:Sequelize.BOOLEAN,
                 defaultValue:false,
                 allowNull:false
             },
-            room_id: //PK
+            is_waiting://호스트가 입장을 했냐 안했냐라는뜻, 호스트 입장전이면 방 색깔을 빨간색으로, 아무도 입장 못하게 한다.
+            {
+                type:Sequelize.BOOLEAN,
+                defaultValue:true,
+                allowNull:false
+            },
+            user_id://호스트의 id를 저장하는 컬럼
+            {
+                allowNull: false,
+                type: Sequelize.UUID,
+            },
+            rounds:
+            {
+                type:Sequelize.INTEGER,
+                defaultValue:1,
+                allowNull:false
+            },
+            room_id://PK
             {
                 allowNull: false,
                 primaryKey: true,
@@ -60,4 +78,10 @@ module.exports = class Room extends Sequelize.Model
         }
         )
     }
+
+    static associate(db)
+    {
+        db.Room.belongsTo(db.User,{foreignKey:'user_id', sourceKey:'user_id',onDelete:'cascade'});//comment는 User에 속한다.
+    }
+
 }
