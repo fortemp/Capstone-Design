@@ -1,3 +1,4 @@
+                                                                      // 랭킹 섹션
 import React,{useEffect, useLayoutEffect, useState} from 'react'
 import Box from '@material-ui/core/Box'
 import Table from '@mui/material/Table';

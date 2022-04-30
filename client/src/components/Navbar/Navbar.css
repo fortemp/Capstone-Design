@@ -2,13 +2,20 @@
     font-family: "navfont";
     src: url(../../assets/RioGrande.ttf);
 }
-span{
-    font-family: navfont;
-    color: #222222;
-}
+
 a:link { 
 
-color: #ffffff;
+color: #000000;
+
+text-decoration: none;
+
+}
+
+
+
+a:hover {
+
+color: #000000;
 
 text-decoration: none;
 
@@ -16,48 +23,34 @@ text-decoration: none;
 
 a:visited {
 
-color: #ffffff;
-
-text-decoration: none;
-
-}
-
-a:hover {
-
-color: #ffffff;
-
-text-decoration: none;
-
-}
-
-a:active {
-
-color: #ffffff;
+color: #000000;
 
 text-decoration: none;
 
 }
 
 #logo {
-    align-items: left;
     float:left;
-    margin: 0 200px 0 0 ;
+    padding-top: 5px;
 }
 #logotype{
+    color: #222222;
     font-family: navfont;
-    font-size: 40px;
-    position: absolute;
-    padding-top: 5%;
+    font-size: 33px;
 }
 
 #rightside {
     float: right !important;
     margin-left: auto !important;
 }
+.Info {
+    width: 500px;
+    float: left;
 
-/* #rightside{
-    float: right;
-} */
+
+}
+
+
 
 #toggleBox{
     text-align: center;
@@ -66,23 +59,24 @@ text-decoration: none;
     align-items: center;
     border-radius: 10%;
 }
-#toggleBox:hover{
-    cursor: pointer;
+.InfoMsg {
+    resize: none;
+    width: 500px;
+    float: left;
+    padding-top: 15px;
+    font-size: 30px;
+    border: 0px;
+    background-color: #A47C6D;
 }
-#toggleBoxContainer{
-    padding-left: 2px;
-}
+.InfoMsg::placeholder{
+    color: black;
 
-.Info{
-    height: 73px;
-    width: 30%;
-    margin-right: 300px;
-    display: absolute;
 }
-.InfoMsg{
-    top: 0;
-    resize:none;
-    height: 73px;
-    width: 100%;
- background-color: #B4845F;
+.Info2 {
+    float: right;
+        padding-top: 15px;
+}
+.Info2 Button{
+    margin-right: 50px;
+
 }

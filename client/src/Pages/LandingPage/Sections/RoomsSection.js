@@ -1,3 +1,4 @@
+                                                                     //방찾기 섹션
 import React,{useEffect, useState,useContext} from 'react'
 import Box from '@material-ui/core/Box'
 import {useDispatch} from 'react-redux';
@@ -40,7 +41,7 @@ function RoomsSection(props) {
     setRequesting(true);//소켓요청
     roomSocket.emit('joinRoom',room_id,title,password);
   }
-
+  
   useEffect(()=>{
     getRoom()
     .then(res=>{
@@ -85,6 +86,7 @@ function RoomsSection(props) {
   
   return (
     <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
+      <button onClick={function(e){e.preventDefault(); props.onChangeMode('test');}.bind(this)}>방에 들어갔다 치고 하는 버튼</button>
       <TableContainer>
       <Table size="small">
         <TableHead>

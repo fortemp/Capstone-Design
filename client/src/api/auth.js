@@ -1,13 +1,13 @@
 import api from './index'
 
 // post가입
-export async function register(data){
-    const res = await api.post('/auth/register',data)
+export async function register(data) {
+    const res = await api.post('/auth/register', data)
     return res;
 }
 // post 로그인
-export async function login(data){
-    const res = await api.post('/auth/login',data);
+export async function login(data) {
+    const res = await api.post('/auth/login', data);
     return res;
 }
 //인증
@@ -24,4 +24,13 @@ export async function logout(){
 export async function dupcheck(data){
     const res = await api.post('/auth/dupcheck',data);
     return res;
+}
+export async function getuser() {
+    const res = await api.get('/auth/getuser');
+    return res;
+}
+export async function changeimg() {
+    const res = await api.get('/auth/changeimg');
+    return res;
+
 }

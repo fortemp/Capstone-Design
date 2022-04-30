@@ -1,0 +1,31 @@
+.User_Info_div{
+    width: 100%;
+    height: 50%;
+    background-color: white;
+    margin-top: 10px;
+}
+.Main_div{
+    width: 100%;
+    height: 45%;
+    background-color: white;
+}
+.User_Avatar{
+    position:relative;
+    top:20px;   
+    left:20px;
+    border: 1px solid black;
+    width: 210px;
+    height: 310px;
+    float:left;
+}
+.User_Info{
+    padding-top:50px;
+    width: 70%;
+    height: 100%;
+    float: right;
+}
+
+.Main_div>ul>li{
+    font-size: 25px;
+    padding-bottom: 15px;
+}

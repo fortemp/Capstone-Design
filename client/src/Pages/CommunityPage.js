@@ -1,4 +1,4 @@
-//<<<<<<< HEAD
+/*
 import React, { useEffect } from 'react'
 import ChatSection from './LandingPage/Sections/ChatSection'
 import BoardSection from './LandingPage/Sections/BoardSection'
@@ -50,4 +50,63 @@ function CommunityPage() {
     )
 
 }
+*/
+
+import{Link} from "react-router-dom";
+import { useEffect, useState} from 'react'
+import Axios from 'axios';
+import parse from 'html-react-parser'
+import './CommunityPage.css'
+import {GetPost} from "../actions/index";
+import {useDispatch} from 'react-redux'
+
+function CommunityPage() { //임시로 null\
+  
+  const [inputData, setInputData] = useState([])
+
+  useEffect(async() => {
+    await Axios.get('/api/post/getpost').then((response)=>{
+      setInputData(response.data);
+    })
+  },[])
+
+  return(
+    <div>
+      <table className="table">
+      <thead>
+        <tr >
+          <th className="thid">번호</th>
+          <th className="thtitle">제목</th>
+          <th className="th">시간</th>
+          <th className="th">작성자</th>
+          <th className="th">조회수</th>
+        </tr>
+      </thead>
+{inputData.map(element =>
+      <tbody >
+        <tr>
+        <td className="tdid">{element.post_id}</td>
+        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} >{element.title }</Link></td>
+        <td className="td" ></td>
+        <td className="td" ></td>
+        <td className="td" ></td>
+        </tr>
+      </tbody>
+        )}
+        <tfoot>
+          <td ColSpan="5">
+        <Link to='/Posting'> 
+        <button className="button"> 글작성 </button>
+      </Link>
+      </td>
+        </tfoot>
+      </table>
+  
+
+      
+    </div>
+  ); 
+}
+
+
 export default CommunityPage

@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <stdexcept>
+#include <exception>
 #include <memory>
 
 namespace Grading{
@@ -26,7 +26,23 @@ namespace Grading{
 
     template<typename... Args>
     int execute(const std::string& fmt, Args ... args){
-	    return system(string_format(fmt, args...).c_str());
+        std::string command = string_format(fmt, args...);
+        int result = system(command.c_str());
+
+        if(result != 0)
+            throw std::runtime_error(command);
+	    return result;
+    }
+
+    //경로 만드는 함수
+    template<typename T>
+    std::string build_path(T head) noexcept {
+        return std::string{head};
+    }
+
+    template<typename T, typename... Args>
+    std::string build_path(T head, Args ... args) noexcept {
+        return std::string{ head } + "/" + build_path(args...);
     }
 
 }

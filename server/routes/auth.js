@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require('../models/User')
 const passport = require('passport');
 const Crypto = require('crypto');
+const db = require('../config/db')
+
 
 //로그인
 router.post('/login',(req,res,next)=>{
@@ -36,6 +38,7 @@ router.post('/register',async (req,res)=>{
         password: req.body.password,
         name: req.body.name,
         id: req.body.id,//아이디
+        email: req.body.email
     };
     try{
         const salt = Crypto.randomBytes(64).toString('base64');//salt생성
@@ -87,5 +90,23 @@ router.post('/dupcheck',async (req,res)=>{
         return res.json({success:true,message:"nodup"});
     }
 })
+
+router.get('/getuser',async(req,res)=>{
+    const user = req.query.user;
+    const sql= 'select * from `users` where `name`=?';
+    db.query(sql,user, (err,data)=>{
+        res.send(data[0]);
+    })
+})
+
+router.get('/changeimg',async(req,res)=>{
+    const url = req.query.url;
+    const user = req.query.user;
+    const sql= 'update users set img_url=? where name=?';
+    db.query(sql,[url,user], (err,data)=>{
+        res.send(data);
+    })
+})
+
 
 module.exports = router;

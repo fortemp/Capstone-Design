@@ -1,19 +1,19 @@
+const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
-const dotenv = require('dotenv').config();
 const expressSession = require('express-session');
 const helmet = require('helmet');
-const port = process.env.PORT;
+const port = '3001';
 const MySqlStore = require('express-mysql-session')(expressSession);
 
 const roomRouter = require('./routes/room');
 const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
 const morgan = require('morgan');
 const passport = require('passport')
 const passportConfig = require('./passport')
 const Socket = require('./socketio/socket');
 const models = require('./models/index');
-
 
 models.sequelize.sync({force: false, alter: false,timezone: "+09:00" } )//true로하면 모델 수정 가능, 단 데이터 전부 지워짐.
     .then(()=>
@@ -29,13 +29,13 @@ const sessionMid = expressSession({
   saveUninitialized:true,
   HttpOnly:true,
   resave:true,
-  secret: process.env.COOKIE_SECRET,
+  secret: "secrettt",
   cookie:{maxAge:86400000},//세션 지속시간 30분
   store:new MySqlStore({
     host:'localhost',
-    port: process.env.MYSQLPORT,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPASSWORD,
+    port: "3306",
+    user: "root",
+    password:"1234",
     database: 'capstone'//db이름은 임시로 capstone으로 해놓았습니다. 변경하셔도 무관.
   })
 })
@@ -51,7 +51,11 @@ app.use(passport.session());
 passportConfig();
 app.use('/api/room',roomRouter);
 app.use('/api/auth',authRouter);
+app.use('/api/post',postRouter);
 
+
+
+  
 const server = app.listen(port, ()=>{
   console.log(`${port}번 포트에서 돌아가는중`)
 })
