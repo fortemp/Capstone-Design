@@ -29,18 +29,18 @@ function createData(ID, Name, URL, point) {
 }
 
 const rows = [
-  createData(0, "ch1", "img/ch1.png", 9000),
-  createData(1, "ch2", "img/ch2.png", 9000),
-  createData(2, "ch3", "img/ch3.png", 9000),
-  createData(3, "ch4", "img/ch4.png", 9000),
-  createData(4, "ch5", "img/ch5.png", 9000),
-  createData(5, "ch6", "img/ch6.png", 9000),
-  createData(6, "ch7", "img/ch7.png", 9000),
-  createData(7, "ch8", "img/ch8.png", 9000),
-  createData(8, "ch9", "img/ch9.png", 9000),
-  createData(9, "ch10", "img/ch10.png", 9000),
-  createData(10, "ch11", "img/ch11.png", 9000),
-  createData(11, "ch12", "img/ch12.png", 9000),
+  createData(0, "ch1", "img/ch1.png", 1000),
+  createData(1, "ch2", "img/ch2.png", 1000),
+  createData(2, "ch3", "img/ch3.png", 1000),
+  createData(3, "ch4", "img/ch4.png", 1000),
+  createData(4, "ch5", "img/ch5.png", 1000),
+  createData(5, "ch6", "img/ch6.png", 1000),
+  createData(6, "ch7", "img/ch7.png", 1000),
+  createData(7, "ch8", "img/ch8.png", 1000),
+  createData(8, "ch9", "img/ch9.png", 1000),
+  createData(9, "ch10", "img/ch10.png", 1000),
+  createData(10, "ch11", "img/ch11.png", 1000),
+  createData(11, "ch12", "img/ch12.png", 1000),
 ];
 
 function ShopPage(props) {
@@ -48,21 +48,17 @@ function ShopPage(props) {
   const playername= useSelector(state=>state.authReducer.authData.user.name);
   const classes = useStyles();
 
-
   const [data, setdata] = useState([]);
   const buyitem = (ID) => {
     if (window.confirm(rows[ID].Point + "pt입니다. 구매하시겠습니까?\n현재 보유 pt:  " + playerpoint)) {
-      if (playerpoint < rows[ID].Point) {
+      if (playerpoint >= rows[ID].Point) {
         alert("구매완료");
-        console.log(rows[ID].ImageURL);
-        console.log(playername);
-        Axios.get('/api/auth/changeimg', {
+        Axios.get('/api/auth/buyimg', {
           params: { 
             'url': rows[ID].ImageURL,
             'user': playername 
           }
         })
-       
       }
     }
     else {
@@ -70,6 +66,17 @@ function ShopPage(props) {
     }
   };
 
+  const changeitem = (ID) => {
+    if (window.confirm("변경하시겠습니까?")) {
+        Axios.get('/api/auth/changeimg', {
+          params: { 
+            'url': rows[ID].ImageURL,
+            'user': playername 
+          }
+        })
+        alert("변경 완료");
+      }
+  };
 
 
 
@@ -86,8 +93,9 @@ function ShopPage(props) {
                   <div>
                     <img className="phoneImage" alt={row.Alt_Name} src={row.ImageURL} />
                   </div>
-                  <div className='buysection'><span className='shopspan'>9000pt</span>
-                    <Button className="BuyBtn" style={{ backgroundColor: "#F5F5F5" }} onClick={() => buyitem(row.Item_ID)}>구매하기</Button></div>
+                  <div className='buysection'><span className='shopspan'>1000pt</span>
+                    <Button className="BuyBtn" style={{ backgroundColor: "#F5F5F5" }} onClick={() => buyitem(row.Item_ID)}>구매하기</Button>
+                    </div>
                 </div>
               </Box>
             </Grid>

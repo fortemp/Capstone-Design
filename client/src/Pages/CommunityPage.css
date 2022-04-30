@@ -3,10 +3,9 @@
     border-spacing: 0;
     text-align: left;
     line-height: 1.5;
-    border-top: 1px solid rgb(0, 0, 0);
-    border-left: 1px solid rgb(0, 0, 0);
     margin : 20px 10px;
     margin:auto;
+    border-collapse : collapse; 
 }
 
 .thid {
@@ -14,11 +13,6 @@
   padding: 5px;
   font-weight: bold;
   vertical-align: top;
-  border-right: 1px solid rgb(0, 0, 0);
-  border-bottom: 1px solid rgb(0, 0, 0);
-  border-top: 1px solid rgb(0, 0, 0);
-  border-left: 1px solid rgb(0, 0, 0);
-  background: rgb(109, 57, 41);
 }
 
 .thtitle {
@@ -26,40 +20,31 @@
   padding: 5px;
   font-weight: bold;
   vertical-align: top;
-  border-right: 1px solid rgb(0, 0, 0);
-  border-bottom: 1px solid rgb(0, 0, 0);
-  border-top: 1px solid rgb(0, 0, 0);
-  border-left: 1px solid rgb(0, 0, 0);
+}
+thead tr{
+
   background: rgb(109, 57, 41);
 }
-
-.th {
+thead th {
     width: 50px;
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
-    border-right: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);
-    border-top: 1px solid rgb(0, 0, 0);
-    border-left: 1px solid rgb(0, 0, 0);
-    background: rgb(109, 57, 41);
+    border: 1px solid black;
   }
 
-.td {
+tbody td {
     width: 50px;
     padding: 10px;
     vertical-align: top;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
     background: #eee;
+    border: 1px solid black;
   }
 
   .tdtitle {
     width: 450px;
     padding: 10px;
     vertical-align: top;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
     background: #eee;
     font:bold;
     text-align: center;
@@ -70,8 +55,6 @@
     width: 50px;
     padding: 10px;
     vertical-align: top;
-    border-right: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);;
     background: rgb(109, 57, 41);
     text-align: center;
   }
@@ -79,9 +62,10 @@
   .button{
 
     background: #eee;
-    width: 100%;
+    width: 30%;
     height: 50px;
     font-size: large;
+    float: right;
   }
 
   a:link{color: #000;}
