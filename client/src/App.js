@@ -15,7 +15,7 @@ import withAuth from "./hoc/withAuth"
 import Posting from "./Pages/Posting";
 function App() {
   return (
-    <div style={{minWidth:'730px'}}>
+    <div style={{minWidth:'710px'}}>
 
       <Navbar/>
 
