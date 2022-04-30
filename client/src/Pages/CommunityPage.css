@@ -1,4 +1,4 @@
-.table{
+.posttable{
     border-collapse: separate;
     border-spacing: 0;
     text-align: left;
@@ -8,32 +8,33 @@
     border-collapse : collapse; 
 }
 
-.thid {
+.posttable .thid {
   width: 50px;
-  padding: 5px;
+  padding: 10px;
   font-weight: bold;
   vertical-align: top;
 }
 
-.thtitle {
+.posttable .thtitle {
   width: 450px;
-  padding: 5px;
+  padding: 10px;
   font-weight: bold;
   vertical-align: top;
 }
-thead tr{
+.posttable thead tr{
 
   background: rgb(109, 57, 41);
 }
-thead th {
+.posttable thead th {
     width: 50px;
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
     border: 1px solid black;
+    text-align: center;
   }
 
-tbody td {
+  .posttable tbody td {
     width: 50px;
     padding: 10px;
     vertical-align: top;
@@ -41,7 +42,7 @@ tbody td {
     border: 1px solid black;
   }
 
-  .tdtitle {
+  .posttable .tdtitle {
     width: 450px;
     padding: 10px;
     vertical-align: top;
