@@ -24,8 +24,12 @@ export async function dupcheck(data) {
 }
 export async function getuser() {
     const res = await api.get('/auth/getuser');
-    return res;
+  return res;
 }
+export async function getrecentpost() {
+    const res = await api.get('/auth/getrecentpost');
+    return res;
+} 
 export async function buyimg() {
     const res = await api.get('/auth/buyimg');
     return res;
