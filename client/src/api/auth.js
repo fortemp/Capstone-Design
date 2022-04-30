@@ -26,8 +26,15 @@ export async function getuser() {
     const res = await api.get('/auth/getuser');
     return res;
 }
+export async function buyimg() {
+    const res = await api.get('/auth/buyimg');
+    return res;
+}
 export async function changeimg() {
     const res = await api.get('/auth/changeimg');
     return res;
-
+}
+export async function getranking() {
+    const res = await api.get('/auth/getranking');
+    return res;
 }
