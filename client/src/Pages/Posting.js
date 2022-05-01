@@ -84,7 +84,8 @@ function Posting() { //임시로 null\
                             dispatch(UserPosting(data))
                             .then(res=>{
                               if(res.payload.success){
-                                alert('작성완료')
+                                alert('작성완료');
+                                window.location.replace('/community');
                               }else{
                                 alert('오류가 발생했습니다.')
                               }

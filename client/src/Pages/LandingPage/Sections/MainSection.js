@@ -34,9 +34,15 @@ function MainSection(props) {
                       setdata(response.data);    
                     
                 })
+                Axios.get('/api/auth/getrecentpost',             //최근 게시글 불러오기
+                ).then((response)=>{
+                       setpost(response.data);    
+                     
+                 })
         }
     })
     const [data, setdata] = useState([]);
+    const [post, setpost] = useState([]);
     /*
       useEffect(async()=>{   
        Axios.get('/api/auth/getuser',{
@@ -120,11 +126,9 @@ function MainSection(props) {
             <div className='Main_div'>
                 <h1>&nbsp;&nbsp; 최신글</h1>
                 <ul>
-                    <li><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>최신 게시글1</Link></li>
-                    <li><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>최신 게시글2</Link></li>
-                    <li><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>최신 게시글3</Link></li>
-                    <li><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>최신 게시글4</Link></li>
-                    <li><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>최신 게시글5</Link></li>
+                {post.map((row) => (
+                    <li><Link to={`/PostPage/${row.post_id}`} style={{ textDecoration: 'none', color: 'black' }}>{row.title}</Link></li>
+                    ))}
                 </ul>
             </div>
         </Box>
