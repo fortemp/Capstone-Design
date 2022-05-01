@@ -38,8 +38,10 @@ text-decoration: none;
     font-family: navfont;
     font-size: 33px;
 }
-#rightside{
-    float: right;
+
+#rightside {
+    float: right !important;
+    margin-left: auto !important;
 }
 .Info {
     width: 500px;
@@ -48,6 +50,15 @@ text-decoration: none;
 
 }
 
+
+
+#toggleBox{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+}
 .InfoMsg {
     resize: none;
     width: 500px;
