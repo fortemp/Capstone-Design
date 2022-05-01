@@ -1,65 +1,51 @@
-.table{
+.posttable{
     border-collapse: separate;
     border-spacing: 0;
     text-align: left;
     line-height: 1.5;
-    border-top: 1px solid rgb(0, 0, 0);
-    border-left: 1px solid rgb(0, 0, 0);
     margin : 20px 10px;
     margin:auto;
+    border-collapse : collapse; 
 }
 
-.thid {
+.posttable .thid {
   width: 50px;
-  padding: 5px;
+  padding: 10px;
   font-weight: bold;
   vertical-align: top;
-  border-right: 1px solid rgb(0, 0, 0);
-  border-bottom: 1px solid rgb(0, 0, 0);
-  border-top: 1px solid rgb(0, 0, 0);
-  border-left: 1px solid rgb(0, 0, 0);
-  background: rgb(109, 57, 41);
 }
 
-.thtitle {
+.posttable .thtitle {
   width: 450px;
-  padding: 5px;
+  padding: 10px;
   font-weight: bold;
   vertical-align: top;
-  border-right: 1px solid rgb(0, 0, 0);
-  border-bottom: 1px solid rgb(0, 0, 0);
-  border-top: 1px solid rgb(0, 0, 0);
-  border-left: 1px solid rgb(0, 0, 0);
+}
+.posttable thead tr{
+
   background: rgb(109, 57, 41);
 }
-
-.th {
+.posttable thead th {
     width: 50px;
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
-    border-right: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);
-    border-top: 1px solid rgb(0, 0, 0);
-    border-left: 1px solid rgb(0, 0, 0);
-    background: rgb(109, 57, 41);
+    border: 1px solid black;
+    text-align: center;
   }
 
-.td {
+  .posttable tbody td {
     width: 50px;
     padding: 10px;
     vertical-align: top;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
     background: #eee;
+    border: 1px solid black;
   }
 
-  .tdtitle {
+  .posttable .tdtitle {
     width: 450px;
     padding: 10px;
     vertical-align: top;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
     background: #eee;
     font:bold;
     text-align: center;
@@ -70,8 +56,6 @@
     width: 50px;
     padding: 10px;
     vertical-align: top;
-    border-right: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);;
     background: rgb(109, 57, 41);
     text-align: center;
   }
@@ -79,9 +63,10 @@
   .button{
 
     background: #eee;
-    width: 100%;
+    width: 30%;
     height: 50px;
     font-size: large;
+    float: right;
   }
 
   a:link{color: #000;}

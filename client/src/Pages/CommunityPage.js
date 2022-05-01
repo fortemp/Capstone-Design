@@ -72,7 +72,7 @@ function CommunityPage() { //임시로 null\
 
   return(
     <div>
-      <table className="table">
+      <table className="posttable">
       <thead>
         <tr >
           <th className="thid">번호</th>

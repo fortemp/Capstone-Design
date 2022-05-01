@@ -8,55 +8,42 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import './RankingSection.css'
+import Axios from 'axios';
 
 
-function createData(rank,name,elo,quiz){       //테이블 각 셀에 들어갈 데이터 타입(임시 작성)
-var Ranking_Cell={
-    rank: rank,
-    name: name,
-    elo: elo,
-    quiz: quiz
-} 
-    return  Ranking_Cell ;
-  } 
-  const rows = [                         //테이블 각 셀에 들어갈 내용(임시 데이터)
-    createData(1,'임시1',100+"%",999999),
-    createData(2,'임시2',99+"%",999998),
-    createData(3,'임시3',98+"%",999997),
-    createData(4,'임시4',97+"%",999996),
-    createData(5,'임시5',96+"%",999995),
-    createData(6,'임시6',95+"%",999994),
-    createData(7,'임시7',94+"%",999993),  
-    createData(8,'임시8',93+"%",999992),
-    createData(9,'임시9',92+"%",999991),
-    createData(10,'임시10',91+"%",999990),
-  ];
 
-function RankingSection(props) {
   
+  
+function RankingSection(props) {
+  const [user, setuser]= useState([]);
+  useEffect(()=>{
+    Axios.get('/api/auth/getranking'           //일단 이렇게 하면 유저 정보 가져오긴 함
+).then((response)=>{
+         setuser(response.data);    
+       
+   })
+  })
   return (
     <Box className='Over' style={props.style} bgcolor={"#888888"} p={2} >
-          RankingSection
           <TableContainer>
       <Table aria-label="simple table"bgcolor={"#888888"}>
         <TableHead>
           <TableRow>
             <TableCell className='Cell' align="center">순위</TableCell>
             <TableCell className='Cell'align="center">ID</TableCell>
-            <TableCell className='Cell'align="center">승률</TableCell>
-            <TableCell className='Cell'align="center">정답 갯수</TableCell>
+            <TableCell className='Cell'align="center">ELO</TableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {user.map((row) => (
             <TableRow
-              key={row.name}
+             // key={row.name}
               sx={{ '&:last-child td, &:last-child th': { borderBottom: 0 } }}
             >
-              <TableCell className='Cell'component="th" scope="row" align="center">  {row.rank} </TableCell>
+              <TableCell className='Cell'component="th" scope="row" align="center">  {row.num} </TableCell>
               <TableCell className='Cell'align="center">{row.name}</TableCell>
               <TableCell className='Cell'align="center">{row.elo}</TableCell>
-              <TableCell className='Cell'align="center">{row.quiz}</TableCell>
             </TableRow>
           ))}
         </TableBody>

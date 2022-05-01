@@ -99,6 +99,22 @@ router.get('/getuser',async(req,res)=>{
     })
 })
 
+router.get('/getrecentpost',async(req,res)=>{
+    const sql= 'select * from postings order by post_id desc limit 5';
+    db.query(sql, (err,data)=>{
+        res.send(data);
+    })
+})
+
+router.get('/buyimg',async(req,res)=>{
+    const url = req.query.url;
+    const user = req.query.user;
+    const sql= 'update users set img_url=?, point=point-1000 where name=?';
+    db.query(sql,[url,user], (err,data)=>{
+        res.send(data);
+    })
+})
+
 router.get('/changeimg',async(req,res)=>{
     const url = req.query.url;
     const user = req.query.user;
@@ -107,6 +123,11 @@ router.get('/changeimg',async(req,res)=>{
         res.send(data);
     })
 })
+router.get('/getranking',async(req,res)=>{
+    const sql= 'select row_number() over(order by elo desc) as num,name,elo from users limit 10';
+    db.query(sql, (err,data)=>{
+        res.send(data);
+    })
+})
 
-
-module.exports = router;
+module.exports = router; 
