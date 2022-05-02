@@ -14,7 +14,6 @@ import CommunityPage from"./Pages/CommunityPage";
 import withAuth from "./hoc/withAuth"
 import Posting from "./Pages/Posting";
 import PostPage from "./Pages/PostPage";
-import GamePage from "./Pages/GamePage";
 function App() {
   return (
     <div style={{minWidth:'710px'}}>
