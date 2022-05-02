@@ -10,6 +10,7 @@ import { Typography } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux'
+
 function HostRoomPage() {
 
     const user_id = useSelector(state=>state.authReducer.authData.user._id);
@@ -120,6 +121,7 @@ function HostRoomPage() {
                     <MenuItem value={5}>5</MenuItem>
                     <MenuItem value={6}>6</MenuItem>
                     <MenuItem value={7}>7</MenuItem>
+                    <MenuItem value={8}>8</MenuItem>
                   </Select>
                   <br/>
 

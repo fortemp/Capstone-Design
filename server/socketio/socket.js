@@ -47,7 +47,7 @@ module.exports = (server,app,sessionMid)=>{
         let myName;
         if(socket.request.session.passport != null){//로그인 했다면
             socket.who = socket.request.user
-            myName = socket.who.name;
+        //    myName = socket.who.name;
             //who에 user객체 저장되어 있음
         }
         //방들어가는 함수

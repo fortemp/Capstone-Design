@@ -11,10 +11,12 @@ import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
 import  Axios  from 'axios';
 import {GetName} from '../../actions/index'
+
+import {host} from'../HostRoomPage'
 function LandingPage() {
     const RankingStyle = { height: '740px' }
-    const roomStyle = { height: '200px' }
-    const chatStyle = { height: '532px' }
+    const roomStyle = { height: '250px' }
+    const chatStyle = { height: '482px' }
     const gameStyle = { height: '740px' }
 
     const [mode, setmode] = useState("normal");
@@ -35,12 +37,10 @@ function LandingPage() {
         setstart('false');
        },[]);
 
- 
     return (
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
             <Grid container spacing={1}>
-                {mode=='normal'?
-                <>
+               
                     <Grid item xs={12} md={3}>
                         <RankingSection style={RankingStyle} />
                     </Grid>
@@ -63,34 +63,7 @@ function LandingPage() {
                             </Grid>
 
                         </Grid>
-                </>:                  
-                                                    //모드가 test로 변경되면 발생하는 컴포넌트들
-                <>
-                    <Grid item xs={12} md={9}>
-                        <GameSection style={gameStyle} ready={ready} onChangeReady={function (_ready) { setready(_ready) }.bind(this)}
-                         start={start} onChangeStart={function (_start) { setstart(_start) }.bind(this)}/>
-                    </Grid>
-                    
-                    <Grid item xs={12} md={3}>
-
-                        <Grid container spacing={1} direction="column" padding={"0 0 0 0"}>
-
-                            <Grid item>
-                                <GameSettingSection  ready={ready}  onChangeMode={function (_mode) { setmode(_mode) }.bind(this)}
-                                 onChangeReady={function (_ready) { setready(_ready) }.bind(this)}
-                                 start={start} onChangeStart={function (_start) { setstart(_start) }.bind(this)}
-                                style={roomStyle} />
-                            </Grid>
-
-                            <Grid item>
-                                <GameChatSection style={chatStyle} />
-                            </Grid>
-
-                        </Grid>
-
-                    </Grid>
-                </>
-                }
+              
 
             </Grid>
 

@@ -2,13 +2,14 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Box from '@material-ui/core/Box'
 import "./GameSettingSection.css"
+import{Link} from "react-router-dom";
 function GameSettingSection(props) {
 
 
 
     return (
         <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
-            <button onClick={function (e) { e.preventDefault(); props.onChangeMode('normal'); }.bind(this)}>방에 나갔을 때 버튼 </button>
+            <Link to='/'><button>방에 나갔을 때 버튼 </button></Link>
             {props.start == "false" ?
                 <>
                 {props.ready == "false" ?

@@ -40,6 +40,7 @@ function RoomsSection(props) {
     }
     setRequesting(true);//소켓요청
     roomSocket.emit('joinRoom',room_id,title,password);
+    window.location.replace(`/game/${room_id}`);
   }
   
   useEffect(()=>{
@@ -102,10 +103,8 @@ function RoomsSection(props) {
           {rooms
           .slice(Page * rowsPerPage , (Page+1) * rowsPerPage)
           .map(({room_id,title,people,max_people,ispass,language,is_running,is_waiting},index)=>(
-
-
-            <TableRow key = {room_id} hover style={{cursor:'pointer'}} onClick={()=>onClickRowhandler(room_id,title,ispass)}>
-              
+            <TableRow key = {room_id} hover style={{cursor:'pointer'}} onClick={()=>onClickRowhandler(room_id,title,ispass)}> 
+                                                                                                       
                 <TableCell align="left" component="th" scope="row">
                   {`${Page * rowsPerPage + index + 1}:${language}언어`}
                 </TableCell>

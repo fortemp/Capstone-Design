@@ -95,8 +95,11 @@ function CommunityPage() { //임시로 null\
         )}
         <tfoot>
           <td ColSpan="5">
+          <Link to='/'> 
+          <button className="backbutton"> 뒤로가기 </button>
+          </Link>
         <Link to='/Posting'> 
-        <button className="button"> 글작성 </button>
+        <button className="postbutton"> 글작성 </button>
       </Link>
       </td>
         </tfoot>

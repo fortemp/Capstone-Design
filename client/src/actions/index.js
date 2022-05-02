@@ -1,5 +1,5 @@
 
-import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,GET_RECENT_POST,GET_RANKING,BUY_IMG,Change_Img,POST_POSTING,POST_GETPOST,COMMENT_SETCOMMENT,COMMENT_GETCOMMENT} from "./types";
+import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,GET_RECENT_POST,GET_TITLE,GET_RANKING,BUY_IMG,Change_Img,POST_POSTING,POST_GETPOST,COMMENT_SETCOMMENT,COMMENT_GETCOMMENT} from "./types";
 import { ROOM_GET,ROOM_JOIN,ROOM_OUT } from "./types";
 import * as authApi from '../api/auth'
 import * as roomApi from '../api/room'
@@ -44,6 +44,13 @@ export async function GetUser(){
     const req = await authApi.getuser().then(res=>res.data);
     return {
         type:GET_USER,
+        payload : req
+    }
+}
+export async function GetTitle(){
+    const req = await authApi.gettitle().then(res=>res.data);
+    return {
+        type:GET_TITLE,
         payload : req
     }
 }

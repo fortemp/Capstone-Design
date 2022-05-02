@@ -22,7 +22,7 @@ function RankingSection(props) {
          setuser(response.data);    
        
    })
-  })
+  },[])
   return (
     <Box className='Over' style={props.style} bgcolor={"#888888"} p={2} >
           <TableContainer>
