@@ -79,7 +79,7 @@ function MainSection(props) {
                                             <Link to="/signup" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>회원이 아니신가요?</Link></TableCell>
                                     </TableRow>
 
-                                </Table>
+                                </Table> 
                             </TableContainer>
                         </div>
                     </> :
