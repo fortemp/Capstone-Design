@@ -9,7 +9,7 @@ function GameSettingSection(props) {
 
     return (
         <Box style={props.style} bgcolor={'#eeeeee'} p={2}> 
-            <Link to='/'><button>방에 나갔을 때 버튼 </button></Link>
+          <button onClick={function (e) { e.preventDefault(); props.onChangeMode('normal'); }.bind(this)}>방에 나갔을 때 버튼 </button>
             {props.start == "false" ?
                 <>
                 {props.ready == "false" ?
