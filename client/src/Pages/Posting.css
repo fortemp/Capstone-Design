@@ -4,7 +4,8 @@
     font-size: 25px;
 }
 
-.ck.ck-editor__editable{height: 500px;
+.form-wrapper .ck.ck-editor__editable{
+    height: 500px;
 width: 900px;}
 
 .submit-button{
