@@ -8,7 +8,7 @@ function GameSettingSection(props) {
 
 
     return (
-        <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
+        <Box style={props.style} bgcolor={'#eeeeee'} p={2}> 
             <Link to='/'><button>방에 나갔을 때 버튼 </button></Link>
             {props.start == "false" ?
                 <>
