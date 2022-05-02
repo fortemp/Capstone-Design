@@ -58,7 +58,7 @@ const PostPage = ({ onInsert }) => {
               <>
               
                 <div className="post-view-title">
-                  <label>번호 { data.post_id }  </label><label>{ data.title }</label>
+                  <label>제목 </label><label>{ data.title }</label>
                 </div>
                 <div className="post-view-row">
                   <label>작성일</label>
