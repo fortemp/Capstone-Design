@@ -15,7 +15,7 @@ function GamePage() {
     const room = useParams().room_id; // post id로 글 내용 찾기
 
 
-    const roomStyle = { height: '250px' }
+    const roomStyle = { height: '250px' } 
     const chatStyle = { height: '482px' }
     const gameStyle = { height: '740px' }
 
