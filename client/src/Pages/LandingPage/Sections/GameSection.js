@@ -205,7 +205,7 @@ function GameSection(props) {
                   <span className='playername'>비어있음</span>
                   :
                   <span className='playername'>플레이어7</span>}
-                  
+                    
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 7강퇴"); }}>
                     {data.max_people<7?  <></>:
