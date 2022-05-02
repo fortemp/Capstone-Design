@@ -80,7 +80,7 @@ function CommunityPage() { //임시로 null\
           <th className="th">시간</th>
           <th className="th">작성자</th>
           <th className="th">조회수</th>
-        </tr>
+        </tr>  
       </thead>
 {inputData.map(element =>
       <tbody >
