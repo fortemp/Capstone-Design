@@ -47,153 +47,153 @@ function GameSection(props) {
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
-                    <img></img> : <img src="/img/ready.png"></img>}
+                    <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>{playername}</span>
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert(banish); }}>
-                      <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
+                      <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg"><img src="/img/ch1.png"></img></div>
+              <div className="playerimg"><img src="img/ch1.png"></img></div>
             </div>
 
             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
-                    <img></img> : <img src="/img/ready.png"></img>}
+                    <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>플레이어2</span>
                   
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 2강퇴"); }}>
-                       <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
+                       <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg"><img src="/img/ch2.png"></img></div>
+              <div className="playerimg"><img src="img/ch2.png"></img></div>
             </div>
 
             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
-                    <img></img> : <img src="/img/ready.png"></img>}
+                    <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>플레이어3</span>             
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 3강퇴"); }}>
-                     <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
+                     <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg"><img src="/img/ch3.png"></img></div>
+              <div className="playerimg"><img src="img/ch3.png"></img></div>
             </div>
 
             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
-                    <img></img> : <img src="/img/ready.png"></img>}
+                    <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>플레이어4</span>               
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 4강퇴"); }}>
-                      <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
+                      <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg"><img src="/img/ch4.png"></img></div>
+              <div className="playerimg"><img src="img/ch4.png"></img></div>
             </div>
 
             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
-                    <img></img> : <img src="/img/ready.png"></img>}
+                    <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>플레이어2</span>                 
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 5강퇴"); }}>
-                    <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
+                    <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg"><img src="/img/ch5.png"></img></div>
+              <div className="playerimg"><img src="img/ch5.png"></img></div>
             </div>
 
              <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
-                    <img></img> : <img src="/img/ready.png"></img>}
+                    <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>플레이어6</span>      
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 6강퇴"); }}>
-                      <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
+                      <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg"><img src="/img/ch6.png"></img></div>
+              <div className="playerimg"><img src="img/ch6.png"></img></div>
             </div>
 
             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
-                    <img></img> : <img src="/img/ready.png"></img>}
+                    <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>플레이어7</span>
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 7강퇴"); }}>
-                     <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
+                     <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg"><img src="/img/ch7.png"></img></div>
+              <div className="playerimg"><img src="img/ch7.png"></img></div>
             </div>
 
             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
-                    <img></img> : <img src="/img/ready.png"></img>}
+                    <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>플레이어8</span>       
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 8강퇴"); }}>
-                      <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
+                      <img className="exit_img" src="img/delete_47751.png"></img>
+                      <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg"><img src="/img/ch8.png"></img></div>
+              <div className="playerimg"><img src="img/ch8.png"></img></div>
 
             </div>
           </div>
