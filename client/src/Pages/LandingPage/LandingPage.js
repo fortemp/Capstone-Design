@@ -30,7 +30,7 @@ function LandingPage() {
       };
       const onstart = (e) => {
         setstart("true");
-      };
+      }; 
 
       useEffect(()=>{
         setready('false'); 
