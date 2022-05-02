@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Box from '@material-ui/core/Box'
 import './GameSection.css'
 import {useDispatch,useSelector} from 'react-redux';
-import Axios from 'axios';
+
 
 function GameSection(props) {
 
@@ -11,19 +11,12 @@ function GameSection(props) {
   
   useEffect(() => {
     props.onChangeReady('false');
-    Axios.get('/api/auth/gettitle',{             
-      params: { 
-        'room': props.room,
-      }
-    }).then((response)=>{
-         setdata(response.data);    
-       
-   })
+    setcodeInput(" ");
   }, []);
 
 
   const [codeInput, setcodeInput] = useState("");
-  const [data, setdata] = useState([]);
+
 
 
   const codeInputTabHandler = (event) => {
@@ -45,7 +38,7 @@ function GameSection(props) {
       {props.start == "false" ?                           //랜딩페이지에서 받아오는 usestate 시작, 게임세팅섹션에서도 이용해야해서 랜딩페이지로부터 호출
         <>
           <div className='gameroom_title'>
-            <h3>방제목:{data.title}</h3>
+            <h3>방제목</h3>
           </div>
           <div className='lating_room'>
 
@@ -76,22 +69,17 @@ function GameSection(props) {
                     <img></img> : <img src="/img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  {data.max_people<2?     
-                  <span className='playername'>비어있음</span>
-                  :
-                  <span className='playername'>플레이어2</span>}
+                  <span className='playername'>플레이어2</span>
                   
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 2강퇴"); }}>
-                    {data.max_people<2?  <></>:
-                     <> <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img></>
-                    }
+                       <img className="exit_img" src="/img/delete_47751.png"></img>
+                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg">{data.max_people<2? <></>:<img src="/img/ch2.png"></img>}</div>
+              <div className="playerimg"><img src="/img/ch2.png"></img></div>
             </div>
 
             <div className='player'>
@@ -101,22 +89,16 @@ function GameSection(props) {
                     <img></img> : <img src="/img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  {data.max_people<3?     
-                  <span className='playername'>비어있음</span>
-                  :
-                  <span className='playername'>플레이어3</span>}
-                  
+                  <span className='playername'>플레이어3</span>             
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 3강퇴"); }}>
-                    {data.max_people<3?  <></>:
-                     <> <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img></>
-                    }
+                     <img className="exit_img" src="/img/delete_47751.png"></img>
+                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg">{data.max_people<3? <></>:<img src="/img/ch3.png"></img>}</div>
+              <div className="playerimg"><img src="/img/ch3.png"></img></div>
             </div>
 
             <div className='player'>
@@ -126,22 +108,16 @@ function GameSection(props) {
                     <img></img> : <img src="/img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  {data.max_people<4?     
-                  <span className='playername'>비어있음</span>
-                  :
-                  <span className='playername'>플레이어4</span>}
-                  
+                  <span className='playername'>플레이어4</span>               
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 4강퇴"); }}>
-                    {data.max_people<4?  <></>:
-                     <> <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img></>
-                    }
+                      <img className="exit_img" src="/img/delete_47751.png"></img>
+                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg">{data.max_people<4? <></>:<img src="/img/ch4.png"></img>}</div>
+              <div className="playerimg"><img src="/img/ch4.png"></img></div>
             </div>
 
             <div className='player'>
@@ -151,22 +127,16 @@ function GameSection(props) {
                     <img></img> : <img src="/img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  {data.max_people<5?     
-                  <span className='playername'>비어있음</span>
-                  :
-                  <span className='playername'>플레이어2</span>}
-                  
+                  <span className='playername'>플레이어2</span>                 
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 5강퇴"); }}>
-                    {data.max_people<5?  <></>:
-                     <> <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img></>
-                    }
+                    <img className="exit_img" src="/img/delete_47751.png"></img>
+                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg">{data.max_people<5? <></>:<img src="/img/ch5.png"></img>}</div>
+              <div className="playerimg"><img src="/img/ch5.png"></img></div>
             </div>
 
              <div className='player'>
@@ -176,22 +146,16 @@ function GameSection(props) {
                     <img></img> : <img src="/img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  {data.max_people<6?     
-                  <span className='playername'>비어있음</span>
-                  :
-                  <span className='playername'>플레이어6</span>}
-                  
+                  <span className='playername'>플레이어6</span>      
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 6강퇴"); }}>
-                    {data.max_people<6?  <></>:
-                     <> <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img></>
-                    }
+                      <img className="exit_img" src="/img/delete_47751.png"></img>
+                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg">{data.max_people<6? <></>:<img src="/img/ch6.png"></img>}</div>
+              <div className="playerimg"><img src="/img/ch6.png"></img></div>
             </div>
 
             <div className='player'>
@@ -201,22 +165,16 @@ function GameSection(props) {
                     <img></img> : <img src="/img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  {data.max_people<7?     
-                  <span className='playername'>비어있음</span>
-                  :
-                  <span className='playername'>플레이어7</span>}
-                    
+                  <span className='playername'>플레이어7</span>
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 7강퇴"); }}>
-                    {data.max_people<7?  <></>:
-                     <> <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img></>
-                    }
+                     <img className="exit_img" src="/img/delete_47751.png"></img>
+                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg">{data.max_people<7? <></>:<img src="/img/ch7.png"></img>}</div>
+              <div className="playerimg"><img src="/img/ch7.png"></img></div>
             </div>
 
             <div className='player'>
@@ -226,22 +184,16 @@ function GameSection(props) {
                     <img></img> : <img src="/img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  {data.max_people<8?     
-                  <span className='playername'>비어있음</span>
-                  :
-                  <span className='playername'>플레이어8</span>}
-                  
+                  <span className='playername'>플레이어8</span>       
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 8강퇴"); }}>
-                    {data.max_people<8?  <></>:
-                     <> <img className="exit_img" src="/img/delete_47751.png"></img>
-                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img></>
-                    }
+                      <img className="exit_img" src="/img/delete_47751.png"></img>
+                      <img className="exit_img2" src="/img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="playerimg">{data.max_people<8? <></>:<img src="/img/ch8.png"></img>}</div>
+              <div className="playerimg"><img src="/img/ch8.png"></img></div>
 
             </div>
           </div>
