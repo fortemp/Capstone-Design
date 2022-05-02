@@ -38,7 +38,7 @@ export async function logoutUser(){
     return {
         type:AUTH_LOGOUT,
         payload:req
-    }
+    } 
 }
 export async function GetUser(){
     const req = await authApi.getuser().then(res=>res.data);
