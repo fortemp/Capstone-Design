@@ -129,11 +129,4 @@ router.get('/getranking',async(req,res)=>{
         res.send(data);
     }) 
 })
-router.get('/gettitle',async(req,res)=>{
-    const room = req.query.room;
-    const sql= 'select * from rooms where room_id=?';
-    db.query(sql,room, (err,data)=>{
-        res.send(data[0]);
-    })
-})
 module.exports = router; 
