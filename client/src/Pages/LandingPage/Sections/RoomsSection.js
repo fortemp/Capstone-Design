@@ -40,7 +40,6 @@ function RoomsSection(props) {
     } 
     setRequesting(true);//소켓요청
     roomSocket.emit('joinRoom',room_id,title,password);
-    window.location.replace(`/game/${room_id}`);
   }
   
   useEffect(()=>{
