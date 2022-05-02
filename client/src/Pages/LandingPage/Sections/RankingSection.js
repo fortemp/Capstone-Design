@@ -15,7 +15,7 @@ import Axios from 'axios';
   
   
 function RankingSection(props) {
-  const [user, setuser]= useState([]);
+  const [user, setuser]= useState([]); 
   useEffect(()=>{
     Axios.get('/api/auth/getranking'           //일단 이렇게 하면 유저 정보 가져오긴 함
 ).then((response)=>{
