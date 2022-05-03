@@ -12,16 +12,7 @@ const PostPage = ({ onInsert }) => {
     const [values, setContent] = useState({ // 댓글 입력용
       description: ''
     })
-    const [ datacomment, setDatacomment ] = useState({
-      description: '',
-      user_id: '',
-      post_id: '',
-      commented_date: '',
-      comment_id: '',
-      created_at: '',
-      updated_at: '',
-      deleted_at: ''
-    });//댓글데이터
+    const [ datacomment, setDatacomment ] = useState({});//댓글데이터
 
     const dispatch = useDispatch();
     const no = useParams().post_id; // post id로 글 내용 찾기
@@ -45,10 +36,12 @@ const PostPage = ({ onInsert }) => {
     }
    },[])
 
-   console.log(datacomment)
-   let commentArr = Array.from(datacomment);
-   console.log(commentArr)
    
+
+   let commentArr = Array.from(datacomment);
+   let date = ""+data.posted_date; // 강제로 string 만들기
+   let title = ""+data.title;
+
     return (
       <>
 
@@ -58,15 +51,10 @@ const PostPage = ({ onInsert }) => {
               <>
               
                 <div className="post-view-title">
-                  <label>번호 { data.post_id }  </label><label>{ data.title }</label>
+                  <label>({ data.post_id }) 제목 -   </label><label>{title.substring(0,title.length-2) }</label> 
                 </div>
                 <div className="post-view-row">
-                  <label>작성일</label>
-                  <label>{ data.posted_date}</label>
-                </div>
-                <div className="post-view-row">
-                  <label>조회수</label>
-                  <label></label>
+                <label>[작성자 - {data.name}] </label> <label>[작성일 - {date.substr(0,10)}]</label> <label>[언어 - {data.language}]</label>
                 </div>
                 <div className="post-decription"> 
                   <div dangerouslySetInnerHTML={ {__html: data.description}}>
@@ -115,7 +103,7 @@ const PostPage = ({ onInsert }) => {
 
         
         {commentArr.map((element) =>
-                  <label dangerouslySetInnerHTML={ {__html: element.description}}>{}</label>
+                  <label className='comment' dangerouslySetInnerHTML={ {__html: element.description}}>{}</label>
           )
         }
 
