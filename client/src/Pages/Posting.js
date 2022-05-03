@@ -26,7 +26,8 @@ function Posting() { //임시로 null\
 
   const [values, setContent] = useState({
     title: '' ,
-    description: ''
+    description: '',
+    language:'All'
   })
     
       const getValue = e => { // 입력물 확인
@@ -38,6 +39,16 @@ function Posting() { //임시로 null\
       };
     
       const classes = useStyles();
+
+      const Options =[
+        {key:"All", value:"All"},
+        {key:"C", value:"C"},
+        {key:"js", value:"js"},
+        {key:"Python", value:"Python"},
+        {key:"C++", value:"C++"},
+        {key:"JAVA", value:"JAVA"}
+      ]
+
       return (
 
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
@@ -53,6 +64,13 @@ function Posting() { //임시로 null\
             onChange={getValue}
             name='title'
           />
+
+	<select className='language-input' onChange={getValue} value={values.language} name='language'>
+		{Options.map((item, index)=>(
+			<option key={item.key} value={item.key}>{item.value}</option>
+		))}
+    </select>
+
           <CKEditor  //CKEditor 내용작성
           className='editor'
             editor={ClassicEditor}
@@ -73,14 +91,18 @@ function Posting() { //임시로 null\
               console.log('Focus.', editor);
             }}
           />
+          
         </div>
         
         <button className="submit-button" onClick={() =>{ // 입력!
+        console.log(values)
                           setTimeout(() => {
                             let data = {
-                              title: values.title,
+                              title: values.title+'V0',
                               description: values.description,
+                              language: values.language
                             }
+                            console.log(data)
                             dispatch(UserPosting(data))
                             .then(res=>{
                               if(res.payload.success){

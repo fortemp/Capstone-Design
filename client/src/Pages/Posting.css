@@ -1,7 +1,12 @@
 .title-input{
-    width: 913px;
+    width: 850px;
     height: 50px;
     font-size: 25px;
+}
+.language-input{
+    width: 70px;
+    height: 55px;
+    font-size: 15px;
 }
 
 .ck.ck-editor__editable{height: 500px;
