@@ -47,7 +47,7 @@ module.exports = (server,app,sessionMid)=>{
         let myName;
         if(socket.request.session.passport != null){//로그인 했다면
             socket.who = socket.request.user
-            myName = socket.who.name;
+        //    myName = socket.who.name;                          <-----------------------------이거 주석 지우면 안돌아감 
             //who에 user객체 저장되어 있음
         }
         //방들어가는 함수
@@ -77,7 +77,7 @@ module.exports = (server,app,sessionMid)=>{
                     await Room.increment({people:-1},{where:{room_id:socket.room}});
                 }
                 socket.leave(socket.room);
-            }
+            } 
             
             roomPassFlag = await Room.findOne({where:{room_id:room_id}})
             .then(async room=>{

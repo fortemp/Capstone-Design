@@ -14,9 +14,7 @@ function MainSection(props) {
     const [login, setlogin] = useState("false");
     const isAuth = useSelector(state => state.authReducer.authData.auth); // 사용자 정보 객체
     const playername = useSelector(state => state.authReducer.authData.user.name);
-    const playerpoint = useSelector(state => state.authReducer.authData.user.point) + 'pt';
-    const playerelo = useSelector(state => state.authReducer.authData.user.elo);
-    const playeravartar = useSelector(state => state.authReducer.authData.user.img_url);
+
 
 
     //여기에 로그인이 성공하면 login을 true로 바꿔주는 코드가 필요함 roomsection 처럼하면 될듯?
@@ -81,7 +79,7 @@ function MainSection(props) {
                                             <Link to="/signup" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>회원이 아니신가요?</Link></TableCell>
                                     </TableRow>
 
-                                </Table>
+                                </Table> 
                             </TableContainer>
                         </div>
                     </> :

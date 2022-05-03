@@ -64,8 +64,9 @@
     width: auto;
   }
 
-  .ck.ck-editor{
-    max-width: 700px;
+  .post-view-wrapper   .ck.ck-editor{
+    max-width: 60%;
+ 
   }
   .ck-editor__editable_inline {
     max-height: 30px;

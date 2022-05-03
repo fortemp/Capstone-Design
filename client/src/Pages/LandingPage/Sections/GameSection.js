@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Box from '@material-ui/core/Box'
 import './GameSection.css'
 import {useDispatch,useSelector} from 'react-redux';
+
+
 function GameSection(props) {
 
   const playername= useSelector(state=>state.authReducer.authData.user.name);
@@ -11,12 +13,11 @@ function GameSection(props) {
     props.onChangeReady('false');
     setcodeInput(" ");
   }, []);
-  useEffect(() => {
 
-    setcodeInput(" ");
-  }, []);
 
   const [codeInput, setcodeInput] = useState("");
+
+
 
   const codeInputTabHandler = (event) => {
     if (event.key === "Tab") {
@@ -37,10 +38,11 @@ function GameSection(props) {
       {props.start == "false" ?                           //랜딩페이지에서 받아오는 usestate 시작, 게임세팅섹션에서도 이용해야해서 랜딩페이지로부터 호출
         <>
           <div className='gameroom_title'>
-            <h3>NO.{"방제목 들어감"}</h3>
+            <h3>방제목</h3>
           </div>
           <div className='lating_room'>
 
+{}
             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
@@ -68,9 +70,10 @@ function GameSection(props) {
                 </div>
                 <div className="player_infodiv">
                   <span className='playername'>플레이어2</span>
+                  
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 2강퇴"); }}>
-                      <img className="exit_img" src="img/delete_47751.png"></img>
+                       <img className="exit_img" src="img/delete_47751.png"></img>
                       <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
@@ -86,10 +89,10 @@ function GameSection(props) {
                     <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  <span className='playername'>플레이어3</span>
+                  <span className='playername'>플레이어3</span>             
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 3강퇴"); }}>
-                      <img className="exit_img" src="img/delete_47751.png"></img>
+                     <img className="exit_img" src="img/delete_47751.png"></img>
                       <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
@@ -105,7 +108,7 @@ function GameSection(props) {
                     <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  <span className='playername'>플레이어4</span>
+                  <span className='playername'>플레이어4</span>               
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 4강퇴"); }}>
                       <img className="exit_img" src="img/delete_47751.png"></img>
@@ -124,10 +127,10 @@ function GameSection(props) {
                     <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  <span className='playername'>플레이어5</span>
+                  <span className='playername'>플레이어2</span>                 
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 5강퇴"); }}>
-                      <img className="exit_img" src="img/delete_47751.png"></img>
+                    <img className="exit_img" src="img/delete_47751.png"></img>
                       <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
@@ -136,14 +139,14 @@ function GameSection(props) {
               <div className="playerimg"><img src="img/ch5.png"></img></div>
             </div>
 
-            <div className='player'>
+             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
                   {props.ready == "false" ?
                     <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  <span className='playername'>플레이어6</span>
+                  <span className='playername'>플레이어6</span>      
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 6강퇴"); }}>
                       <img className="exit_img" src="img/delete_47751.png"></img>
@@ -165,7 +168,7 @@ function GameSection(props) {
                   <span className='playername'>플레이어7</span>
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 7강퇴"); }}>
-                      <img className="exit_img" src="img/delete_47751.png"></img>
+                     <img className="exit_img" src="img/delete_47751.png"></img>
                       <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>
                     </button>
                   </div>
@@ -181,7 +184,7 @@ function GameSection(props) {
                     <img></img> : <img src="img/ready.png"></img>}
                 </div>
                 <div className="player_infodiv">
-                  <span className='playername'>플레이어8</span>
+                  <span className='playername'>플레이어8</span>       
                   <div className='exit'>
                     <button className='exit_btn' onClick={function (e) { e.preventDefault(); alert("플레이어 8강퇴"); }}>
                       <img className="exit_img" src="img/delete_47751.png"></img>
@@ -191,6 +194,7 @@ function GameSection(props) {
                 </div>
               </div>
               <div className="playerimg"><img src="img/ch8.png"></img></div>
+
             </div>
           </div>
         </> : // 게임 시작하면 화면이 아래와 같이 바뀜

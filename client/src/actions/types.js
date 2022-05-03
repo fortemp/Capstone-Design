@@ -9,7 +9,7 @@ export const BUY_IMG = "BUY_IMG";
 export const Change_Img = "Change_Img";
 export const GET_RANKING = "GET_RANKING";
 //ROOM
-export const ROOM_GET = "ROOM_GET"
+export const ROOM_GET = "ROOM_GET" 
 export const ROOM_JOIN = "ROOM_JOIN";
 export const ROOM_LEAVE = "ROOM_LEAVE";
 //CHAT

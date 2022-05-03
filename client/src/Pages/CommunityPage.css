@@ -69,8 +69,14 @@
     background: rgb(109, 57, 41);
     text-align: center;
   }
-
-  .button{
+.backbutton{
+  background: #eee; 
+    width: 30%;
+    height: 50px;
+    font-size: large;
+    float: left;
+}
+  .postbutton{
 
     background: #eee;
     width: 30%;
