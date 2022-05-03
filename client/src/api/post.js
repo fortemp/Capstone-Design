@@ -11,6 +11,11 @@ export async function getpost(){
     return res;
 }
 
+export async function viewUpdata(data){
+    const res = await api.post('/post/viewUpdata', data);
+    return res;
+}
+
 export async function setcomment(data){
     const res = await api.post('/post/setcomment',data)
     return res;

@@ -52,6 +52,16 @@
 
   }
 
+  .posttable .tddate {
+    width: 100px;
+    padding: 10px;
+    vertical-align: top;
+    background: #eee;
+    font:bold;
+    text-align: center;
+
+  }
+
   .tdid{
     width: 50px;
     padding: 10px;
