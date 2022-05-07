@@ -5,10 +5,9 @@
     border: 2px solid;
     overflow-y: auto;
     display:fixed;
-  
-    
-    
-
+}
+#Chatting::-webkit-scrollbar { /*스크롤바 안보이지 않게끔*/
+    display: none; 
 }
 
 .Submit{

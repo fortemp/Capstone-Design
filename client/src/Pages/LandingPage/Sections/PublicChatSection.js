@@ -5,7 +5,7 @@ import {SocketContext} from '../../../api/socket'
 
 
 
-function ChatSection(props) {
+function PublicChatSection(props) {
 
   const [chatList, setChatList] = useState([]);
   const [text, setText] = useState('');
@@ -16,14 +16,9 @@ function ChatSection(props) {
 
   useEffect(()=>{
     //.off써주는거 중요함
-  roomSocket.off('roomMessage').on('roomMessage',(data)=>{//방에서 채팅
+  publicSocket.off("publicMessage").on('publicMessage',(data)=>{//로비에서 채팅
     receiveChatHandler(data);
-  })
-  roomSocket.off('roomJoinedC').on('roomJoinedC',(data)=>{//누군가 방에 들어왔을때
-    receiveChatHandler(data);
-  })
-  roomSocket.off('roomLeavedC').on('roomLeavedC',(data)=>{//누군가 방에서 나갔을때
-    receiveChatHandler(data);
+    scrollToBottom();
   })
   
   },[socket])
@@ -44,7 +39,7 @@ function ChatSection(props) {
 
   const submitChat = () => { // 입력포트값으로 정보 전달(버튼 눌렀을 때)
     if(text){
-      roomSocket.emit('sendChat',text);
+      publicSocket.emit('sendChat',text);
       setText('');
     }
   }
@@ -63,10 +58,6 @@ function ChatSection(props) {
   const scrollToBottom = () => {         //스크롤 하단으로 옮기기 위한 함수
     messageRef.current?.scrollIntoView({ behavior: "smooth" })
   }
-
-  setTimeout(() => {                 //1초뒤 자동으로 스크롤 하강
-    //scrollToBottom();
-  }, 1000);
 
   const everyChatList = chatList.map((chat,index) =>{
 
@@ -91,4 +82,4 @@ function ChatSection(props) {
 
 }
 
-export default ChatSection
+export default PublicChatSection
