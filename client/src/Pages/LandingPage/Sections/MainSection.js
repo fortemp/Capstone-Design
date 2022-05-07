@@ -20,7 +20,6 @@ function MainSection(props) {
     //여기에 로그인이 성공하면 login을 true로 바꿔주는 코드가 필요함 roomsection 처럼하면 될듯?
 
 
-    const no = useParams().name;
     useEffect(() => {          //로그인 확인 코드
         if (isAuth == true) {                         
             setlogin("true"); 
