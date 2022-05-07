@@ -10,3 +10,8 @@ export async function createRoom(data){
     const res = await api.post('/room/createroom',data);
     return res;
 }
+
+export async function getround(){
+    const res = await api.get('/room/getround');
+    return res;
+}
