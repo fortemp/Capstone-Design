@@ -3,7 +3,6 @@ import Box from '@material-ui/core/Box'
 import './GameSection.css'
 import {useDispatch,useSelector} from 'react-redux';
 
-
 function GameSection(props) {
 
   const playername= useSelector(state=>state.authReducer.authData.user.name);
@@ -41,8 +40,6 @@ function GameSection(props) {
             <h3>방제목</h3>
           </div>
           <div className='lating_room'>
-
-{}
             <div className='player'>
               <div className='player_name'>
                 <div className='readydiv'>
