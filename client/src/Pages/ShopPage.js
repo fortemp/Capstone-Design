@@ -5,6 +5,7 @@ import { Container } from '@material-ui/core';
 import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from 'react-redux';
+import {Link} from 'react-router-dom';
 import "./Shoppage.css"
 import Button from '@mui/material/Button';
 import Axios from 'axios';
@@ -12,7 +13,8 @@ import Axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   container: {
     background: "white",
-    height: "1200px"
+    height: "150vh",
+    marginBottom: "30px"
   },
 }));
 
@@ -86,6 +88,11 @@ function ShopPage(props) {
     <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
       <Container fixed maxWidth="md" className={classes.container}>
         <Grid container spacing={3}>
+         <div className='shoptop'>
+        <Link to='/'> 
+          <button className="backbtn"> 뒤로가기 </button>
+          </Link>
+          </div>
           {rows.map((row) => (
             <Grid item xs={12} md={3}>
               <Box style={props.style} className="shopbox" >
@@ -100,6 +107,7 @@ function ShopPage(props) {
               </Box>
             </Grid>
           ))}
+
         </Grid>
       </Container>
     </SocketContext.Provider>
