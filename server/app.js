@@ -35,7 +35,7 @@ const sessionMid = expressSession({
     host:'localhost',
     port: "3306",
     user: "root",
-    password:"1234",
+    password: process.env.MYSQLPASSWORD,
     database: 'capstone'//db이름은 임시로 capstone으로 해놓았습니다. 변경하셔도 무관.
   })
 })
