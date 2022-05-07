@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import './RankingSection.css'
-import Axios from 'axios';
+import {getranking} from '../../../api/auth'
 
 
 
@@ -17,12 +17,11 @@ import Axios from 'axios';
 function RankingSection(props) {
   const [user, setuser]= useState([]);
   useEffect(()=>{
-    Axios.get('/api/auth/getranking'           //일단 이렇게 하면 유저 정보 가져오긴 함
-).then((response)=>{
-         setuser(response.data);    
-       
-   })
-  })
+    getranking()
+    .then(res=>
+      setuser(res.data)
+    )
+  },[])
   return (
     <Box className='Over' style={props.style} bgcolor={"#888888"} p={2} >
           <TableContainer>
