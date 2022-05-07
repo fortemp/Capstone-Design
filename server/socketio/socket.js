@@ -87,7 +87,7 @@ module.exports = (server,app,sessionMid)=>{
                         return false
                     }
                 }
-                if(room.maxpeople < room.people+1){//방이 꽉차면
+                if(room.max_people < room.people+1){//방이 꽉차면
                     socket.emit("roomError",{message:"방이 가득찼습니다."})
                     return false
                 }
