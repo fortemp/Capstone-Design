@@ -51,7 +51,7 @@ const PostPage = ({ onInsert }) => {
               <>
               
                 <div className="post-view-title">
-                  <label>({ data.post_id }) 제목 -   </label><label>{title.substring(0,title.length-2) }</label> 
+                  <label>({ data.post_id }) 제목 -   </label><label>{title.split('V',1) }</label> 
                 </div>
                 <div className="post-view-row">
                 <label>[작성자 - {data.name}] </label> <label>[작성일 - {date.substr(0,10)}]</label> <label>[언어 - {data.language}]</label>

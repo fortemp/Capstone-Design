@@ -79,9 +79,10 @@ function CommunityPage() { //임시로 null\
   postArr  = Array.from(inputData);
 
   const changeText = (data1, data2) => {
-    const view = parseInt(data1.slice(-1))+1
+    const [a, view] = data1.split('V', 2);
+    const b = parseInt(view)+1
     let data = {
-      title:data1.substring(0, data1.length-2)+'V'+String(view),
+      title:data1.split('V',1)+'V'+String(b),
       post_id:data2
     }
     console.log(data)
@@ -104,13 +105,12 @@ function CommunityPage() { //임시로 null\
 {postArr.map(element =>
       <tbody >
         <tr>
-
         <td className="tdid">{element.post_id}</td>
-        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} onClick={changeText( element.title, element.post_id)} >{element.title.substring(0, element.title.length-2) } 
+        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} onClick={changeText( element.title, element.post_id)} >{element.title.split('V',1) } 
         </Link></td>
         <td className="tddate" >{element.posted_date.substr(0,10)}</td>
         <td className="td" >{element.name}</td>
-        <td className="td" >{parseInt(element.title.slice(-1))}</td>
+        <td className="td" >{parseInt(element.title.split('V',2)[1])}</td>
         </tr>
       </tbody>
         )}
