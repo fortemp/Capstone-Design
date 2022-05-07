@@ -1,6 +1,6 @@
                                                                             //메인 화면
 import React, { useEffect, useState } from 'react'
-import ChatSection from './Sections/ChatSection'
+import PublicChatSection from './Sections/PublicChatSection'
 import GameSection from './Sections/GameSection'
 import RoomSection from './Sections/RoomsSection'
 import RankingSection from './Sections/RankingSection'
@@ -14,7 +14,8 @@ import {GetName} from '../../actions/index'
 function LandingPage() {
     const RankingStyle = { height: '740px' }
     const roomStyle = { height: '200px' }
-    const chatStyle = { height: '532px' }
+    const chatStyle = { height: '532px',maxWidth:'500px'}
+    //chatStyle:채팅이 길어지면 roomsection을 포함한 3번째 그리드의 width가 늘어나버림, 따라서 한계치를 정했습니다.
     const gameStyle = { height: '740px' }
 
     const [mode, setmode] = useState("normal");
@@ -57,7 +58,7 @@ function LandingPage() {
                                 </Grid>
 
                                 <Grid item>
-                                    <ChatSection style={chatStyle} />
+                                    <PublicChatSection style={chatStyle} />
                                 </Grid>
 
                             </Grid>
