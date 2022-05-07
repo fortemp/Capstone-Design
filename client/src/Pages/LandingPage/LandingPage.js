@@ -11,10 +11,12 @@ import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
 import  Axios  from 'axios';
 import {GetName} from '../../actions/index'
+
+import {host} from'../HostRoomPage'
 function LandingPage() {
     const RankingStyle = { height: '740px' }
-    const roomStyle = { height: '200px' }
-    const chatStyle = { height: '532px',maxWidth:'500px'}
+    const roomStyle = { height: '250px' }
+    const chatStyle = { height: '482px',maxWidth:'500px'}
     //chatStyle:채팅이 길어지면 roomsection을 포함한 3번째 그리드의 width가 늘어나버림, 따라서 한계치를 정했습니다.
     const gameStyle = { height: '740px' }
 
@@ -29,18 +31,17 @@ function LandingPage() {
       };
       const onstart = (e) => {
         setstart("true");
-      };
+      }; 
 
       useEffect(()=>{
         setready('false'); 
         setstart('false');
        },[]);
 
- 
     return (
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
             <Grid container spacing={1}>
-                {mode=='normal'?
+            {mode=='normal'?
                 <>
                     <Grid item xs={12} md={3}>
                         <RankingSection style={RankingStyle} />
@@ -64,14 +65,14 @@ function LandingPage() {
                             </Grid>
 
                         </Grid>
-                </>:                  
+                        </>:                  
                                                     //모드가 test로 변경되면 발생하는 컴포넌트들
                 <>
                     <Grid item xs={12} md={9}>
                         <GameSection style={gameStyle} ready={ready} onChangeReady={function (_ready) { setready(_ready) }.bind(this)}
                          start={start} onChangeStart={function (_start) { setstart(_start) }.bind(this)}/>
                     </Grid>
-                    
+
                     <Grid item xs={12} md={3}>
 
                         <Grid container spacing={1} direction="column" padding={"0 0 0 0"}>

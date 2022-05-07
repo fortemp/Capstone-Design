@@ -30,7 +30,14 @@ export async function getuser() {
     const res = await api.get('/auth/getuser');
   return res;
 }
-//
+export async function gettitle() {
+    const res = await api.get('/auth/gettitle');
+  return res;
+}
+export async function getrecentpost() {
+    const res = await api.get('/auth/getrecentpost');
+    return res;
+} 
 export async function buyimg() {
     const res = await api.get('/auth/buyimg');
     return res;

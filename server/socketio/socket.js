@@ -57,7 +57,7 @@ module.exports = (server,app,sessionMid)=>{
         let myName;
         if(socket.request.session.passport != null){//로그인 했다면
             socket.who = socket.request.user
-            myName = socket.who.name;
+        //    myName = socket.who.name;                          <-----------------------------이거 주석 지우면 안돌아감 
             //who에 user객체 저장되어 있음
         }
         //방들어가는 함수
@@ -137,7 +137,7 @@ module.exports = (server,app,sessionMid)=>{
                 //나를 포함한 방에있는 사람들의 정보를 보낸다.
                 socket.broadcast.to(socket.room).emit("roomPlayers",roomAdapter);
                 socket.emit("roomPlayers",roomAdapter);
-                
+
                 socket.emit("roomJoinedR",{message:`${title} 방에 입장했습니다. `,room:{roomId:socket.room,roomName:title}})//사용자에게 방에 입장했음을 알림
                 socket.broadcast.to(socket.room).emit("refreshR");//방에오면 방목록을 새로고침하라고 방에 있는 인원에게 알림
                 socket.broadcast.to(socket.room).emit("roomJoinedC",{message:`${myName}님이 ${title} 방에 입장했습니다. `,fromWhom:'announce',name:'announce',room:{roomId:socket.room,roomName:title}})

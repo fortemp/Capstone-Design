@@ -6,7 +6,6 @@ const passport = require('passport');
 const Crypto = require('crypto');
 const db = require('../config/db')
 
-
 //게시물 입력
 router.post('/postings',async (req,res)=>{
     console.log(req.body);
@@ -15,6 +14,7 @@ router.post('/postings',async (req,res)=>{
     {
         title:req.body.title,
         description:req.body.description,
+        language:req.body.language,
     };
     try{
         let user = null;
@@ -36,12 +36,20 @@ router.post('/postings',async (req,res)=>{
 
 //게시물 가져오기
 router.get('/getpost',async (req, res)=>{
-    const sql = 'select* from postings;';
+    const sql = 'select description, post_id, title, language, posted_date, p.created_at, p.deleted_at, p.updated_at, p.user_id, name from postings as p inner join users;';
     db.query(sql, (err, data) => {
      res.send(data);
     })
 })
 
+//조회수 변경
+router.post('/viewUpdata',async (req, res)=>{
+    Posting.update({ title : req.body.title }, {
+        where : { post_id : req.body.post_id }
+    })
+    .then( result => { res.send(result) })
+    .catch( err => { throw err })
+})
 
 //댓글 가져오기
 router.get('/getcomment',async (req, res)=>{
@@ -68,7 +76,7 @@ router.post('/setcomment',async (req, res)=>{
         const user1_id= user1.ID; // 유저아이디를 로그인 아이디로 변경해야함 수정해야함
         object.comment_id=result1.length+1;
         object.user_id=user1_id;
-        object.commented_date=new Date(); 
+        object.commented_date=new Date();
         console.log(object);
         await Comment.create(object);
         return res.status(200).json({success:true})

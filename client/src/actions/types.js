@@ -9,9 +9,10 @@ export const BUY_IMG = "BUY_IMG";
 export const Change_Img = "Change_Img";
 export const GET_RANKING = "GET_RANKING";
 //ROOM
-export const ROOM_GET = "ROOM_GET"
+export const ROOM_GET = "ROOM_GET" 
 export const ROOM_JOIN = "ROOM_JOIN";
 export const ROOM_LEAVE = "ROOM_LEAVE";
+export const GET_ROUND = "GET_ROUND";
 //CHAT
 export const CHAT_SEND = "CHAT_SEND";
 export const CHAT_RECEIVE = "CHAT_RECEIVE"
@@ -20,6 +21,7 @@ export const CHAT_RECEIVE = "CHAT_RECEIVE"
 //POST
 export const POST_POSTING = "POST_POSTING";
 export const POST_GETPOST = "POST_GETPOST";
+export const POST_VIEW = "POST_VIEW";
 //COMMENT
 export const COMMENT_SETCOMMENT = "COMMENT_SETCOMMENT";
 export const COMMENT_GETCOMMENT = "COMMENT_GETCOMMENT";

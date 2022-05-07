@@ -59,7 +59,7 @@ function MainSection(props) {
                                             <Link to="/signup" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>회원이 아니신가요?</Link></TableCell>
                                     </TableRow>
 
-                                </Table>
+                                </Table> 
                             </TableContainer>
                         </div>
                     </> :
@@ -105,7 +105,7 @@ function MainSection(props) {
                 <h1>&nbsp;&nbsp; 최신글</h1>
                 <ul>
                 {post.map((row) => (
-                    <li><Link to={`/PostPage/${row.post_id}`} style={{ textDecoration: 'none', color: 'black' }}>{row.title}</Link></li>
+                    <li><Link to={`/PostPage/${row.post_id}`} style={{ textDecoration: 'none', color: 'black' }}>{row.title.split('V',1)}</Link></li>
                     ))}
                 </ul>
             </div> :

@@ -35,7 +35,7 @@ function RoomsSection(props) {
       password = prompt("비밀번호를 입력해주세요");
       if(password===null || password===undefined || password==="")
         return;
-    }
+    } 
     setRequesting(true);//소켓요청
     roomSocket.emit('joinRoom',room_id,title,password);
   }

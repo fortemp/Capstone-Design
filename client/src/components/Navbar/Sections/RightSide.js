@@ -49,24 +49,20 @@ function RightSide() {
                         </textarea>
                     </div>
                     <div className='Info2'>
-                        <Button color="inherit">
-                            <a href="/community">
+                        <Button color="inherit"  onClick={function(){alert("로그인 후 이용해주세요")}}>
                                 <BorderColorIcon
                                     sx={{
                                         color: "#333333"
                                     }} />
-                                <span style={fontStyle}>COMMUNITY</span>
-                            </a>
+                                <span style={fontStyle}>COMMUNITY</span>                    
                         </Button>
 
-                        <Button color="inherit">
-                            <a href="/shop">
+                        <Button color="inherit" onClick={function(){alert("로그인 후 이용해주세요")}}>
                                 <BorderColorIcon
                                     sx={{
                                         color: "#333333"
                                     }} />
                                 <span style={fontStyle}>SHOP</span>
-                            </a>
 
                         </Button>
                         <Button color="inherit">
@@ -75,7 +71,7 @@ function RightSide() {
                                     sx={{
                                         color: "#333333"
                                     }} />
-                                <span style={fontStyle}>register</span>
+                                <span style={fontStyle}>signup</span>
                             </a>
                         </Button>
 

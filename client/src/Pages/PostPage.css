@@ -1,5 +1,5 @@
 .post-view-wrapper {
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     background-color: aliceblue;
   }
@@ -22,42 +22,63 @@
     width: 30%;
     font-weight: bold;
   }
-  
+
   .post-view-row > *:nth-child(2) {
     margin: 10px 0;
     padding: 5px;
-    width: 70%;
+    width: 30%;
+    font-weight: bold;
+  }
+
+  .post-view-row > *:nth-child(3) {
+    margin: 10px 0;
+    padding: 5px;
+    width: 30%;
+    font-weight: bold;
   }
 
 .post-view-title{
   margin: 10px 0;
   padding: 5px;
+  text-align: left;
 }
 
 .post-view-title > label:first-child {
   margin: 10px 0;
-  width: 30%;
+  width: 20%;
   padding: 5px;
   font-weight: bold;
 }
 
 .post-view-title > *:nth-child(2) {
   margin: 10px 0;
-  width: 70%;
-  padding: 5px;
+  width: 40%;
+  padding: 10px;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
 }
 
   .post-decription{
     margin: 10px 0;
-    padding: 5px;
+    padding: 10px;
     width: auto;
   }
 
-  .ck.ck-editor{
-    max-width: 700px;
+  .post-view-wrapper   .ck.ck-editor{
+    max-width: 60%;
+ 
   }
   .ck-editor__editable_inline {
-    max-height: 30px;
+    max-height: 45x;
+}
+
+.comment{
+  text-decoration: underline;
+}
+.submit-button{
+  float:left;
+}
+.commentdiv{
+  width: auto;
+  padding-top: 100px;
 }

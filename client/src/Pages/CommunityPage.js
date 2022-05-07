@@ -59,16 +59,36 @@ import parse from 'html-react-parser'
 import './CommunityPage.css'
 import {GetPost} from "../actions/index";
 import {useDispatch} from 'react-redux'
+import {ViewUpdata} from '../actions/index';
 
 function CommunityPage() { //임시로 null\
   
-  const [inputData, setInputData] = useState([])
+  const dispatch = useDispatch();
 
+  const [inputData, setInputData] = useState({})
+
+  let postArr  =null
   useEffect(async() => {
     await Axios.get('/api/post/getpost').then((response)=>{
-      setInputData(response.data);
+      setInputData(response.data); 
+      
     })
   },[])
+
+  console.log(inputData)
+  postArr  = Array.from(inputData);
+
+  const changeText = (data1, data2) => {
+    const [a, view] = data1.split('V', 2);
+    const b = parseInt(view)+1
+    let data = {
+      title:data1.split('V',1)+'V'+String(b),
+      post_id:data2
+    }
+    console.log(data)
+    dispatch(ViewUpdata(data))
+  };
+
 
   return(
     <div>
@@ -80,23 +100,27 @@ function CommunityPage() { //임시로 null\
           <th className="th">시간</th>
           <th className="th">작성자</th>
           <th className="th">조회수</th>
-        </tr>
+        </tr>  
       </thead>
-{inputData.map(element =>
+{postArr.map(element =>
       <tbody >
         <tr>
         <td className="tdid">{element.post_id}</td>
-        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} >{element.title }</Link></td>
-        <td className="td" ></td>
-        <td className="td" ></td>
-        <td className="td" ></td>
+        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} onClick={changeText( element.title, element.post_id)} >{element.title.split('V',1) } 
+        </Link></td>
+        <td className="tddate" >{element.posted_date.substr(0,10)}</td>
+        <td className="td" >{element.name}</td>
+        <td className="td" >{parseInt(element.title.split('V',2)[1])}</td>
         </tr>
       </tbody>
         )}
         <tfoot>
           <td ColSpan="5">
+          <Link to='/'> 
+          <button className="backbutton"> 뒤로가기 </button>
+          </Link>
         <Link to='/Posting'> 
-        <button className="button"> 글작성 </button>
+        <button className="postbutton"> 글작성 </button>
       </Link>
       </td>
         </tfoot>

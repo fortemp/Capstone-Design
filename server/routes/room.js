@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Room = require('../models/Room')
+const db = require('../config/db')
+
 
 //방들 가져오기
 router.get('/getrooms',async (req,res)=>{
@@ -40,5 +42,13 @@ router.post('/createroom',async (req,res)=>{
     }
     return res.status(200).json({success:true})
    
+})
+
+router.get('/getround',async(req,res)=>{
+    const title = req.query.title;
+    const sql= 'select * from rooms where title=?';
+    db.query(sql,[title], (err,data)=>{
+        res.send(data[0]);
+    })
 })
 module.exports = router;

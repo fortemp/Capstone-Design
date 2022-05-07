@@ -1,5 +1,5 @@
 
-import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,GET_RECENT_POST,GET_RANKING,BUY_IMG,Change_Img,POST_POSTING,POST_GETPOST,COMMENT_SETCOMMENT,COMMENT_GETCOMMENT} from "./types";
+import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,GET_RECENT_POST,GET_RANKING,BUY_IMG,Change_Img,POST_POSTING,POST_GETPOST,POST_VIEW,COMMENT_SETCOMMENT,COMMENT_GETCOMMENT,GET_ROUND} from "./types";
 import { ROOM_GET,ROOM_JOIN,ROOM_OUT } from "./types";
 import * as authApi from '../api/auth'
 import * as roomApi from '../api/room'
@@ -38,7 +38,7 @@ export async function logoutUser(){
     return {
         type:AUTH_LOGOUT,
         payload:req
-    }
+    } 
 }
 export async function GetUser(){
     const req = await authApi.getuser().then(res=>res.data);
@@ -104,6 +104,15 @@ export async function GetPost(){
     }
 }
 
+export async function ViewUpdata(data){
+    const req = await postApi.viewUpdata(data)
+    .then(res=>res.data);
+    return {
+        type:POST_VIEW,
+        payload:req
+    }
+}
+
 export async function SetComment(data){
     const req = await postApi.setcomment(data)
     .then(res=>res.data);
@@ -118,6 +127,14 @@ export async function GetComment(){
     .then(res=>res.data);
     return {
         type:COMMENT_GETCOMMENT,
+        payload:req
+    }
+}
+export async function GetRound(){
+    const req = await roomApi.getround()
+    .then(res=>res.data);
+    return {
+        type:GET_ROUND,
         payload:req
     }
 }

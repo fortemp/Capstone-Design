@@ -10,7 +10,12 @@ export async function getpost(){
     const res = await api.get('/post/getpost');
     return res;
 }
-//질문 투고하기
+
+export async function viewUpdata(data){
+    const res = await api.post('/post/viewUpdata', data);
+    return res;
+}
+
 export async function setcomment(data){
     const res = await api.post('/post/setcomment',data)
     return res;

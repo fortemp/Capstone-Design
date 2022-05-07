@@ -15,7 +15,7 @@ import {getranking} from '../../../api/auth'
   
   
 function RankingSection(props) {
-  const [user, setuser]= useState([]);
+  const [user, setuser]= useState([]); 
   useEffect(()=>{
     getranking()
     .then(res=>

@@ -52,6 +52,16 @@
 
   }
 
+  .posttable .tddate {
+    width: 100px;
+    padding: 10px;
+    vertical-align: top;
+    background: #eee;
+    font:bold;
+    text-align: center;
+
+  }
+
   .tdid{
     width: 50px;
     padding: 10px;
@@ -59,8 +69,14 @@
     background: rgb(109, 57, 41);
     text-align: center;
   }
-
-  .button{
+.backbutton{
+  background: #eee; 
+    width: 30%;
+    height: 50px;
+    font-size: large;
+    float: left;
+}
+  .postbutton{
 
     background: #eee;
     width: 30%;
@@ -70,5 +86,3 @@
   }
 
   a:link{color: #000;}
-
-  a:visited { color:rgb(185, 127, 219); }

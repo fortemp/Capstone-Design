@@ -26,3 +26,14 @@
     font-family: initial;
     padding-left: 10px;
 }
+.backbtn{
+    background: #eee; 
+    width: 10vh;
+    height: 50px;
+    font-size: large;
+    float:right;
+}
+.shoptop{
+    width: 100%;
+    padding:20px 0px;
+}
