@@ -7,61 +7,39 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRoom } from '../../../actions';
-import Axios from 'axios';
+import {getrecentpost} from '../../../api/post'
+
 function MainSection(props) {
-    const dispatch = useDispatch();
-    const [login, setlogin] = useState("false");
-    const isAuth = useSelector(state => state.authReducer.authData.auth); // 사용자 정보 객체
-    const playername = useSelector(state => state.authReducer.authData.user.name);
-    const playerpoint = useSelector(state => state.authReducer.authData.user.point) + 'pt';
-    const playerelo = useSelector(state => state.authReducer.authData.user.elo);
-    const playeravartar = useSelector(state => state.authReducer.authData.user.img_url);
 
+    const isAuth = useSelector(state => state.authReducer.authData.auth); //인증여부
+    const playerObj = useSelector(state => state.authReducer.authData.user);//사용자 정부객체
+    const [isloadingU, setIsloadingU] = useState(true);//유저로딩중
+    const [isloadingP, setIsloadingP] = useState(true);//게시글로딩중
 
-    //여기에 로그인이 성공하면 login을 true로 바꿔주는 코드가 필요함 roomsection 처럼하면 될듯?
+    useEffect(() => {
+        getrecentpost().
+        then(res=>{
+            setpost(res.data);
+            setIsloadingP(false);
+        })
+    },[isloadingP])//recentpost는 한번가져옵니다.
 
+    useEffect(() => {
+        setdata(playerObj)
+        setIsloadingU(false);
+    },[playerObj,isAuth])//useSelector가 값을 가져오면 이를 인식해서 재렌더링 합니다.
 
-    const no = useParams().name;
-    useEffect(() => {          //로그인 확인 코드
-        if (isAuth == true) {                         
-            setlogin("true"); 
-               Axios.get('/api/auth/getuser',{              //일단 이렇게 하면 유저 정보 가져오긴 함
-                   params: { 
-                     'user': playername,
-                   }
-                 }).then((response)=>{
-                      setdata(response.data);    
-                    
-                })
-                Axios.get('/api/auth/getrecentpost',             //최근 게시글 불러오기
-                ).then((response)=>{
-                       setpost(response.data);    
-                     
-                 })
-        }
-    })
-    const [data, setdata] = useState([]);
+    const [data, setdata] = useState({img_url:"불러오는중...",name:"불러오는중...",point:"불러오는중...",elo:"불러오는중..."});
     const [post, setpost] = useState([]);
-    /*
-      useEffect(async()=>{   
-       Axios.get('/api/auth/getuser',{
-        params: { 
-          'user': playername,
-        }
-      }).then((response)=>{
-           setdata(response.data);    
-           console.log(response.data);
-         
-     })
-       },[])
-    
-*/
+
     return (
         <Box style={props.style} bgcolor={"#888888"} color={"#222222"} p={2}>
 
             <div className='User_Info_div'>
-                {login == 'false' ?
+
+
+
+                {isAuth === false ?
                     <>
                         <div className='User_Avatar'>
                             <img className="phoneImage" alt="img/ch1.png" src="img/ch1.png" />
@@ -119,10 +97,10 @@ function MainSection(props) {
                             </TableContainer>
                         </div>
                     </>
-                }
+                } 
             </div>
 
-
+            {isloadingP === false ? 
             <div className='Main_div'>
                 <h1>&nbsp;&nbsp; 최신글</h1>
                 <ul>
@@ -130,7 +108,15 @@ function MainSection(props) {
                     <li><Link to={`/PostPage/${row.post_id}`} style={{ textDecoration: 'none', color: 'black' }}>{row.title}</Link></li>
                     ))}
                 </ul>
+            </div> :
+
+            <div className='Main_div'>
+                Loading...
             </div>
+
+            }
+
+
         </Box>
     )
 }
