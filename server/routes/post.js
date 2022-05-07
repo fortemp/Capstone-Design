@@ -80,6 +80,12 @@ router.post('/setcomment',async (req, res)=>{
     }
 })
 
+router.get('/getrecentpost',async(req,res)=>{
+    const sql= 'select * from postings order by post_id desc limit 5';
+    db.query(sql, (err,data)=>{
+        res.send(data);
+    })
+})
 
 
 module.exports = router;

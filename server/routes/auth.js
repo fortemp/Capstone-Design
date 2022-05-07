@@ -99,13 +99,6 @@ router.get('/getuser',async(req,res)=>{
     })
 })
 
-router.get('/getrecentpost',async(req,res)=>{
-    const sql= 'select * from postings order by post_id desc limit 5';
-    db.query(sql, (err,data)=>{
-        res.send(data);
-    })
-})
-
 router.get('/buyimg',async(req,res)=>{
     const url = req.query.url;
     const user = req.query.user;

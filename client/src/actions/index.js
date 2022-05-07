@@ -48,7 +48,7 @@ export async function GetUser(){
     }
 }
 export async function GetRecentPost(){
-    const req = await authApi.getrecentpost().then(res=>res.data);
+    const req = await postApi.getrecentpost().then(res=>res.data);
     return {
         type:GET_RECENT_POST,
         payload : req

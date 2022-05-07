@@ -25,14 +25,12 @@ export async function dupcheck(data){
     const res = await api.post('/auth/dupcheck',data);
     return res;
 }
+//유저정보 불러오기
 export async function getuser() {
     const res = await api.get('/auth/getuser');
   return res;
 }
-export async function getrecentpost() {
-    const res = await api.get('/auth/getrecentpost');
-    return res;
-} 
+//
 export async function buyimg() {
     const res = await api.get('/auth/buyimg');
     return res;
