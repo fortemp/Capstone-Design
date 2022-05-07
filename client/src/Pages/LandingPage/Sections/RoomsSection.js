@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux';
 import { getRoom } from '../../../api/room'
 import {SocketContext} from '../../../api/socket'
 import LockIcon from '@mui/icons-material/Lock';
+import TableRows from '../../../components/TableRow/TableRows'
 import {
   Table,
   TableBody,
@@ -26,12 +27,9 @@ function RoomsSection(props) {
   const [requesting, setRequesting] = useState(false);//기본값: 요청을 보내고있지않으니 false
   const socket = useContext(SocketContext);
   const roomSocket = socket.room;
-  const publicSocket = socket.public;
   const rowsPerPage = 4;//테이블 한 페이지당 들어갈 방개수
-  const dispatch = useDispatch();
 
   const onClickRowhandler = (room_id,title,ispass) =>{
-    console.log(room_id,title,ispass);
     let password = ""
     if(ispass===1){
       password = prompt("비밀번호를 입력해주세요");
@@ -63,6 +61,7 @@ function RoomsSection(props) {
 
     roomSocket.off('roomJoinedR').on('roomJoinedR',(data)=>{//방에 들어오면 나에게 alert를 띄워준다.
       alert(data.message)
+      handleJoinRoom();
     })
 
     roomSocket.off('refreshR').on('refreshR',(data)=>{//누군가방에 들어오면 재렌더링
@@ -79,14 +78,13 @@ function RoomsSection(props) {
   const handlePage = (event,newPage)=>{
     setPage(newPage)
   }
-
-  setTimeout(() => {//3초마다 방정보 불러옴
-    setRequesting(true);
-  }, 3000);
   
+  const handleJoinRoom = () => {
+    props.onChangeMode('test');
+  }
+
   return (
     <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
-      <button onClick={function(e){e.preventDefault(); props.onChangeMode('test');}.bind(this)}>방에 들어갔다 치고 하는 버튼</button>
       <TableContainer>
       <Table size="small">
         <TableHead>
@@ -102,24 +100,11 @@ function RoomsSection(props) {
           {rooms
           .slice(Page * rowsPerPage , (Page+1) * rowsPerPage)
           .map(({room_id,title,people,max_people,ispass,language,is_running,is_waiting},index)=>(
+            //is_running: 현재 게임이 진행중인가, is_waiting: 방이 준비중인가
 
-
-            <TableRow key = {room_id} hover style={{cursor:'pointer'}} onClick={()=>onClickRowhandler(room_id,title,ispass)}>
-              
-                <TableCell align="left" component="th" scope="row">
-                  {`${Page * rowsPerPage + index + 1}:${language}언어`}
-                </TableCell>
-                {ispass === 0 ? //비밀번호가있냐??
-
-                <TableCell align="left">{`${title.substring(0,20)}`}</TableCell> :
-
-                <TableCell align="left">{`${title.substring(0,20)}`}<LockIcon fontSize="small"/></TableCell>
-                
-                }
-                <TableCell align="right">{`${people} / ${max_people}`}</TableCell>
-
-            </TableRow>
-
+              <TableRows Page={Page} room_id={room_id} title={title} people={people} max_people={max_people}
+              ispass={ispass} language={language} is_running={is_running} is_waiting={is_waiting} index={index} 
+              rowsPerPage={rowsPerPage} onClickRowhandler={onClickRowhandler}/>
 
           ))}
 
