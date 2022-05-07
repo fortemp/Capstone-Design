@@ -29,8 +29,7 @@ function RightSide() {
 
     const [login, setlogin] = useState("false");
     useEffect(() => {          //로그인 확인 코드
-        console.log(isAuth);
-        if (isAuth == true)
+        if (isAuth === true)
             setlogin("true");
     })
 
