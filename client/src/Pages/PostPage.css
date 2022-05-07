@@ -69,9 +69,16 @@
  
   }
   .ck-editor__editable_inline {
-    max-height: 30px;
+    max-height: 45x;
 }
 
 .comment{
   text-decoration: underline;
+}
+.submit-button{
+  float:left;
+}
+.commentdiv{
+  width: auto;
+  padding-top: 100px;
 }

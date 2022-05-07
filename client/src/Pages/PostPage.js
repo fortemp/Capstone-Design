@@ -36,8 +36,6 @@ const PostPage = ({ onInsert }) => {
     }
    },[])
 
-   
-
    let commentArr = Array.from(datacomment);
    let date = ""+data.posted_date; // 강제로 string 만들기
    let title = ""+data.title;
@@ -83,6 +81,7 @@ const PostPage = ({ onInsert }) => {
               console.log('Focus.', editor);
             }}
           />
+          <div>
           <button className="submit-button" onClick={() =>{ // 입력!
                           setTimeout(() => {
                             let data = {
@@ -93,6 +92,14 @@ const PostPage = ({ onInsert }) => {
                             .then(res=>{
                               if(res.payload.success){
                                 alert('작성완료')
+                                window.location.reload();/*
+                                Axios.get('/api/post/getcomment',{              
+                                  params: { 
+                                    'idx': no,
+                                  }
+                                }).then((response)=>{
+                                  setDatacomment(response.data);                                  
+                               })*/
                               }else{
                                 alert('오류가 발생했습니다.')
                               }
@@ -100,13 +107,13 @@ const PostPage = ({ onInsert }) => {
                         }, 500)
         }
         }>입력</button>
-
-        
+</div>
+        <div className='commentdiv'>
         {commentArr.map((element) =>
                   <label className='comment' dangerouslySetInnerHTML={ {__html: element.description}}>{}</label>
           )
         }
-
+</div>
           <Link to='/community'> 
         <button className="post-view-go-list-btn"> 돌아가기 </button>
       </Link>
