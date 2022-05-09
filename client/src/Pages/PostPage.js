@@ -16,12 +16,20 @@ const PostPage = ({ onInsert }) => {
 
     const dispatch = useDispatch();
     const no = useParams().post_id; // post id로 글 내용 찾기
-  
+    const n1 = parseInt(no)
     useEffect(async() => {// 글내용가져오기
-        Axios.get('/api/post/getpost').then((response)=>{
-         setData(response.data[no-1]);
-       })
+       try{
+        const res = await Axios.get('/api/post/getpost', {
+            params: {
+                'idx': n1
+            }
+        })
+        setData(res.data);
+    } catch(e) {
+        console.error(e.message)
+    }
      },[])
+     
 
      useEffect(async() => { // 댓글가져오기
       try{
@@ -37,29 +45,30 @@ const PostPage = ({ onInsert }) => {
    },[])
 
    let commentArr = Array.from(datacomment);
-   let date = ""+data.posted_date; // 강제로 string 만들기
-   let title = ""+data.title;
+   console.log(data);
+   let Arr = Array.from(data);
+   console.log(Arr);
 
     return (
       <>
 
         <div className="post-view-wrapper"> 
           {
-            data ? (
+            Arr.map (element =>
               <>
               
                 <div className="post-view-title">
-                  <label>({ data.post_id }) 제목 -   </label><label>{title.split('V',1) }</label> 
+                  <label>({ element.post_id }) 제목 -   </label><label>{element.title.split('V',1) }</label> 
                 </div>
                 <div className="post-view-row">
-                <label>[작성자 - {data.name}] </label> <label>[작성일 - {date.substr(0,10)}]</label> <label>[언어 - {data.language}]</label>
+                <label>[작성자 - {element.name}] </label> <label>[작성일 - {element.posted_date.substr(0,10)}]</label> <label>[언어 - {element.language}]</label>
                 </div>
                 <div className="post-decription"> 
-                  <div dangerouslySetInnerHTML={ {__html: data.description}}>
+                  <div dangerouslySetInnerHTML={ {__html: element.description}}>
                   </div>
                 </div>
               </>
-            ) : '해당 게시글을 찾을 수 없습니다.'
+            ) 
           }
           <CKEditor  //CKEditor 댓글작성
           className='editor'
@@ -110,7 +119,9 @@ const PostPage = ({ onInsert }) => {
 </div>
         <div className='commentdiv'>
         {commentArr.map((element) =>
-                  <label className='comment' dangerouslySetInnerHTML={ {__html: element.description}}>{}</label>
+                  <div className='comment'>
+                    <label>{element.name}   </label><label dangerouslySetInnerHTML={ {__html: element.description}}></label> <button>삭제</button>  <button>수정</button>
+                  </div>
           )
         }
 </div>

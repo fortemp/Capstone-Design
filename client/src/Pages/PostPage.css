@@ -73,7 +73,27 @@
 }
 
 .comment{
+  margin: 5px 0;
+  padding: 5px;
+  border: 2px solid black;
   text-decoration: underline;
+}
+
+.comment > .post-view-title > label:first-child{
+  font-style: bold;
+  width: 40%;
+}
+
+.comment >  *:nth-child(2) {
+  width: 40%;
+}
+
+.comment >  *:nth-child(3) {
+  width: 10%;
+}
+
+.comment >  *:nth-child(4) {
+  width: 10%;
 }
 .submit-button{
   float:left;

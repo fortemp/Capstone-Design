@@ -1,5 +1,5 @@
 import { useEffect, useState} from 'react'
-import{Link} from "react-router-dom";
+import{Link, useLocation } from "react-router-dom";
 import {useDispatch} from 'react-redux'
 import './Posting.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
 import { makeStyles } from "@material-ui/core/styles";
-import {UserPosting} from '../actions/index';
+import {UserPosting,PostUpdata} from '../actions/index';
 
 
 const useStyles = makeStyles((theme) => ({   //grid 속성
@@ -48,19 +48,21 @@ function Posting() { //임시로 null\
         {key:"C++", value:"C++"},
         {key:"JAVA", value:"JAVA"}
       ]
-
+      const location = useLocation()
+      const updata = location.state
+      console.log(updata)
       return (
-
+        
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
          <Container fixed maxWidth="md" className={classes.container}>
         <Grid container spacing={3}>
-        <div className="App">
+        <div className="App" >
         <h1>게시글작성</h1>
 
         <div className='form-wrapper'>
           <input className="title-input" // 제목
             type='text'
-            placeholder='제목'
+            placeholder={updata?updata.title.split('V',1):'제목'}
             onChange={getValue}
             name='title'
           />
@@ -70,10 +72,12 @@ function Posting() { //임시로 null\
 			<option key={item.key} value={item.key}>{item.value}</option>
 		))}
     </select>
-
+    
           <CKEditor  //CKEditor 내용작성
           className='editor'
             editor={ClassicEditor}
+            data = {updata?updata.description
+            :'<p></p>'}
             onReady={editor => {
             }}
             onChange={(event, editor) => {
@@ -96,23 +100,43 @@ function Posting() { //임시로 null\
         
         <button className="submit-button" onClick={() =>{ // 입력!
         console.log(values)
+        {updata?
                           setTimeout(() => {
                             let data = {
-                              title: values.title+'V0',
+                              title: values.title+"V"+updata.title.split('V',2)[1],
                               description: values.description,
-                              language: values.language
+                              language: values.language,
+                              post_id: updata.post_id
                             }
                             console.log(data)
-                            dispatch(UserPosting(data))
+                            dispatch(PostUpdata(data))
                             .then(res=>{
                               if(res.payload.success){
-                                alert('작성완료');
+                                alert('수정완료');
                                 window.location.replace('/community');
                               }else{
                                 alert('오류가 발생했습니다.')
                               }
                             })
                         }, 500)
+                        :setTimeout(() => {
+                          let data = {
+                            title: values.title+'V0',
+                            description: values.description,
+                            language: values.language
+                          }
+                          console.log(data)
+                          dispatch(UserPosting(data))
+                          .then(res=>{
+                            if(res.payload.success){
+                              alert('작성완료');
+                              window.location.replace('/community');
+                            }else{
+                              alert('오류가 발생했습니다.')
+                            }
+                          })
+                      }, 500)
+                      }
         }
         }>입력</button>
         <Link to = '/community'><button className="submit-button">뒤로가기</button></Link>        
