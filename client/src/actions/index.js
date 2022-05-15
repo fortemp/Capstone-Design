@@ -1,8 +1,7 @@
 
 import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,GET_RECENT_POST,GET_RANKING,BUY_IMG,Change_Img,
     POST_POSTING,POST_GETPOST,POST_VIEW,POST_DELETE,POST_UPDATA,
-    COMMENT_SETCOMMENT,COMMENT_GETCOMMENT,COMMENT_DELETE,COMMENT_UPDATA,
-    GET_ROUND} from "./types";
+    COMMENT_SETCOMMENT,COMMENT_GETCOMMENT,COMMENT_DELETE,COMMENT_UPDATA,GET_ROOMINFO,INSERT_PROBLEM,} from "./types";
 import { ROOM_GET,ROOM_JOIN,ROOM_OUT } from "./types";
 import * as authApi from '../api/auth'
 import * as roomApi from '../api/room'
@@ -78,7 +77,13 @@ export async function GetRanking(data){
         payload : req
     }
 }
-
+export async function InsertProblem(data){
+    const req = await authApi.insertproblem(data).then(res=>res.data);
+    return {
+        type:INSERT_PROBLEM,
+        payload : req
+    }
+}
 export async function getRoom(){
     const req = await roomApi.getRoom()
     .then(res=>res.data);
@@ -172,11 +177,11 @@ export async function commentUpdata(data){
     }
 }
 
-export async function GetRound(){
-    const req = await roomApi.getround()
+export async function GetRoomInfo(){
+    const req = await roomApi.getroominfo()
     .then(res=>res.data);
     return {
-        type:GET_ROUND,
+        type:GET_ROOMINFO,
         payload:req
     }
 }
