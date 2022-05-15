@@ -8,11 +8,13 @@ export const GET_RECENT_POST="GET_RECENT_POST";
 export const BUY_IMG = "BUY_IMG";
 export const Change_Img = "Change_Img";
 export const GET_RANKING = "GET_RANKING";
+export const INSERT_PROBLEM = "INSERT_PROBLEM";
+
 //ROOM
 export const ROOM_GET = "ROOM_GET" 
 export const ROOM_JOIN = "ROOM_JOIN";
 export const ROOM_LEAVE = "ROOM_LEAVE";
-export const GET_ROUND = "GET_ROUND";
+export const GET_ROOMINFO = "GET_ROOMINFO";
 //CHAT
 export const CHAT_SEND = "CHAT_SEND";
 export const CHAT_RECEIVE = "CHAT_RECEIVE"
