@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Box from '@material-ui/core/Box'
 import './GameSection.css'
 import {useDispatch,useSelector} from 'react-redux';
-
+import Axios from 'axios';
 function GameSection(props) {
 
   const playername= useSelector(state=>state.authReducer.authData.user.name);
@@ -15,8 +15,7 @@ function GameSection(props) {
 
 
   const [codeInput, setcodeInput] = useState("");
-
-
+  const [problem, setproblem] = useState({});
 
   const codeInputTabHandler = (event) => {
     if (event.key === "Tab") {
@@ -32,12 +31,42 @@ function GameSection(props) {
     alert("제출성공\n코드: " + codeInput.replace(/(\s*)/g, ""));
   }
 
+  useEffect(()=>{
+
+      Axios.get('/api/room/getproblem', {              //일단 이렇게 하면 방정보 가져오긴 함
+      }).then((response) => {
+    
+        setproblem(response.data);
+        console.log(problem)
+        console.log(problem.length)
+      })
+    
+  
+  },[props.start])
+  
+
+
+  /*
+  useEffect(() => {
+    Axios.get('/api/room/getroominfo', {              //일단 이렇게 하면 방정보 가져오긴 함
+      params: {
+        'title':sessionStorage.getItem('title'),           //방 제목 가져옴
+      }
+    }).then((response) => {
+      setround(response.data);
+    })
+  }, []);
+
+  */
+
+
+
   return (
     <Box className="Over2" style={props.style} bgcolor={"#888888"} color={"#222222"} p={2}>
       {props.start == "false" ?                           //랜딩페이지에서 받아오는 usestate 시작, 게임세팅섹션에서도 이용해야해서 랜딩페이지로부터 호출
         <>
           <div className='gameroom_title'>
-            <h3>방제목</h3>
+            <h3>{sessionStorage.getItem('title')}</h3>
           </div>
           <div className='lating_room'>
             <div className='player'>
@@ -197,6 +226,9 @@ function GameSection(props) {
         </> : // 게임 시작하면 화면이 아래와 같이 바뀜
         <>
           <div className='Indexsection'>
+          <div dangerouslySetInnerHTML={ {__html: problem[Math.floor(Math.random()*problem.length)].description}}>
+            </div>
+           {/*
             <h5>임시 문제</h5>
             <p>신입사원 무지는 게시판 불량 이용자를 신고하고 처리 결과를 메일로 발송하는 시스템을 개발하려 합니다. 무지가 개발하려는 시스템은 다음과 같습니다.</p>
             <ul>
@@ -302,6 +334,7 @@ function GameSection(props) {
             </table>
             <p>따라서 "muzi"는 처리 결과 메일을 2회, "frodo"와 "apeach"는 각각 처리 결과 메일을 1회 받게 됩니다.</p>
             <p>이용자의 ID가 담긴 문자열 배열 id_list, 각 이용자가 신고한 이용자의 ID 정보가 담긴 문자열 배열 report, 정지 기준이 되는 신고 횟수 k가 매개변수로 주어질 때, 각 유저별로 처리 결과 메일을 받은 횟수를 배열에 담아 return 하도록 solution 함수를 완성해주세요.</p>
+  */}
           </div>
           <div className='inputsection'>
             <textarea className="inputarea" value={codeInput} onKeyDown={codeInputTabHandler} onChange={codeInputHandler} />
