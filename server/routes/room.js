@@ -49,6 +49,8 @@ router.get('/getroominfo',async(req,res)=>{            //방정보 가져오기
     const sql= 'select * from rooms where title=?';
     db.query(sql,[title], (err,data)=>{
         res.send(data[0]);
+    })
+})
 
 /*
 //유저 한명이 하나의 방을 만든다는 가정하에 설계
@@ -59,11 +61,10 @@ router.get('/getround',async(req,res)=>{
     const sql= 'select * from rooms where user_id=?';
     db.query(sql,params, (err,data)=>{
         res.send(data);
-        */
+    
 
     })
-})
-
+})*/
 
 router.get('/getproblem',async(req,res)=>{                         //문제가져오는 쿼리
     const title = req.query.title;
