@@ -4,7 +4,7 @@ const User = require('../models/User')
 const passport = require('passport');
 const Crypto = require('crypto');
 const db = require('../config/db')
-
+const Problem = require('../models/Problem')
 
 //로그인
 router.post('/login',(req,res,next)=>{
@@ -122,4 +122,15 @@ router.get('/getranking',async(req,res)=>{
         res.send(data);
     }) 
 })
+router.get('/insertproblem',async(req,res)=>{           //문제 넣기
+    const result = await Problem.findAll();
+    const title = req.query.title;
+    const tier = req.query.tier;
+    const text = req.query.text;
+    const sql= 'insert into problems (problem_id,tier_id,dirname,description) values(?,?,?,?)';
+    db.query(sql,[result.length+1,tier,title,text], (err,data)=>{
+        res.send(data);
+    }) 
+})
+
 module.exports = router; 
