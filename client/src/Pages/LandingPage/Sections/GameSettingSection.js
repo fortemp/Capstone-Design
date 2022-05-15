@@ -68,15 +68,15 @@ const timer = ()=> setInterval(()=>{
           <button className="start_btn" onClick={ (e)=> { e.preventDefault(); props.onChangeStart('true'); timer()}}>시작 버튼</button>
           
           <h3>평균 ELO: </h3> 
-          <h3>언어 : {round[0].language}</h3>
-          <h3>인원 {round[0].max_people}/{round[0].people}</h3>
-          <h3>라운드 : {round[0].rounds}</h3>
+          <h3>언어 : {round.language}</h3>
+          <h3>인원 {round.max_people}/{round.people}</h3>
+          <h3>라운드 : {round.rounds}</h3>
           </>
         :
         <>
           <button className="start_btn2" onClick={ (e)=> { e.preventDefault(); props.onChangeStart('false');}}>시작 풀기 버튼</button>  
           <div style={{height:'30px'}}>
-          <h3 style={{float:"left"}}>라운드 수 / {round[0].rounds} &nbsp;</h3>  
+          <h3 style={{float:"left"}}>라운드 수 / {round.rounds} &nbsp;</h3>  
           <h3 style={{float:"left"}}>time: {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h3>
           </div>
         </>
