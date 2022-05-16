@@ -67,9 +67,8 @@ router.get('/getround',async(req,res)=>{
 })*/
 
 router.get('/getproblem',async(req,res)=>{                         //문제가져오는 쿼리
-    const title = req.query.title;
     const sql= 'select * from problems';
-    db.query(sql,[title], (err,data)=>{
+    db.query(sql, (err,data)=>{
         res.send(data);
     })
 })

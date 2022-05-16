@@ -122,15 +122,26 @@ router.get('/getranking',async(req,res)=>{
         res.send(data);
     }) 
 })
-router.get('/insertproblem',async(req,res)=>{           //문제 넣기
+
+router.post('/insertproblem',async(req,res)=>{           //문제 넣기
     const result = await Problem.findAll();
-    const title = req.query.title;
-    const tier = req.query.tier;
-    const text = req.query.text;
-    const sql= 'insert into problems (problem_id,tier_id,dirname,description) values(?,?,?,?)';
-    db.query(sql,[result.length+1,tier,title,text], (err,data)=>{
-        res.send(data);
-    }) 
+    let object =
+    {
+        tier_id:req.body.tier,
+        dirname:req.body.title,
+        description:req.body.description
+    };
+    try{
+        object.problem_id=result.length+1;
+        await Problem.create(object);
+        console.log(object)
+        return res.status(200).json({success:true})
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(400).json({success:false})
+    }
 })
 
 module.exports = router; 
