@@ -1,10 +1,14 @@
 //게임방 설정 섹션
 import React, { useEffect, useState, useContext, useRef } from 'react'
+import {SocketContext} from '../../../api/socket'
 import Box from '@material-ui/core/Box'
 import "./GameSettingSection.css"
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 function GameSettingSection(props) {
+
+  const socket = useContext(SocketContext);
+  const roomSocket = socket.room;
 
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -19,7 +23,30 @@ function GameSettingSection(props) {
       setround(response.data);
     })
   }, []);
+  useEffect(()=>{
+    roomSocket.off('youAreBanned').on('youAreBanned',(data)=>{
+      alert('강퇴당했습니다...');
+      roomSocket.emit('leaveRoom');
+      props.onChangeMode('normal');
+    })
+  },[socket])
 
+  const leaveRoomHandler=()=>{//방 나가는 함수
+    roomSocket.emit('leaveRoom');
+    props.onChangeMode('normal');
+  }
+
+  const readyHandler=()=>{
+    roomSocket.emit('ready');
+    props.onChangeReady('true');
+  }
+  const unReadyHandler=()=>{
+    roomSocket.emit('unready');
+    props.onChangeReady('false');
+  }
+  const startHandler=()=>{
+    roomSocket.emit('startGame');
+  }
   const timer = setInterval(()=>{
     clearInterval(timer);
     if(seconds<59)
@@ -29,20 +56,21 @@ function GameSettingSection(props) {
       setMinutes(minutes+1);
     }
   },1000);
+
   return (
     <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
       <div style={props.style}>
       <div>
-      <button onClick={function (e) { e.preventDefault(); props.onChangeMode('normal'); }.bind(this)}>방에 나갔을 때 버튼 </button>
+      <button onClick={leaveRoomHandler}> 방에 나갔을 때 버튼 </button>
       {props.start == "false" ?
         <>
           {props.ready == "false" ?
-            <button className="raady_btn" onClick={function (e) { e.preventDefault(); props.onChangeReady('true'); }.bind(this)}>레디 버튼 </button>
+            <button className="raady_btn" onClick={readyHandler}>레디 버튼 </button>
             :
-            <button className="raady_btn2" onClick={function (e) { e.preventDefault(); props.onChangeReady('false'); }.bind(this)}>레디 풀기 버튼 </button>
+            <button className="raady_btn2" onClick={unReadyHandler}>레디 풀기 버튼 </button>
           }
 
-          <button className="start_btn" onClick={ (e)=> { e.preventDefault(); props.onChangeStart('true'); timer()}}>시작 버튼</button>
+          <button className="start_btn" onClick={startHandler}>시작 버튼</button>
           <h3>평균 ELO: 2000</h3></>  //방장만 보이도록 해야함
         :
         <>
