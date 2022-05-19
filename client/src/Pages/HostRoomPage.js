@@ -23,7 +23,7 @@ function HostRoomPage() {
             initialValues={{
                 title: '',
                 password:'',
-                language:"C",
+                language:"c",
                 maxpeople:2,
                 rounds:1,
             }}
@@ -138,11 +138,11 @@ function HostRoomPage() {
                     onChange={handleChange}
                     value={values.language}
                   >
-                    <MenuItem value={"C"}>C</MenuItem>
-                    <MenuItem value={"js"}>js</MenuItem>
-                    <MenuItem value={"Python"}>Python</MenuItem>
-                    <MenuItem value={"C++"}>C++</MenuItem>
-                    <MenuItem value={"JAVA"}>JAVA</MenuItem>
+                    <MenuItem value={"c"}>C</MenuItem>
+                    <MenuItem value={"javascript"}>js</MenuItem>
+                    <MenuItem value={"python"}>Python</MenuItem>
+                    <MenuItem value={"cpp"}>C++</MenuItem>
+                    <MenuItem value={"java"}>JAVA</MenuItem>
                   </Select>
                   <br/>
 
