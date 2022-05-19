@@ -44,11 +44,32 @@ router.post('/createroom',async (req,res)=>{
    
 })
 
-router.get('/getround',async(req,res)=>{
+router.get('/getroominfo',async(req,res)=>{            //방정보 가져오기
     const title = req.query.title;
     const sql= 'select * from rooms where title=?';
     db.query(sql,[title], (err,data)=>{
         res.send(data[0]);
+    })
+})
+
+/*
+//유저 한명이 하나의 방을 만든다는 가정하에 설계
+router.get('/getround',async(req,res)=>{
+    let user = null;
+    if(req.isAuthenticated()){user={ID:req.user.user_id}};
+    const params = user.ID;
+    const sql= 'select * from rooms where user_id=?';
+    db.query(sql,params, (err,data)=>{
+        res.send(data);
+    
+
+    })
+})*/
+
+router.get('/getproblem',async(req,res)=>{                         //문제가져오는 쿼리
+    const sql= 'select * from problems';
+    db.query(sql, (err,data)=>{
+        res.send(data);
     })
 })
 module.exports = router;

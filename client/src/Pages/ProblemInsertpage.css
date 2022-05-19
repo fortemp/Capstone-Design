@@ -1,0 +1,33 @@
+.problemapp{
+    margin:0 auto;
+    padding: 1vh;
+    width: 100vh;
+    height: 85vh;
+    background-color: orange;
+}
+.problemsession{
+    width: 100vh;
+    height:78vh;
+
+}
+.problemtitle-tier{
+    padding: 0vh 0vh 2vh 0vh;
+    width: 100vh;
+}
+.problemtitle{
+    width: 70vh;
+    font-size: 4vh;
+    margin : 0 auto;    
+    vertical-align: middle;;
+}
+.selecttier{
+    font-size: 4.2vh;
+    vertical-align: middle;
+    margin-left: 10vh;
+    width: 7vh;
+    text-align: center;
+}
+
+.problemapp .ck-editor__editable_inline {
+    height: 60vh;
+}

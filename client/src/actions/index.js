@@ -1,5 +1,7 @@
 
-import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,GET_RECENT_POST,GET_RANKING,BUY_IMG,Change_Img,POST_POSTING,POST_GETPOST,POST_VIEW,COMMENT_SETCOMMENT,COMMENT_GETCOMMENT,GET_ROUND} from "./types";
+import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,GET_RECENT_POST,GET_RANKING,BUY_IMG,Change_Img,
+    POST_POSTING,POST_GETPOST,POST_VIEW,POST_DELETE,POST_UPDATA,
+    COMMENT_SETCOMMENT,COMMENT_GETCOMMENT,COMMENT_DELETE,COMMENT_UPDATA,GET_ROOMINFO,INSERT_PROBLEM,} from "./types";
 import { ROOM_GET,ROOM_JOIN,ROOM_OUT } from "./types";
 import * as authApi from '../api/auth'
 import * as roomApi from '../api/room'
@@ -75,7 +77,13 @@ export async function GetRanking(data){
         payload : req
     }
 }
-
+export async function InsertProblem(data){
+    const req = await authApi.insertproblem(data).then(res=>res.data);
+    return {
+        type:INSERT_PROBLEM,
+        payload : req
+    }
+}
 export async function getRoom(){
     const req = await roomApi.getRoom()
     .then(res=>res.data);
@@ -94,7 +102,7 @@ export async function UserPosting(data){
         payload: req
     }
 }
-
+//글 가져오기
 export async function GetPost(){
     const req = await postApi.getpost()
     .then(res=>res.data);
@@ -103,7 +111,7 @@ export async function GetPost(){
         payload:req
     }
 }
-
+//조회수 업데이드
 export async function ViewUpdata(data){
     const req = await postApi.viewUpdata(data)
     .then(res=>res.data);
@@ -113,6 +121,26 @@ export async function ViewUpdata(data){
     }
 }
 
+// 글 삭제
+export async function PostDelete(data){
+    const req = await postApi.postdelete(data)
+    .then(res=>res.data);
+    return {
+        type:POST_DELETE,
+        payload:req
+    }
+}
+// 글 수정
+export async function PostUpdata(data){
+    const req = await postApi.postupdata   (data)
+    .then(res=>res.data);
+    return {
+        type:POST_UPDATA,
+        payload:req
+    }
+}
+
+// 댓글입력
 export async function SetComment(data){
     const req = await postApi.setcomment(data)
     .then(res=>res.data);
@@ -121,7 +149,7 @@ export async function SetComment(data){
         payload:req
     }
 }
-
+// 댓글 가져오기
 export async function GetComment(){
     const req = await postApi.getcomment()
     .then(res=>res.data);
@@ -130,11 +158,30 @@ export async function GetComment(){
         payload:req
     }
 }
-export async function GetRound(){
-    const req = await roomApi.getround()
+// 댓글 삭제
+export async function CommentDelete(data){
+    const req = await postApi.commentdelete(data)
     .then(res=>res.data);
     return {
-        type:GET_ROUND,
+        type:COMMENT_DELETE,
+        payload:req
+    }
+}
+//댓글 수정
+export async function commentUpdata(data){
+    const req = await postApi.commentupdata(data)
+    .then(res=>res.data);
+    return {
+        type:COMMENT_UPDATA,
+        payload:req
+    }
+}
+
+export async function GetRoomInfo(){
+    const req = await roomApi.getroominfo()
+    .then(res=>res.data);
+    return {
+        type:GET_ROOMINFO,
         payload:req
     }
 }

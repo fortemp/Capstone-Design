@@ -14,6 +14,7 @@ import CommunityPage from"./Pages/CommunityPage";
 import withAuth from "./hoc/withAuth"
 import Posting from "./Pages/Posting";
 import PostPage from "./Pages/PostPage";
+import ProblemInsertpage from "./Pages/ProblemInsertpage";
 function App() {
   return (
     <div style={{minWidth:'710px'}}>
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/community" element={ withAuth(CommunityPage,true) } />
           <Route exact path="/posting" element={ withAuth(Posting,true) } /> 
           <Route  path={"/PostPage/:post_id"} element={ withAuth(PostPage,true)} />
+          <Route  path={"/ProblemInsertpage"} element={ withAuth(ProblemInsertpage,true)} />
         </Routes>
       </div>
 

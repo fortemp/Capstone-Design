@@ -29,7 +29,7 @@ function RoomsSection(props) {
   const roomSocket = socket.room;
   const rowsPerPage = 4;//테이블 한 페이지당 들어갈 방개수
 
-  const onClickRowhandler = (room_id,title,ispass) =>{
+  const onClickRowhandler = (room_id,title,ispass,max_people,rounds) =>{
     let password = ""
     if(ispass===1){
       password = prompt("비밀번호를 입력해주세요");
@@ -38,6 +38,7 @@ function RoomsSection(props) {
     } 
     setRequesting(true);//소켓요청
     roomSocket.emit('joinRoom',room_id,title,password);
+    sessionStorage.setItem('title',title);          //방정보 가지고 있기
   }
   
   useEffect(()=>{
@@ -99,11 +100,11 @@ function RoomsSection(props) {
         <TableBody>
           {rooms
           .slice(Page * rowsPerPage , (Page+1) * rowsPerPage)
-          .map(({room_id,title,people,max_people,ispass,language,is_running,is_waiting},index)=>(
+          .map(({room_id,title,people,max_people,ispass,language,is_running,is_waiting,rounds},index)=>(
             //is_running: 현재 게임이 진행중인가, is_waiting: 방이 준비중인가
 
               <TableRows Page={Page} room_id={room_id} title={title} people={people} max_people={max_people}
-              ispass={ispass} language={language} is_running={is_running} is_waiting={is_waiting} index={index} 
+              ispass={ispass} language={language} is_running={is_running} is_waiting={is_waiting} index={index} rounds={rounds}
               rowsPerPage={rowsPerPage} onClickRowhandler={onClickRowhandler}/>
 
           ))}

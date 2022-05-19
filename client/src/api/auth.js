@@ -50,3 +50,7 @@ export async function getranking() {
     const res = await api.get('/auth/getranking');
     return res;
 }
+export async function insertproblem(data) {
+    const res = await api.post('/auth/insertproblem',data);
+    return res;
+}

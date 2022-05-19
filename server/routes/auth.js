@@ -4,7 +4,7 @@ const User = require('../models/User')
 const passport = require('passport');
 const Crypto = require('crypto');
 const db = require('../config/db')
-
+const Problem = require('../models/Problem')
 
 //로그인
 router.post('/login',(req,res,next)=>{
@@ -122,4 +122,26 @@ router.get('/getranking',async(req,res)=>{
         res.send(data);
     }) 
 })
+
+router.post('/insertproblem',async(req,res)=>{           //문제 넣기
+    const result = await Problem.findAll();
+    let object =
+    {
+        tier_id:req.body.tier,
+        dirname:req.body.title,
+        description:req.body.description
+    };
+    try{
+        object.problem_id=result.length+1;
+        await Problem.create(object);
+        console.log(object)
+        return res.status(200).json({success:true})
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(400).json({success:false})
+    }
+})
+
 module.exports = router; 

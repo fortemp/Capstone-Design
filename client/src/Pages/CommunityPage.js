@@ -59,7 +59,7 @@ import parse from 'html-react-parser'
 import './CommunityPage.css'
 import {GetPost} from "../actions/index";
 import {useDispatch} from 'react-redux'
-import {ViewUpdata} from '../actions/index';
+import {ViewUpdata, PostDelete} from '../actions/index';
 
 function CommunityPage() { //임시로 null\
   
@@ -69,13 +69,18 @@ function CommunityPage() { //임시로 null\
 
   let postArr  =null
   useEffect(async() => {
-    await Axios.get('/api/post/getpost').then((response)=>{
-      setInputData(response.data); 
-      
-    })
+      try{
+        const res = await Axios.get('/api/post/getpost', {
+            params: {
+                'idx': -1
+            }
+        })
+        setInputData(res.data);
+    } catch(e) {
+        console.error(e.message)
+    }
   },[])
 
-  console.log(inputData)
   postArr  = Array.from(inputData);
 
   const changeText = (data1, data2) => {
@@ -85,9 +90,27 @@ function CommunityPage() { //임시로 null\
       title:data1.split('V',1)+'V'+String(b),
       post_id:data2
     }
-    console.log(data)
     dispatch(ViewUpdata(data))
   };
+
+  const deletepost = (data1, data2) =>{
+      let data = {
+        post_id:data1,
+        user_id:data2
+      }
+      dispatch(PostDelete(data))
+      window.location.replace("/")
+  }
+  let updata =null;
+  const updatepost = (data1, data2, data3, data4) =>{
+    updata={
+      user_id:data1,
+      post_id:data2,
+      title:data3,
+      description:data4
+    }
+    console.log(updata)
+  }
 
 
   return(
@@ -106,11 +129,15 @@ function CommunityPage() { //임시로 null\
       <tbody >
         <tr>
         <td className="tdid">{element.post_id}</td>
-        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} onClick={changeText( element.title, element.post_id)} >{element.title.split('V',1) } 
-        </Link></td>
+        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} 
+        onClick={()=>changeText( element.title, element.post_id)} >
+          {element.title.split('V',1) }</Link></td>
         <td className="tddate" >{element.posted_date.substr(0,10)}</td>
         <td className="td" >{element.name}</td>
         <td className="td" >{parseInt(element.title.split('V',2)[1])}</td>
+        <td className="td"><button onClick={()=>deletepost(element.post_id, element.user_id)}>삭제</button></td>
+        <td className="td"><Link to={'/Posting'} state={{user_id:element.user_id, post_id:element.post_id, title:element.title, description:element.description}}> 
+        <button >수정</button></Link></td>
         </tr>
       </tbody>
         )}
@@ -119,7 +146,7 @@ function CommunityPage() { //임시로 null\
           <Link to='/'> 
           <button className="backbutton"> 뒤로가기 </button>
           </Link>
-        <Link to='/Posting'> 
+        <Link to={'/Posting'}> 
         <button className="postbutton"> 글작성 </button>
       </Link>
       </td>

@@ -11,7 +11,11 @@ export async function createRoom(data){
     return res;
 }
 
-export async function getround(){
-    const res = await api.get('/room/getround');
+export async function getroominfo(){
+    const res = await api.get('/room/getroominfo');
     return res;
+}
+    export async function getproblem(){
+        const res = await api.get('/room/getproblem');
+        return res;
 }
