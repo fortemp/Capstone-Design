@@ -90,9 +90,9 @@ function MainSection(props) {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className='Head_Cell' align="center">
-                                            <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>이름 변경</Link></TableCell>
+                                            <Link to="/ChangeID" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>닉네임 변경</Link></TableCell>
                                         <TableCell className='Head_Cell' align="center">
-                                            <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>비밀번호 변경</Link></TableCell>
+                                            <Link to="/ChangePWD" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bolder', fontSize: '15px' }}>비밀번호 변경</Link></TableCell>
                                     </TableRow>
                                 </Table>
                             </TableContainer>
