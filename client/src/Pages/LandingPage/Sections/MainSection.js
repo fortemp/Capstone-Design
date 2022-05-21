@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import { useDispatch, useSelector } from 'react-redux';
 import {getrecentpost} from '../../../api/post'
-
+import {changedefault} from '../../../api/auth'
 function MainSection(props) {
 
     const isAuth = useSelector(state => state.authReducer.authData.auth); //인증여부
@@ -17,6 +17,7 @@ function MainSection(props) {
     const [isloadingP, setIsloadingP] = useState(true);//게시글로딩중
 
     useEffect(() => {
+        changedefault()
         getrecentpost().
         then(res=>{
             setpost(res.data);
@@ -33,7 +34,7 @@ function MainSection(props) {
     const [post, setpost] = useState([]);
 
     return (
-        <Box style={props.style} bgcolor={"#888888"} color={"#222222"} p={2}>
+        <Box style={props.style} bgcolor={"#C35F5F"} color={"#222222"} p={2}>
 
             <div className='User_Info_div'>
 
