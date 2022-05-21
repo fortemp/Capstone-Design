@@ -14,7 +14,7 @@ function LoginPage() {
     const dispatch = useDispatch();
 
     return (
-      <div style={{height:'530px'}}>
+      <div style={{height:'80vh'}}>
 
       
         <Formik
@@ -37,6 +37,8 @@ function LoginPage() {
                     dispatch(loginUser(data))
                     .then(res=>{
                       if(res.payload.success){
+                        sessionStorage.setItem('user_id',values.id);
+                        sessionStorage.setItem('user_pwd',values.password);
                         window.location.replace('/')
                       }else{
                         alert(res.payload.message.message);

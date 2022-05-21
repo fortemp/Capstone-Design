@@ -1,12 +1,18 @@
+.communityapp{
+  width: 80%;
+  height: 80vh;
+
+  margin: 0 auto;
+}
+
 .posttable{
+  width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     text-align: left;
     line-height: 1.5;
-    margin : 20px 10px;
-    margin:auto;
-    border-collapse : collapse;
-    width: 75%;
+    margin: 0 auto;
+    border-collapse : collapse; 
 }
 
 .posttable .thid {
@@ -22,9 +28,15 @@
   font-weight: bold;
   vertical-align: top;
 }
+.posttable .date {
+  width: 100px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+}
 .posttable thead tr{
 
-  background: rgb(109, 57, 41);
+  background: #5A5AFF;
 }
 .posttable thead th {
     width: 50px;
@@ -75,7 +87,8 @@
     width: 30%;
     height: 50px;
     font-size: large;
-    float: left;
+    float: right;
+    border: black 1px solid;
 }
   .postbutton{
 
@@ -83,7 +96,14 @@
     width: 30%;
     height: 50px;
     font-size: large;
-    float: right;
+    float: left;
+    border: black 1px solid;
   }
 
   a:link{color: #000;}
+
+  .communityinfo{
+    overflow: auto;
+    height: 80%;
+    border: 1px black solid;
+  }

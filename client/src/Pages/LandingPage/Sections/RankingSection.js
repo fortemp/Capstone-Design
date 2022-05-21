@@ -23,9 +23,9 @@ function RankingSection(props) {
     )
   },[])
   return (
-    <Box className='Over' style={props.style} bgcolor={"#888888"} p={2} >
+    <Box className='Over' style={props.style} bgcolor={"#4BAF4B"} p={2} >
           <TableContainer>
-      <Table aria-label="simple table"bgcolor={"#888888"}>
+      <Table aria-label="simple table"bgcolor={"#FFFFFF"}>
         <TableHead>
           <TableRow>
             <TableCell className='Cell' align="center">순위</TableCell>

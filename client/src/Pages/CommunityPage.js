@@ -26,17 +26,22 @@ function CommunityPage() { //임시로 null\
   }
 
   return(
-    <div>
+    <div className="communityapp">
       <table className="posttable">
       <thead>
         <tr >
           <th className="thid">번호</th>
           <th className="thtitle">제목</th>
-          <th className="th">시간</th>
+          <th className="date">시간</th>
           <th className="th">작성자</th>
           <th className="th">조회수</th>
+          <th className="th">삭제</th>
+          <th className="th">수정</th>
         </tr>  
       </thead>
+      </table>
+      <div className="communityinfo">
+      <table className="posttable">
 {Posts.map(post =>
       <tbody >
         <tr>
@@ -49,22 +54,20 @@ function CommunityPage() { //임시로 null\
         </tr>
       </tbody>
 )}
-        <tfoot>
-          <td ColSpan="5">
-          <Link to='/'> 
-          <button className="backbutton"> 뒤로가기 </button>
-          </Link>
-        <Link to={'/Posting'}> 
+      </table>
+      </div>
+      <br/>
+      <br/>
+
+      <Link to={'/Posting'}> 
         <button className="postbutton"> 글작성 </button>
       </Link>
-      </td>
-        </tfoot>
-      </table>
-  
 
-      
+      <Link to='/'> 
+          <button className="backbutton"> 뒤로가기 </button>
+      </Link>
     </div>
-  ); 
+  );
 }
 
 
