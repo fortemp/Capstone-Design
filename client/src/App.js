@@ -15,6 +15,8 @@ import withAuth from "./hoc/withAuth"
 import Posting from "./Pages/Posting";
 import PostPage from "./Pages/PostPage";
 import ProblemInsertpage from "./Pages/ProblemInsertpage";
+import changeID from "./Pages/changeID";
+import changePWD from "./Pages/changePWD";
 function App() {
   return (
     <div style={{minWidth:'710px'}}>
@@ -32,6 +34,8 @@ function App() {
           <Route exact path="/posting" element={ withAuth(Posting,true) } /> 
           <Route  path={"/PostPage/:post_id"} element={ withAuth(PostPage,true)} />
           <Route  path={"/ProblemInsertpage"} element={ withAuth(ProblemInsertpage,true)} />
+          <Route exact path="/changeID" element={ withAuth(changeID,true) } /> 
+          <Route exact path="/changePWD" element={ withAuth(changePWD,true) } /> 
         </Routes>
       </div>
 
