@@ -167,8 +167,8 @@ router.get('/Changepwd', async (req, res) => {            //비밀번호 변경 
     const salt = Crypto.randomBytes(64).toString('base64');//salt생성
     const hash = Crypto.createHash('sha256').update(password + salt).digest('hex');//hash생성
     password=hash;
-    const sql = 'update users set password=? where id=?';
-    db.query(sql, [password, ID], (err, data) => {
+    const sql = 'update users set password=?, salt=? where id=?';
+    db.query(sql, [password, salt,ID], (err, data) => {
         res.send(data);
     })
 }) 
