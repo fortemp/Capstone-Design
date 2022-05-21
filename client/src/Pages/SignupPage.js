@@ -22,6 +22,7 @@ function SignupPage(props) {
   }
   
     return (
+      <div style={{height:'80vh'}}>
         <Formik
             initialValues={{
                 id: '',
@@ -196,6 +197,7 @@ function SignupPage(props) {
             </div>
             )}
         </Formik>
+        </div>
     )
 }
 
