@@ -54,3 +54,7 @@ export async function insertproblem(data) {
     const res = await api.post('/auth/insertproblem',data);
     return res;
 }
+export async function changedefault(data) {
+    const res = await api.get('/auth/changedefault',data);
+    return res;
+}
