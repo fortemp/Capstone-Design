@@ -54,6 +54,11 @@ module.exports = class User extends Sequelize.Model
                     type: Sequelize.UUID,
                     defaultValue: Sequelize.UUIDV4,
                 },
+                is_admin:
+                {
+                    type:Sequelize.BOOLEAN,
+                    defaultValue:false
+                }
             },
             {
                 sequelize,

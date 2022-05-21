@@ -63,5 +63,7 @@ Problem.init(sequelize);
 Solved.init(sequelize);
 
 User.associate(db);
+Posting.associate(db);
+Comment.associate(db);
 
 module.exports = db;

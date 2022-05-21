@@ -13,10 +13,9 @@ module.exports = class Posting extends Sequelize.Model
                 },
                 post_id: //PK
                 {
-                    allowNull: false,
                     primaryKey: true,
-                    type: Sequelize.UUID,
-                    defaultValue: Sequelize.UUIDV4,
+                    type: Sequelize.INTEGER,
+                    autoIncrement:true
                 },
                 title://아이디
                 {
@@ -28,17 +27,15 @@ module.exports = class Posting extends Sequelize.Model
                     type: Sequelize.STRING(16),
                     allowNull: true,
                 },
-                posted_date://날짜
+                view:
                 {
-                    type:Sequelize.DATE,
-                    defalutValue: sequelize.literal('now()'),
+                    type: Sequelize.INTEGER,
+                    defaultValue:0,
                 },
                 user_id: //FK
                 {
                     allowNull: false,
-                    primaryKey: true,
                     type: Sequelize.UUID,
-                    defaultValue: Sequelize.UUIDV4,
                 },
             },
             {
@@ -50,6 +47,7 @@ module.exports = class Posting extends Sequelize.Model
                 tableName: 'postings',//테이블명 즉 sql에서 쓰는이름 
                 charset: 'utf8',
                 collate: 'utf8_general_ci',
+                initialAutoIncrement: 1,
             });
     }
     static associate(db)
