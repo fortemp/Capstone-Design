@@ -74,7 +74,7 @@ function GameSettingSection(props) {
           <button className="start_btn" onClick={startHandler}>시작 버튼</button>
           <h3>평균 ELO: </h3> 
           <h3>언어 : {round.language}</h3>
-          <h3>인원 {round.max_people}/{round.people}</h3>
+          <h3>인원 {round.people}&nbsp;/&nbsp;{round.max_people}</h3>
           <h3>라운드 : {round.rounds}</h3>
           </>
         :
