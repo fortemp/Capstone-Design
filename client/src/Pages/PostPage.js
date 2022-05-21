@@ -3,11 +3,12 @@ import './PostPage.css';
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { Link, useParams } from 'react-router-dom';
-import {SetComment} from '../actions/index';
+import {SetComment,PostDelete, CommentDelete,commentUpdata} from '../actions/index';
 import {useDispatch} from 'react-redux'
 import { getpost } from '../api/post';
 import { getcomment } from '../api/post';
 import { viewUpdata } from '../api/post';
+import { Button } from '@material-ui/core';
 //import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
 
 const PostPage = ({ onInsert }) => {
@@ -17,18 +18,21 @@ const PostPage = ({ onInsert }) => {
     const [author,setAuthor] = useState("로딩중...");
     const [date,setDate] = useState('로딩중...');
     const [isRequesting, setIsRequesting] = useState(true);
+    const dispatch = useDispatch();
     const [values, setContent] = useState({ // 댓글 입력용
       description: ''
     })
-    const dispatch = useDispatch();
     const no = parseInt(useParams().post_id); // post id로 글 내용 찾기
 
     const DateStringHandler = (str)=>{//데이터 스트링 보기좋게 처리
+      if(str==='로딩중...')
+        return str;
       const Date = str.split('T')[0];
-      console.log(str)
       const time = str.split('T')[1].split('.')[0]
       return Date+" "+time;
     }
+    const [visilbe, setVisible] = useState(false);
+
     useEffect(() => {// 글내용가져오고 조회수 늘리는 요청 보냄
        getpost(no).
        then(res=>{
@@ -45,8 +49,50 @@ const PostPage = ({ onInsert }) => {
       getcomment(no).
       then(res=>{
         setDatacomment(res.data);
-      })
-    },[])
+    }).catch(e=>{
+        console.error(e.message);
+    });
+   },[])
+
+   const deletepost = (data1, data2) =>{  // 글 삭제
+    let data = {
+      post_id:data1,
+      user_id:data2
+    }
+    dispatch(PostDelete(data))
+    window.location.replace("/community")
+}
+
+const deletecomment = (data1, data2, data3) =>{  // 댓글 삭제
+  let data = {
+    comment_id:data1,
+    user_id:data2,
+    post_id:data3
+  }
+  console.log(data)
+  dispatch(CommentDelete(data))
+  window.location.reload();
+}
+const [update,setupdate]= useState({
+  comment_id:'',
+  post_id:'',
+  user_id:'',
+  description:''
+}) // 댓글 업데이트용
+
+const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
+  setContent({
+    ...values,
+    description: data1
+  })
+  setupdate({
+    comment_id:data2,
+    post_id:data3,
+    user_id:data4,
+    description:data1
+  })
+  console.log(update)
+}
 
     useEffect(() => {
       viewUpdata(no);//조회수 늘리기
@@ -54,27 +100,31 @@ const PostPage = ({ onInsert }) => {
     return (
       <>
 
-        <div className="post-view-wrapper"> 
-        {!isRequesting ? 
-            <>
-              <div className="post-view-title">
-                <h2>({ post.post_id }) 제목 -  {post.title}</h2> 
-              </div>
-              <div className="post-view-row">
-              <label>[작성자 - {author}] </label> <label>[작성일 - {DateStringHandler(date)}]</label> <label>[언어 - {post.language}]</label> <label>[조회수:{post.view}]</label>
-              </div>
-              <div className="post-decription"> 
-                <div dangerouslySetInnerHTML={ {__html: post.description}}>
+        <div className="post-view-wrapper">
+          {!isRequesting ?
+              <>
+                <div className="post-view-title">
+                  <h2>({ post.post_id }) 제목 -  {post.title} </h2>
                 </div>
-              </div>
-            </>:
+                <div className="post-view-row">
+                <label>[작성자 - {author}] </label> <label>[작성일 - {DateStringHandler(date)}]</label> <label>[언어 - {post.language}]</label>
+                <Button variant="outlined" onClick={()=>deletepost(post.post_id, post.user_id)}>삭제</Button>
+                <Link to={'/ModifyPage'} state={{user_id:post.user_id, post_id:post.post_id, title:post.title, description:post.description}}> 
+                <Button variant="outlined" >수정</Button></Link>
+                </div>
+                <div className="post-decription"> 
+                  <div dangerouslySetInnerHTML={ {__html: post.description}}></div>
+                </div>
+              </>:
             <>
              로딩중...
             </>
           }
+          
           <CKEditor  //CKEditor 댓글작성
           className='editor'
             editor={ClassicEditor}
+            //data = {!visilbe?'<p></p>':updata.decription}
             onReady={editor => {
             }}
             config={{
@@ -96,7 +146,8 @@ const PostPage = ({ onInsert }) => {
             }}
           />
           <div>
-          <button className="submit-button" onClick={() =>{ // 입력!
+            {!visilbe?
+          <Button variant="outlined" className="submit-button" onClick={() =>{ // 입력!
                           setTimeout(() => {
                             let data = {
                               post_id:no,
@@ -113,12 +164,41 @@ const PostPage = ({ onInsert }) => {
                             })
                         }, 500)
         }
-        }>입력</button>
+        }>댓글 입력</Button>
+        : <button className="submit-button" onClick={() =>{ // 수정!
+          setTimeout(() => {
+            let data = {
+              post_id:update.post_id,
+              user_id:update.user_id,
+              comment_id:update.comment_id,
+              description:values.description
+            }
+            console.log(data)
+            dispatch(commentUpdata(data))
+            .then(res=>{
+              if(res.payload.success){
+                alert('수정완료')
+                window.location.reload();
+              }else{
+                alert('오류가 발생했습니다.')
+                window.location.reload();
+              }
+            })
+        }, 500)
+        ;setVisible(false);
+      }
+      }>수정</button> 
+      }{!visilbe?<></>:<button className="submit-button" onClick={()=>{setVisible(false)}}>취소</button>}
 </div>
         <div className='commentdiv'>
         {datacomment.map((element) =>
                   <div className='comment'>
-                    <label>{element.name}   </label><label dangerouslySetInnerHTML={ {__html: element.description}}></label> <button>삭제</button>  <button>수정</button>
+                    <label>{element.name}     :</label><label>{DateStringHandler(element.created_at)}</label>
+                    <div className="commentButton">
+                      <Button id="delbutton" variant="outlined" onClick={()=>deletecomment(element.comment_id, element.user_id, element.post_id) }>삭제</Button>  
+                      <Button id="modbutton" variant="outlined" onClick={()=>{setVisible(true);updatecomment(element.decription, element.comment_id, element.post_id, element.user_id);}}>수정</Button>
+                    </div>
+                    <label dangerouslySetInnerHTML={ {__html: element.description}}></label> 
                   </div>
           )
         }

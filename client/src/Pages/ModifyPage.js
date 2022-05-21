@@ -1,13 +1,15 @@
 import { useEffect, useState} from 'react'
 import{Link, useLocation } from "react-router-dom";
 import {useDispatch} from 'react-redux'
-import './Posting.css'
+import './ModifyPage.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import parse from 'html-react-parser'
+import Axios from 'axios'
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
-import {UserPosting} from '../actions/index';
+import {UserPosting,PostUpdata} from '../actions/index';
 
 
 const useStyles = makeStyles((theme) => ({   //grid 속성
@@ -17,7 +19,7 @@ const useStyles = makeStyles((theme) => ({   //grid 속성
   },
 }));
 
-function Posting() { //임시로 null\
+function ModifyPage() { //임시로 null\
 
   const dispatch = useDispatch();
 
@@ -45,8 +47,12 @@ function Posting() { //임시로 null\
         {key:"C++", value:"C++"},
         {key:"JAVA", value:"JAVA"}
       ]
-
+      const location = useLocation()
+      const updata = location.state
+      console.log(updata)
       return (
+        
+
          <Container fixed maxWidth="md" className={classes.container}>
         <Grid container spacing={3}>
         <div className="App" >
@@ -55,7 +61,7 @@ function Posting() { //임시로 null\
         <div className='form-wrapper'>
           <input className="title-input" // 제목
             type='text'
-            placeholder={'제목'}
+            placeholder={updata.title.split('V',1)}
             onChange={getValue}
             name='title'
           />
@@ -69,7 +75,7 @@ function Posting() { //임시로 null\
           <CKEditor  //CKEditor 내용작성
           className='editor'
             editor={ClassicEditor}
-            data = {'<p></p>'}
+            data = {updata.description}
             onReady={editor => {
             }}
             onChange={(event, editor) => {
@@ -92,23 +98,24 @@ function Posting() { //임시로 null\
         
         <button className="submit-button" onClick={() =>{ // 입력!
         console.log(values)
-                        setTimeout(() => {
-                          let data = {
-                            title: values.title,
-                            description: values.description,
-                            language: values.language
-                          }
-                          dispatch(UserPosting(data))
-                          .then(res=>{
-                            if(res.payload.success){
-                              alert('작성완료');
-                              window.location.replace('/community');
-                            }else{
-                              alert('오류가 발생했습니다.')
+                          setTimeout(() => {
+                            let data = {
+                              title: values.title+"V"+updata.title.split('V',2)[1],
+                              description: values.description,
+                              language: values.language,
+                              post_id: updata.post_id
                             }
-                          })
-                      }, 500)
-                      
+                            console.log(data)
+                            dispatch(PostUpdata(data))
+                            .then(res=>{
+                              if(res.payload.success){
+                                alert('수정완료');
+                                window.location.replace('/community');
+                              }else{
+                                alert('오류가 발생했습니다.')
+                              }
+                            })
+                        }, 500)
         }
         }>입력</button>
         <Link to = '/community'><button className="submit-button">뒤로가기</button></Link>        
@@ -116,7 +123,9 @@ function Posting() { //임시로 null\
         </Grid>
       </Container>
 
+
+        
       );
 }
 
-export default Posting
+export default ModifyPage
