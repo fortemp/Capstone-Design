@@ -13,6 +13,7 @@ import ShopPage from"./Pages/ShopPage";
 import CommunityPage from"./Pages/CommunityPage";
 import withAuth from "./hoc/withAuth"
 import Posting from "./Pages/Posting";
+import ModifyPage from "./Pages/ModifyPage";
 import PostPage from "./Pages/PostPage";
 import ProblemInsertpage from "./Pages/ProblemInsertpage";
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/shop" element={ withAuth(ShopPage,true) } />
           <Route exact path="/community" element={ withAuth(CommunityPage,true) } />
           <Route exact path="/posting" element={ withAuth(Posting,true) } /> 
+          <Route exact path="/ModifyPage" element={ withAuth(ModifyPage,true) } /> 
           <Route  path={"/PostPage/:post_id"} element={ withAuth(PostPage,true)} />
           <Route  path={"/ProblemInsertpage"} element={ withAuth(ProblemInsertpage,true)} />
         </Routes>
