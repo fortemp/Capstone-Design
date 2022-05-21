@@ -144,4 +144,11 @@ router.post('/insertproblem',async(req,res)=>{           //문제 넣기
     }
 })
 
+router.get('/changedefault',async(req,res)=>{    //테이블의 created_at, updated_at의 기본값을 변경하는 sql 
+                                                  //이렇게 하면 cmd로 직접 문제를 추가할 수 있고 퀄리티있는 문제를 복사해서 삽입할 때 유용
+    const sql= 'ALTER TABLE problems MODIFY updated_at datetime NOT NULL DEFAULT current_timestamp,MODIFY created_at datetime NOT NULL DEFAULT current_timestamp';
+    db.query(sql, (err,data)=>{
+        res.send(data);
+    }) 
+})
 module.exports = router; 
