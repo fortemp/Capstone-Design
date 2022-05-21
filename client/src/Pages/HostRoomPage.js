@@ -16,7 +16,7 @@ function HostRoomPage() {
     const user_id = useSelector(state=>state.authReducer.authData.user._id);
 
     return (
-      <div style={{height:'530px'}}>
+      <div style={{height:'80vh'}}>
 
       
         <Formik
