@@ -7,6 +7,8 @@ export const GET_USER = "GET_USER";
 export const GET_RECENT_POST="GET_RECENT_POST";
 export const BUY_IMG = "BUY_IMG";
 export const Change_Img = "Change_Img";
+export const CHANGE_ID = "CHANGE_ID";
+export const CHANGE_PWD = "CHANGE_PWD";
 export const GET_RANKING = "GET_RANKING";
 export const INSERT_PROBLEM = "INSERT_PROBLEM";
 
