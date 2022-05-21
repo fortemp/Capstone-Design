@@ -18,7 +18,7 @@ module.exports = class Comment extends Sequelize.Model
                 },
                 post_id://FK
                 {
-                    type: Sequelize.UUID,
+                    type: Sequelize.INTEGER,
                     allowNull: false,
                 },
                 commented_date://시간

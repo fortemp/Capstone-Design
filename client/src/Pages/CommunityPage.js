@@ -6,80 +6,68 @@ import './CommunityPage.css'
 import {GetPost} from "../actions/index";
 import {useDispatch} from 'react-redux'
 import {ViewUpdata, PostDelete} from '../actions/index';
+import { getposts } from "../api/post";
 
 function CommunityPage() { //임시로 null\
-  
-  const dispatch = useDispatch();
+  const [Posts, setPosts] = useState([])
 
-  const [inputData, setInputData] = useState({})
-
-  let postArr  =null
-  useEffect(async() => {
-      try{
-        const res = await Axios.get('/api/post/getpost', {
-            params: {
-                'idx': -1
-            }
-        })
-        setInputData(res.data);
-    } catch(e) {
-        console.error(e.message)
-    }
+  useEffect(() => {
+    getposts()
+    .then(res=>{
+      console.log(res.data)
+      setPosts(res.data);
+    })
   },[])
 
-  postArr  = Array.from(inputData);
-
-  const changeText = (data1, data2) => {
-    const [a, view] = data1.split('V', 2);
-    const b = parseInt(view)+1
-    let data = {
-      title:data1.split('V',1)+'V'+String(b),
-      post_id:data2
-    }
-    dispatch(ViewUpdata(data))
-  };
+  const DateStringHandler = (str)=>{
+    const Date = str.split('T')[0];
+    const time = str.split('T')[1].split('.')[0]
+    return Date+" "+time;
+  }
 
   return(
-    <div>
+    <div className="communityapp">
       <table className="posttable">
       <thead>
         <tr >
           <th className="thid">번호</th>
           <th className="thtitle">제목</th>
-          <th className="th">시간</th>
+          <th className="date">시간</th>
           <th className="th">작성자</th>
           <th className="th">조회수</th>
+          <th className="th">삭제</th>
+          <th className="th">수정</th>
         </tr>  
       </thead>
-{postArr.map(element =>
+      </table>
+      <div className="communityinfo">
+      <table className="posttable">
+{Posts.map(post =>
       <tbody >
         <tr>
-        <td className="tdid">{element.post_id}</td>
-        <td className="tdtitle" >< Link to={`/PostPage/${element.post_id}`} 
-        onClick={()=>changeText( element.title, element.post_id)} >
-          {element.title.split('V',1) }</Link></td>
-        <td className="tddate" >{element.posted_date.substr(0,10)}</td>
-        <td className="td" >{element.name}</td>
-        <td className="td" >{parseInt(element.title.split('V',2)[1])}</td>
+        <td className="tdid">{post.post_id}</td>
+        <td className="tdtitle" >< Link to={`/PostPage/${post.post_id}`} >
+          {post.title}</Link></td>
+        <td className="tddate" style={{"fontSize":'12px'}} >{DateStringHandler(post.createdAt)}</td>
+        <td className="td" >{post.User.name}</td>
+        <td className="td" >{post.view}</td>
         </tr>
       </tbody>
-        )}
-        <tfoot>
-          <td ColSpan="5">
-          <Link to='/'> 
-          <button className="backbutton"> 뒤로가기 </button>
-          </Link>
-        <Link to={'/Posting'}> 
+)}
+      </table>
+      </div>
+      <br/>
+      <br/>
+
+      <Link to={'/Posting'}> 
         <button className="postbutton"> 글작성 </button>
       </Link>
-      </td>
-        </tfoot>
-      </table>
-  
 
-      
+      <Link to='/'> 
+          <button className="backbutton"> 뒤로가기 </button>
+      </Link>
     </div>
-  ); 
+  );
 }
 
 

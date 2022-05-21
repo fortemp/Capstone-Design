@@ -1,6 +1,6 @@
 
 import {AUTH_LOGIN,AUTH_REGISTER,AUTH_USER,AUTH_LOGOUT,GET_USER,GET_RECENT_POST,GET_RANKING,BUY_IMG,Change_Img,
-    POST_POSTING,POST_GETPOST,POST_VIEW,POST_DELETE,POST_UPDATA,
+    POST_POSTING,POST_GETPOST,POST_VIEW,POST_DELETE,POST_UPDATA,CHANGE_ID,CHANGE_PWD,
     COMMENT_SETCOMMENT,COMMENT_GETCOMMENT,COMMENT_DELETE,COMMENT_UPDATA,GET_ROOMINFO,INSERT_PROBLEM,} from "./types";
 import { ROOM_GET,ROOM_JOIN,ROOM_OUT } from "./types";
 import * as authApi from '../api/auth'
@@ -63,6 +63,21 @@ export async function BuyImg(data){
         payload : req
     }
 }
+export async function ChangeID(data){
+    const req = await authApi.Changeid(data).then(res=>res.data);
+    return {
+        type:CHANGE_ID,
+        payload : req
+    }
+}
+export async function ChangePWD(data){
+    const req = await authApi.Changepwd(data).then(res=>res.data);
+    return {
+        type:CHANGE_PWD,
+        payload : req
+    }
+}
+
 export async function ChangeImg(data){
     const req = await authApi.changeimg(data).then(res=>res.data);
     return {

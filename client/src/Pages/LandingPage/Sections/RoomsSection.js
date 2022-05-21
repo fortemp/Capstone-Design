@@ -85,7 +85,7 @@ function RoomsSection(props) {
   }
 
   return (
-    <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
+    <Box style={props.style} bgcolor={'#FFF978'} p={2}>
       <TableContainer>
       <Table size="small">
         <TableHead>
