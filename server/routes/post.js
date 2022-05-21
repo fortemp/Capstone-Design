@@ -2,14 +2,13 @@ const express = require('express');
 const router = express();
 const Posting = require('../models/Posting')
 const Comment = require('../models/Comment');
+const User = require('../models/User')
 const passport = require('passport');
-const Crypto = require('crypto');
 const db = require('../config/db')
 
 //게시물 입력
 router.post('/postings',async (req,res)=>{
     console.log(req.body);
-    const result = await Posting.findAll();
     let object =
     {
         title:req.body.title,
@@ -18,12 +17,13 @@ router.post('/postings',async (req,res)=>{
     };
     try{
         let user = null;
-        if(req.isAuthenticated()){user={ID:req.user.user_id}};
+        if(req.isAuthenticated()){
+            user={ID:req.user.user_id}
+        }else{
+            return res.status(400).json({success:false})
+        }
         const user_id= user.ID; // 유저아이디를 로그인 아이디로 변경해야함 수정해야함
-        object.post_id=result.length+1;
         object.user_id=user_id;
-        object.posted_date=new Date(); // 시간 입력 정확히 해야함 수정해야함
-        console.log(object);
         await Posting.create(object);
         return res.status(200).json({success:true})
     }
@@ -35,27 +35,46 @@ router.post('/postings',async (req,res)=>{
 })
 
 //게시물 가져오기
-router.get('/getpost',async (req, res)=>{
-    const sql1 = 'select description, post_id, title, language, posted_date, p.created_at, p.deleted_at, p.updated_at, p.user_id, name from postings as p inner join users where post_id !=?;';
-    const sql2='select description, post_id, title, language, posted_date, p.created_at, p.deleted_at, p.updated_at, p.user_id, name from postings as p inner join users where post_id=?;';
-    const params=req.query.idx
-    if( params != -1)
-    {
-        db.query(sql2,params, (err, data) => {
-            res.send(data);
-           })
-    }else{
-        db.query(sql1,params, (err, data) => {
-            res.send(data);
-        })
-    }
+router.get('/getposts',(req, res)=>{
+    Posting.findAll({
+        include: 
+        [
+           {
+             model: User,//User테이블과 조인(user_id로 조인하는것은 미리 설정해두었음)
+             attributes: ['name']
+           }
+        ],
+   }).then(response=>{
+       return res.status(200).json(response)
+   }).catch(err=>{
+       console.log(err)
+       return res.send(500)
+   })
+})
+
+//특정게시물 가져오기
+router.get('/getpost',(req, res)=>{
+    Posting.findOne({
+        include: 
+        [
+           {
+             model: User,//User테이블과 조인(user_id로 조인하는것은 미리 설정해두었음)
+             attributes: ['name']
+           }
+        ],
+        where:{post_id:req.query.idx}
+   },)
+   .then(response=>{
+       return res.status(200).json(response)
+   }).catch(err=>{
+       console.log(err)
+       return res.send(500)
+   })
 })
 
 //조회수 변경
-router.post('/viewUpdata',async (req, res)=>{
-    Posting.update({ title : req.body.title }, {
-        where : { post_id : req.body.post_id }
-    })
+router.get('/viewUpdata',async (req, res)=>{
+    Posting.increment({view:1},{where:{post_id:req.query.idx}})
     .then( result => { res.send(result) })
     .catch( err => { throw err })
 })
@@ -118,6 +137,7 @@ router.post('/postupdata',async (req, res)=>{
     .then( result => { res.send(result) })
     .catch( err => { throw err })
 })
+
 //댓글 삭제
 router.post('/commentdelete',async (req, res)=>{
     let user=null;

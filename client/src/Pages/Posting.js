@@ -4,11 +4,8 @@ import {useDispatch} from 'react-redux'
 import './Posting.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import parse from 'html-react-parser'
-import Axios from 'axios'
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
-import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
 import { makeStyles } from "@material-ui/core/styles";
 import {UserPosting,PostUpdata} from '../actions/index';
 
@@ -50,10 +47,8 @@ function Posting() { //임시로 null\
       ]
       const location = useLocation()
       const updata = location.state
-      console.log(updata)
+
       return (
-        
-        <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
          <Container fixed maxWidth="md" className={classes.container}>
         <Grid container spacing={3}>
         <div className="App" >
@@ -99,14 +94,12 @@ function Posting() { //임시로 null\
         </div>
         
         <button className="submit-button" onClick={() =>{ // 입력!
-        console.log(values)
         {updata?
                           setTimeout(() => {
                             let data = {
-                              title: values.title+"V"+updata.title.split('V',2)[1],
+                              title: values.title,
                               description: values.description,
                               language: values.language,
-                              post_id: updata.post_id
                             }
                             console.log(data)
                             dispatch(PostUpdata(data))
@@ -121,11 +114,10 @@ function Posting() { //임시로 null\
                         }, 500)
                         :setTimeout(() => {
                           let data = {
-                            title: values.title+'V0',
+                            title: values.title,
                             description: values.description,
                             language: values.language
                           }
-                          console.log(data)
                           dispatch(UserPosting(data))
                           .then(res=>{
                             if(res.payload.success){
@@ -144,8 +136,6 @@ function Posting() { //임시로 null\
         </Grid>
       </Container>
 
-    </SocketContext.Provider>
-        
       );
 }
 
