@@ -6,13 +6,18 @@ export async function postings(data){
     return res;
 }
 //게시물 가져오기
-export async function getpost(){
-    const res = await api.get('/post/getpost');
+export async function getpost(param){
+    const res = await api.get('/post/getpost',{params:{'idx':param}});
+    return res;
+}
+//게시물들 가져오기
+export async function getposts(){
+    const res = await api.get('/post/getposts');
     return res;
 }
 //조회수 업데이트
-export async function viewUpdata(data){
-    const res = await api.post('/post/viewUpdata', data);
+export async function viewUpdata(param){
+    const res = await api.get('/post/viewUpdata',{params:{'idx':param}});
     return res;
 }
 //댓글 입력
@@ -21,8 +26,8 @@ export async function setcomment(data){
     return res;
 }
 //댓글 가져오기
-export async function getcomment(){
-    const res = await api.get('/post/getcomment');
+export async function getcomment(param){
+    const res = await api.get('/post/getcomment',{params:{'idx':param}});
     return res;
 }
 
