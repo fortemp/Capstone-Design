@@ -69,15 +69,14 @@ router.get('/logout',(req,res)=>{
 
 //로그인한 사용자의 브라우저에게 로그인여부와 정보를 보냄
 router.get('/auth',(req,res)=>{
-    const status = req.isAuthenticated() === true ? 200 : 401
     let user = null
 
     if(req.isAuthenticated()){
         user = {_id:req.user.user_id,name:req.user.name, email:req.user.email,
-            point:req.user.point, img_url: req.user.img_url,elo:req.user.elo}
+            point:req.user.point, img_url: req.user.img_url,elo:req.user.elo,is_admin:req.user.is_admin}
     }
 
-    res.status(status).json({auth:req.isAuthenticated(),user})
+    return res.status(200).json({auth:req.isAuthenticated(),user})
 })
 //회원가입시 아이디 중복확인
 router.post('/dupcheck',async (req,res)=>{
