@@ -5,7 +5,8 @@
     line-height: 1.5;
     margin : 20px 10px;
     margin:auto;
-    border-collapse : collapse; 
+    border-collapse : collapse;
+    width: 75%;
 }
 
 .posttable .thid {
