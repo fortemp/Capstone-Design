@@ -100,7 +100,7 @@ function Posting() { //임시로 null\
         console.log(values)
                         setTimeout(() => {
                           let data = {
-                            title: values.title+'V0',
+                            title: values.title,
                             description: values.description,
                             language: values.language
                           }

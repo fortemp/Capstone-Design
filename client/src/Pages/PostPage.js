@@ -6,6 +6,7 @@ import Axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import {SetComment,PostDelete, CommentDelete,commentUpdata} from '../actions/index';
 import {useDispatch} from 'react-redux'
+import { viewUpdata } from '../api/post';
 
 const PostPage = ({ onInsert }) => {
     const [ data, setData ] = useState({}); // 게시물 데이터
@@ -44,6 +45,10 @@ const PostPage = ({ onInsert }) => {
         console.error(e.message)
     }
    },[])
+
+   useEffect(async()=>{
+     viewUpdata()
+   })
 
    let commentArr = Array.from(datacomment); // 코멘트 배열
    let Arr = Array.from(data); // 글 내용 배열
@@ -98,7 +103,7 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
               <>
               
                 <div className="post-view-title">
-                  <label>({ element.post_id }) 제목 -   </label><label>{element.title.split('V',1) }</label> 
+                  <label>({ element.post_id }) 제목 -   </label><label>{element.title}</label> 
                 </div>
                 <div className="post-view-row">
                 <label>[작성자 - {element.name}] </label> <label>[작성일 - {element.posted_date.substr(0,10)}]</label> <label>[언어 - {element.language}]</label>

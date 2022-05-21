@@ -22,6 +22,7 @@ router.post('/postings',async (req,res)=>{
         const user_id= user.ID; // 유저아이디를 로그인 아이디로 변경해야함 수정해야함
         object.post_id=result.length+1;
         object.user_id=user_id;
+        object.view=0;
         object.posted_date=new Date(); // 시간 입력 정확히 해야함 수정해야함
         console.log(object);
         await Posting.create(object);
@@ -53,7 +54,7 @@ router.get('/getpost',async (req, res)=>{
 
 //조회수 변경
 router.post('/viewUpdata',async (req, res)=>{
-    Posting.update({ title : req.body.title }, {
+    Posting.update({ view : view+1 }, {
         where : { post_id : req.body.post_id }
     })
     .then( result => { res.send(result) })
