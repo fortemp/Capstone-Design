@@ -14,12 +14,8 @@ import { dupcheck } from '../api/auth';
 function SignupPage(props) {
 
   const dispatch = useDispatch();
-  const [idText, setIdText] = useState('');
   const [dup, setDup] = useState(false);
 
-  function idHandleChange(event) {
-    setIdText(event.target.event);
-  }
   
     return (
         <Formik
@@ -117,10 +113,9 @@ function SignupPage(props) {
                   id="outlined-basic"
                   type="id"
                   label="아이디 입력"
-                  value={idText}
+                  value={values.id}
                   onChange={e=>{
                     handleChange(e);
-                    idHandleChange(e);
                     let data = {
                       id:e.target.value
                     };
