@@ -104,10 +104,12 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
           {!isRequesting ?
               <>
                 <div className="post-view-title">
-                  <h2>({ post.post_id }) 제목 -  {post.title} </h2>
+                  <h1>{post.title}</h1>
                 </div>
                 <div className="post-view-row">
-                <label>[작성자 - {author}] </label> <label>[작성일 - {DateStringHandler(date)}]</label> <label>[언어 - {post.language}]</label>
+                <label>[작성자 - {author}] </label> <label>[작성일 - {DateStringHandler(date)}]</label> <label>[언어 - {post.language}]</label> <label>[조회수:{post.view}]</label>
+                </div>
+                <div className="post-view-buttons">
                 <Button variant="outlined" onClick={()=>deletepost(post.post_id, post.user_id)}>삭제</Button>
                 <Link to={'/ModifyPage'} state={{user_id:post.user_id, post_id:post.post_id, title:post.title, description:post.description}}> 
                 <Button variant="outlined" >수정</Button></Link>
