@@ -28,10 +28,10 @@ function App() {
           <Route exact path="/signup" element={ withAuth(SignupPage,false) } />
           <Route exact path="/host" element={ withAuth(HostRoomPage,true) } />
           <Route exact path="/shop" element={ withAuth(ShopPage,true) } />
-          <Route exact path="/community" element={ withAuth(CommunityPage,true) } />
-          <Route exact path="/posting" element={ withAuth(Posting,true) } /> 
-          <Route  path={"/PostPage/:post_id"} element={ withAuth(PostPage,true)} />
-          <Route  path={"/ProblemInsertpage"} element={ withAuth(ProblemInsertpage,true)} />
+          <Route exact path="/community" element={ withAuth(CommunityPage,null) } />
+          <Route exact path="/posting" element={ withAuth(Posting,null) } /> 
+          <Route  path={"/PostPage/:post_id"} element={ withAuth(PostPage,null)} />
+          <Route  path={"/ProblemInsertpage"} element={ withAuth(ProblemInsertpage,true,true)} />
         </Routes>
       </div>
 
