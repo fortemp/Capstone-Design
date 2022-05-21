@@ -8,7 +8,6 @@ import parse from 'html-react-parser'
 import Axios from 'axios'
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
-import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
 import { makeStyles } from "@material-ui/core/styles";
 import {UserPosting,PostUpdata} from '../actions/index';
 
@@ -53,7 +52,7 @@ function Posting() { //임시로 null\
       console.log(updata)
       return (
         
-        <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
+
          <Container fixed maxWidth="md" className={classes.container}>
         <Grid container spacing={3}>
         <div className="App" >
@@ -62,7 +61,7 @@ function Posting() { //임시로 null\
         <div className='form-wrapper'>
           <input className="title-input" // 제목
             type='text'
-            placeholder={updata?updata.title.split('V',1):'제목'}
+            placeholder={'제목'}
             onChange={getValue}
             name='title'
           />
@@ -76,8 +75,7 @@ function Posting() { //임시로 null\
           <CKEditor  //CKEditor 내용작성
           className='editor'
             editor={ClassicEditor}
-            data = {updata?updata.description
-            :'<p></p>'}
+            data = {'<p></p>'}
             onReady={editor => {
             }}
             onChange={(event, editor) => {
@@ -100,26 +98,7 @@ function Posting() { //임시로 null\
         
         <button className="submit-button" onClick={() =>{ // 입력!
         console.log(values)
-        {updata?
-                          setTimeout(() => {
-                            let data = {
-                              title: values.title+"V"+updata.title.split('V',2)[1],
-                              description: values.description,
-                              language: values.language,
-                              post_id: updata.post_id
-                            }
-                            console.log(data)
-                            dispatch(PostUpdata(data))
-                            .then(res=>{
-                              if(res.payload.success){
-                                alert('수정완료');
-                                window.location.replace('/community');
-                              }else{
-                                alert('오류가 발생했습니다.')
-                              }
-                            })
-                        }, 500)
-                        :setTimeout(() => {
+                        setTimeout(() => {
                           let data = {
                             title: values.title+'V0',
                             description: values.description,
@@ -136,7 +115,7 @@ function Posting() { //임시로 null\
                             }
                           })
                       }, 500)
-                      }
+                      
         }
         }>입력</button>
         <Link to = '/community'><button className="submit-button">뒤로가기</button></Link>        
@@ -144,7 +123,7 @@ function Posting() { //임시로 null\
         </Grid>
       </Container>
 
-    </SocketContext.Provider>
+
         
       );
 }

@@ -36,8 +36,8 @@ router.post('/postings',async (req,res)=>{
 
 //게시물 가져오기
 router.get('/getpost',async (req, res)=>{
-    const sql1 = 'select description, post_id, title, language, posted_date, p.created_at, p.deleted_at, p.updated_at, p.user_id, name from postings as p inner join users where post_id !=?;';
-    const sql2='select description, post_id, title, language, posted_date, p.created_at, p.deleted_at, p.updated_at, p.user_id, name from postings as p inner join users where post_id=?;';
+    const sql1 = 'select description, post_id, title, language, posted_date, p.created_at, p.deleted_at, p.updated_at, p.user_id, name from postings as p inner join users where post_id != ? and p.user_id=users.user_id;';
+    const sql2='select description, post_id, title, language, posted_date, p.created_at, p.deleted_at, p.updated_at, p.user_id, name from postings as p inner join users where post_id = ? and p.user_id=users.user_id;';
     const params=req.query.idx
     if( params != -1)
     {
@@ -62,7 +62,7 @@ router.post('/viewUpdata',async (req, res)=>{
 
 //댓글 가져오기
 router.get('/getcomment',async (req, res)=>{
-    const sql1= 'select description, c.post_id, commented_date, comment_id, c.created_at, c.updated_at, c.deleted_at, c.user_id, name from comments as c inner join users where post_id =?;';
+    const sql1= 'select description, c.post_id, commented_date, comment_id, c.created_at, c.updated_at, c.deleted_at, c.user_id, name from comments as c inner join users where post_id =? and c.user_id=users.user_id;';
     const params = req.query.idx
     db.query(sql1, params, (err, data1) => {
         res.send(data1);
@@ -122,18 +122,28 @@ router.post('/postupdata',async (req, res)=>{
 router.post('/commentdelete',async (req, res)=>{
     let user=null;
     user={ID:req.user.user_id}
-    const sql='delete from comments where post_id=?, comment_id=?;';
+    const sql='delete from comments where post_id=? AND comment_id=?;';
     const params1 = req.body.post_id;
     const params2 = req.body.comment_id;
     if(req.body.user_id==user.ID){
-        db.query(sql, params1, params2)
+        db.query(sql, [params1, params2])
+    }else{
+        res.alert("권한없음");
     }
 })
 
 //댓글 업데이트
 router.post('/commentupdata',async (req, res)=>{
-
+    let user=null;
+    user={ID:req.user.user_id}
+    const sql='update comments set description=? where post_id=? AND comment_id=?And user_id=?;';
+    const params1 = req.body.description;
+    const params2 = req.body.post_id;
+    const params3 = req.body.comment_id;
+    const params4 = req.body.user_id;
+    db.query(sql, [params1, params2, params3, params4])
 })
+
 //최신글 가져오기
 router.get('/getrecentpost',async(req,res)=>{
     const sql= 'select * from postings order by post_id desc limit 5';

@@ -1,57 +1,3 @@
-/*
-import React, { useEffect } from 'react'
-import ChatSection from './LandingPage/Sections/ChatSection'
-import BoardSection from './LandingPage/Sections/BoardSection'
-import RoomSection from './LandingPage/Sections/RoomsSection'
-import RankingSection from './LandingPage/Sections/RankingSection'
-import Grid from '@material-ui/core/Grid';
-import { SocketContext, Roomsocket, Publicsocket } from '../api/socket'
-function CommunityPage() {
-    const RankingStyle = { height: '740px' }
-    const roomStyle = { height: '200px' }
-    const chatStyle = { height: '532px'}
-    const gameStyle = { height: '740px' }
-
-  
-
-    return (
-        <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
-            <Grid container spacing={1}>
-                <Grid item xs={12} md={3}>
-                    <RankingSection style={RankingStyle} />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <BoardSection style={gameStyle} />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-
-                    <Grid
-                        container
-                        spacing={1}
-                        direction="column" padding={"0 0 0 0"}>
-
-                        <Grid item>
-                            <RoomSection style={roomStyle} />
-                        </Grid>
-
-                        <Grid item>
-                            <ChatSection style={chatStyle} />
-                        </Grid>
-
-                    </Grid>
-
-                </Grid>
-            </Grid>
-
-
-
-        </SocketContext.Provider>
-    )
-
-}
-*/
-
 import{Link} from "react-router-dom";
 import { useEffect, useState} from 'react'
 import Axios from 'axios';
@@ -93,26 +39,6 @@ function CommunityPage() { //임시로 null\
     dispatch(ViewUpdata(data))
   };
 
-  const deletepost = (data1, data2) =>{
-      let data = {
-        post_id:data1,
-        user_id:data2
-      }
-      dispatch(PostDelete(data))
-      window.location.replace("/")
-  }
-  let updata =null;
-  const updatepost = (data1, data2, data3, data4) =>{
-    updata={
-      user_id:data1,
-      post_id:data2,
-      title:data3,
-      description:data4
-    }
-    console.log(updata)
-  }
-
-
   return(
     <div>
       <table className="posttable">
@@ -135,9 +61,6 @@ function CommunityPage() { //임시로 null\
         <td className="tddate" >{element.posted_date.substr(0,10)}</td>
         <td className="td" >{element.name}</td>
         <td className="td" >{parseInt(element.title.split('V',2)[1])}</td>
-        <td className="td"><button onClick={()=>deletepost(element.post_id, element.user_id)}>삭제</button></td>
-        <td className="td"><Link to={'/Posting'} state={{user_id:element.user_id, post_id:element.post_id, title:element.title, description:element.description}}> 
-        <button >수정</button></Link></td>
         </tr>
       </tbody>
         )}
