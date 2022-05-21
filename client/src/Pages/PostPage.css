@@ -122,3 +122,8 @@
   width: auto;
   padding-top: 100px;
 }
+
+.commentButton{
+  text-decoration: underline;
+  float:right;
+}

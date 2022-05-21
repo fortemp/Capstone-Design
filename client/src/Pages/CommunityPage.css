@@ -23,7 +23,7 @@
 }
 
 .posttable .thtitle {
-  width: 450px;
+  width: 350px;
   padding: 10px;
   font-weight: bold;
   vertical-align: top;
@@ -56,7 +56,7 @@
   }
 
   .posttable .tdtitle {
-    width: 450px;
+    width: 350px;
     padding: 10px;
     vertical-align: top;
     background: #eee;

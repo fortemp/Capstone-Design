@@ -35,7 +35,6 @@ function CommunityPage() { //임시로 null\
           <th className="date">시간</th>
           <th className="th">작성자</th>
           <th className="th">조회수</th>
-          <th className="th">삭제</th>
           <th className="th">수정</th>
         </tr>  
       </thead>
@@ -48,9 +47,10 @@ function CommunityPage() { //임시로 null\
         <td className="tdid">{post.post_id}</td>
         <td className="tdtitle" >< Link to={`/PostPage/${post.post_id}`} >
           {post.title}</Link></td>
-        <td className="tddate" style={{"fontSize":'12px'}} >{DateStringHandler(post.createdAt)}</td>
+        <td className="tddate" style={{"fontSize":'12px'}} >{DateStringHandler(post.createdAt).substring(0,10)}</td>
         <td className="td" >{post.User.name}</td>
         <td className="td" >{post.view}</td>
+        <td clsssName="tddate" style={{"fontSize":'12px'}}>{DateStringHandler(post.updatedAt).substring(0,10)}</td>
         </tr>
       </tbody>
 )}

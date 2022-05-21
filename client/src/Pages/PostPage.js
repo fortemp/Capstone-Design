@@ -195,7 +195,7 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
         <div className='commentdiv'>
         {datacomment.map((element) =>
                   <div className='comment'>
-                    <label>{element.name}     :</label><label>{DateStringHandler(element.created_at)}</label>
+                    <label>{element.name}     :</label><label>{DateStringHandler(element.created_at).substring(0,10)}</label>
                     <div className="commentButton">
                       <Button id="delbutton" variant="outlined" onClick={()=>deletecomment(element.comment_id, element.user_id, element.post_id) }>삭제</Button>  
                       <Button id="modbutton" variant="outlined" onClick={()=>{setVisible(true);updatecomment(element.decription, element.comment_id, element.post_id, element.user_id);}}>수정</Button>
