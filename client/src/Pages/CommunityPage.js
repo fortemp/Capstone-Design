@@ -35,7 +35,6 @@ function CommunityPage() { //임시로 null\
           <th className="date">시간</th>
           <th className="th">작성자</th>
           <th className="th">조회수</th>
-          <th className="th">수정</th>
         </tr>  
       </thead>
       </table>

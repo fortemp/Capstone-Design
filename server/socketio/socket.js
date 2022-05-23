@@ -46,14 +46,16 @@ module.exports = (server,app,sessionMid)=>{
         const ip = socket.request.headers['x-forwarded-for']||socket.request.connection.remoteAddress;
         console.log(`public에 새로운 클라이언트 접속 아이피:${ip} 소켓아이디: ${socket.id}`);
         socket.emit('publicMessage',{name:'알림', message:"안녕하세요!! CCC입니다.", fromWhom:'announce'});
-        let myName;
-        if(socket.request.session.passport != null){//로그인 했다면
-            socket.who = socket.request.user
-            myName = socket.who.name;
+        socket.who = false;
+        if(socket.request.session.passport){
+            if(socket.request.session.passport.constructor === Object
+                && Object.keys(socket.request.session.passport).length !== 0){//로그인 했다면
+                socket.who = socket.request.user
+            }
         }
 
         socket.on('sendChat',(message)=>{
-            if(!myName){//로그인하지 않은 유저라면
+            if(!socket.who){//로그인하지 않은 유저라면
                 socket.broadcast.emit('publicMessage',{name:'익명' , message:message,fromWhom:'other'});
                 socket.emit('publicMessage',{name:'익명' , message:message,fromWhom:'me'});
             }else{//로그인을 한 유저라면
@@ -66,20 +68,15 @@ module.exports = (server,app,sessionMid)=>{
     room.on('connection', (socket)=>{//방 들어간 사람들끼리
         const ip = socket.request.headers['x-forwarded-for']||socket.request.connection.remoteAddress;
         console.log(`room에 새로운 클라이언트 접속 아이피:${ip} 소켓아이디: ${socket.id}`);
-        let myName; //자신의 이름을 저장하기위한 변수
         let amIHost = false;//자신이 호스트인지 아닌지 확인하기 위한 변수
         let readyState = false;//레디상태: 호스트이면 이미 레디상태로 만들기위해 굳이빼놓았음 
-
+        socket.who = false;
 
         if(socket.request.session.passport != null){//로그인 했다면
             socket.who = socket.request.user
-            myName = socket.who.name;                         // <-----------------------------이거 주석 지우면 안돌아감 
-            //who에 user객체 저장되어 있음
         }
         //방들어가는 함수
         socket.on('joinRoom',async (room_id,title,password)=>{
-            let rooms = app.get('rooms');
-            rooms.push(1);
             console.log(app.get('rooms'));
             let roomPassFlag = false;
             let roomObject;
@@ -146,7 +143,7 @@ module.exports = (server,app,sessionMid)=>{
                     })
                 }else{//나간방에 누군가 있을때
                     //자기가 들어갔던 방에 나간다는 말을 한다.
-                    socket.broadcast.to(socket.room).emit('announce',{message:`${myName}님이 나가셨습니다.`})
+                    socket.broadcast.to(socket.room).emit('announce',{message:`${socket.who.name}님이 나가셨습니다.`})
                     await Room.increment({people:-1},{where:{room_id:socket.room}});
                 }
                 socket.leave(socket.room);
@@ -165,8 +162,8 @@ module.exports = (server,app,sessionMid)=>{
                 socket.emit("roomJoinedR",{message:`${title} 방에 입장했습니다. `,room:{roomId:socket.room,roomName:title}})//사용자에게 방에 입장했음을 알림
                 socket.broadcast.to(socket.room).emit("refreshR");//방에오면 방목록을 새로고침하라고 방에 있는 인원에게 알림
 
-                socket.broadcast.to(socket.room).emit("roomJoinedC",{message:`${myName}님이 ${title} 방에 입장했습니다. `,fromWhom:'announce',name:'announce',room:{roomId:socket.room,roomName:title}})
-                socket.emit("roomJoinedC",{message:`${myName}님이 ${title} 방에 입장했습니다. `,fromWhom:'announce',name:'announce',room:{roomId:socket.room,roomName:title}})
+                socket.broadcast.to(socket.room).emit("roomJoinedC",{message:`${socket.who.name}님이 ${title} 방에 입장했습니다. `,fromWhom:'announce',name:'announce',room:{roomId:socket.room,roomName:title}})
+                socket.emit("roomJoinedC",{message:`${socket.who.name}님이 ${title} 방에 입장했습니다. `,fromWhom:'announce',name:'announce',room:{roomId:socket.room,roomName:title}})
                 //방에 있는 인원들에게 자신이 왔다고 알림; 채팅
 
                 socket.emit("roomInfoG",roomObject);//방정보를 보내준다.
@@ -221,7 +218,7 @@ module.exports = (server,app,sessionMid)=>{
                 }
 
                 //자기가 들어갔던 방에 나간다는 말을 한다.
-                socket.broadcast.to(socket.room).emit("roomLeavedC",{message:`${myName}님이 나가셨습니다. `,fromWhom:'announce',name:'announce'})
+                socket.broadcast.to(socket.room).emit("roomLeavedC",{message:`${socket.who.name}님이 나가셨습니다. `,fromWhom:'announce',name:'announce'})
                 //자신을 포함한 다른사람의 정보를 보냄.
                 socket.broadcast.to(socket.room).emit("roomPlayersG",[...roomAdapter]);
                 //방의 인원을 한명 줄인다.
@@ -295,7 +292,7 @@ module.exports = (server,app,sessionMid)=>{
                 }
 
                 //자기가 들어갔던 방에 나간다는 말을 한다.
-                socket.broadcast.to(socket.room).emit("roomLeavedC",{message:`${myName}님이 나가셨습니다. `,fromWhom:'announce',name:'announce'})
+                socket.broadcast.to(socket.room).emit("roomLeavedC",{message:`${socket.who.name}님이 나가셨습니다. `,fromWhom:'announce',name:'announce'})
                 //자신을 포함한 다른사람의 정보를 보냄.
                 socket.broadcast.to(socket.room).emit("roomPlayersG",[...roomAdapter]);
                 //방의 인원을 한명 줄인다.
@@ -383,8 +380,8 @@ module.exports = (server,app,sessionMid)=>{
                   .map(s => s.charCodeAt(0))
                   .reduce((prev, c) => (prev + ((c === 10) ? 2 : ((c >> 7) ? 2 : 1))), 0);
             }
-            socket.broadcast.to(socket.room).emit("roomMessage",{message:`${myName}님이 코드제출! ${getByte(text.toString())}byte!`,fromWhom:'announce',name:'announce'})
-            socket.emit("roomMessage",{message:`${myName}님이 코드제출! ${getByte(text.toString())}byte!`,fromWhom:'announce',name:'announce'});
+            socket.broadcast.to(socket.room).emit("roomMessage",{message:`${socket.who.name}님이 코드제출! ${getByte(text.toString())}byte!`,fromWhom:'announce',name:'announce'})
+            socket.emit("roomMessage",{message:`${socket.who.name}님이 코드제출! ${getByte(text.toString())}byte!`,fromWhom:'announce',name:'announce'});
         })
 
         //라운드끝:누군가의 코드가 정답일시 방의 호스트가 게임이 끝났음을 서버에 알린다.
