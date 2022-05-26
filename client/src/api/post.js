@@ -58,3 +58,8 @@ export async function postupdata(data){
     const res = await api.post('/post/postupdata', data);
     return res;
 }
+//댓글 삭제
+export async function compilecode(data){
+    const res = await api.post('/post/compilecode',data)
+    return res;
+}

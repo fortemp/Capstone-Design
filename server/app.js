@@ -15,7 +15,7 @@ const passportConfig = require('./passport')
 const Socket = require('./socketio/socket');
 const models = require('./models/index');
 
-models.sequelize.sync({force: false, alter: false,timezone: "+09:00" } )//true로하면 모델 수정 가능, 단 데이터 전부 지워짐.
+models.sequelize.sync({force: false, alter: false, timezone: "+09:00" } )//true로하면 모델 수정 가능, 단 데이터 전부 지워짐.
     .then(()=>
     {
         console.log('db연결 성공');

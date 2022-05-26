@@ -1,26 +1,29 @@
 {
   "development": {
-    "username": "root",
+    "username": "kim",
     "password": "1234",
     "database": "capstone",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone": "+09:00"
+    "timezone": "+09:00",
+    "logging":false
   },
   "test": {
-    "username": "root",
+    "username": "kim",
     "password": "1234",
     "database": "capstone",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone": "+09:00"
+    "timezone": "+09:00",
+    "logging":false
   },
   "production": {
-    "username": "root",
+    "username": "kim",
     "password": "1234",
     "database": "capstone",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone": "+09:00"
+    "timezone": "+09:00",
+    "logging":false
   }
 }

@@ -5,7 +5,8 @@ const Comment = require('../models/Comment');
 const User = require('../models/User')
 const passport = require('passport');
 const db = require('../config/db')
-
+const {MakeInputOutput} = require('../util/GradingApi')
+const {executeCode} = require('../util/GradingApi')
 //게시물 입력
 router.post('/postings',async (req,res)=>{
     console.log(req.body);
@@ -170,6 +171,18 @@ router.get('/getrecentpost',async(req,res)=>{
     db.query(sql, (err,data)=>{
         res.send(data);
     })
+})
+
+//들어갈문제 임시로 컴파일하기
+router.post('/compilecode',async(req,res)=>{
+    let language = req.body.language;
+    let CodeString = req.body.code;
+    let inputArr = Object.values(req.body.inputs)
+    let outputArr = Object.values(req.body.outputs);
+    MakeInputOutput(9999,inputArr,outputArr);
+    let result = await executeCode('testuser',language,'../problem',CodeString,9999,4)
+    
+    res.status(200).json(result);
 })
 
 

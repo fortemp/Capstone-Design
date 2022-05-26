@@ -1,0 +1,4 @@
+../testcode/12345678-1234-1234-012345678912/0123456782.cpp: In function ‘int main()’:
+../testcode/12345678-1234-1234-012345678912/0123456782.cpp:7:23: warning: division by zero [-Wdiv-by-zero]
+    7 |     std::cout << (a+b)/0 << std::endl;
+      |                  ~~~~~^~

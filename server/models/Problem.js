@@ -10,8 +10,8 @@ module.exports = class Problem extends Sequelize.Model
                 {
                     allowNull: false,
                     primaryKey: true,
-                    type: Sequelize.UUID,
-                    defaultValue: Sequelize.UUIDV4,
+                    type: Sequelize.INTEGER,
+                    autoIncrement:true
                 },
                 tier_id://이름
                 {
@@ -38,6 +38,7 @@ module.exports = class Problem extends Sequelize.Model
                 tableName: 'Problems',//테이블명 즉 sql에서 쓰는이름 
                 charset: 'utf8',
                 collate: 'utf8_general_ci',
+                initialAutoIncrement: 1001,
             });
     }
     static associate(db)
