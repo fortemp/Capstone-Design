@@ -29,14 +29,14 @@ exports.MakeInputOutput = function(problemId, inputArr, outputArr){
             fs.writeFileSync(`${dirPath}/in/${i}.in`,inputArr[i-1]);
         for(let i=1;i<=4;i++)
             fs.writeFileSync(`${dirPath}/result/${i}.result`,outputArr[i-1].trim());
-        return true;
+        return problemId
     }catch(err){
         console.log(err);
         return false;
     }
 }
 
-exports.executeCode = function(user_id,language,problemSetPath,CodeString,problemId,testLength){
+exports.executeCode = function(user_id,language,problemSetPath,CodeString,problemId,testLength,test){
 
     var executeResult;//실행결과: 맞으면 1 그 이외는 0
     var executeLog;//실행결과에대한 로그, 맞음과 틀림에 상관없이 리턴한다.
@@ -48,25 +48,24 @@ exports.executeCode = function(user_id,language,problemSetPath,CodeString,proble
         for (var i in lines) {
             if (lines[i]) {
                 console.log(lines[i]);
-                if(lines[i]==='std::exception'){
+                if(lines[i]==='std::exception' || lines[i]==='0'){
                     executeResult = false;
                     message = '오류';
-                    return;
+                    return false;
                 }
-                if(lines[i]==='0'){//틀리거나 오류이면 false
+                if(lines[i]==='incorrect'){//틀림
                     executeResult = false;
-                    return;
+                    message = '오답';
+                    return false;
                 }
                 if(lines[i]==='correct')
                     correctNum++;
             }
             if(correctNum===testLength){//테스트케이스개수와 맞은개수가 일치하면 true
                 executeResult = true;
-                return;
+                return true;
             }
         }
-        executeResult = false;//여기까지 왔다는건 그냥 답이 틀린거임
-        message = "테스트케이스 불통과"
     };
 
     const dirPath = path.join(__dirname,`../../grading/usercode/${user_id}`);
@@ -88,9 +87,14 @@ exports.executeCode = function(user_id,language,problemSetPath,CodeString,proble
             '--language',language]
             ,{cwd:binFilePath});
         executeLog = fs.readFileSync(`${dirPath}/${codeId_random}.log`,'utf-8')
-        on_child_stdout(gpp.stdout.toString())
+        if(!on_child_stdout(gpp.stdout.toString())  &&  test){
+            //test문제이면서 실패하면 문제를 삭제해버린다.
+            fs.rmSync(path.join(__dirname,`../../grading/problem/${problemId}`),{recursive:true, force:true})
+            return {correct:executeResult}
+        }
         
-        return {correct:executeResult, log:executeLog.toString(),message:message}
+        //성공하면 문제번호와 함께 log, message를 보내준다.
+        return {correct:executeResult, log:executeLog.toString(),message:message,problem_id:problemId}
     }catch(err){
         console.log(err);
     }
