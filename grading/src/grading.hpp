@@ -79,9 +79,11 @@ namespace Grading{
                         try{
                             int check = execute("cmp -s %s %s", result_path.c_str(), paths.second.c_str());
                             std::cout << "correct\n";
-                             correct ++;
+                            correct ++;
                         }
-                        catch(std::exception e){};
+                        catch(std::exception e){
+                            std::cout << "incorrect\n";
+                        };
                     }
                     
 
