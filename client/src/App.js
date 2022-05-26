@@ -24,7 +24,7 @@ function App() {
 
       <Navbar/>
 
-      <div style={{paddingTop:'20px' ,minHeight: 'calc(100vh -80px)' }}> 
+      <div style={{paddingTop:'20px'  }}> 
         <Routes>
           <Route exact path="/" element={withAuth(LandingPage,null)}/>
           <Route exact path="/login" element={ withAuth(LoginPage,false) }/>
@@ -41,8 +41,9 @@ function App() {
           <Route exact path="/changePWD" element={ withAuth(changePWD,true) } /> 
         </Routes>
       </div>
-
       <Footer/>
+
+      
       
     </div>
   );

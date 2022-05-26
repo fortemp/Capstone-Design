@@ -1,7 +1,6 @@
 .communityapp{
   width: 80%;
-  height: 80vh;
-
+  min-height: 80vh;
   margin: 0 auto;
 }
 
@@ -43,7 +42,7 @@
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     text-align: center;
   }
 

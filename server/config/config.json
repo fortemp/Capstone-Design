@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "kim",
-    "password": "1234",
+    "username": "root",
+    "password": "password",
     "database": "capstone",
     "host": "127.0.0.1",
     "dialect": "mysql",
@@ -9,8 +9,8 @@
     "logging":false
   },
   "test": {
-    "username": "kim",
-    "password": "1234",
+    "username": "root",
+    "password": "password",
     "database": "capstone",
     "host": "127.0.0.1",
     "dialect": "mysql",
@@ -18,8 +18,8 @@
     "logging":false
   },
   "production": {
-    "username": "kim",
-    "password": "1234",
+    "username": "root",
+    "password": "password",
     "database": "capstone",
     "host": "127.0.0.1",
     "dialect": "mysql",
