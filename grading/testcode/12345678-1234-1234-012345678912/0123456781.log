@@ -1,0 +1,7 @@
+../testcode/12345678-1234-1234-012345678912/0123456781.cpp: In function ‘int main()’:
+../testcode/12345678-1234-1234-012345678912/0123456781.cpp:6:23: error: expected ‘;’ before ‘std’
+    6 |     std::cin >> a >> b
+      |                       ^
+      |                       ;
+    7 |     std::cout << a+b << std::endl;
+      |     ~~~                

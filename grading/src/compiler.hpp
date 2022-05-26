@@ -24,6 +24,10 @@ namespace Grading{
                         time_out_ = false;
                      };
 
+            ~Executer(){
+                execute("rm %s", target_path_.c_str());
+            }
+
             template<typename T>
             int run(const std::string& data_path, const std::string& result_path, const std::string& log_path, T time_limit){
                 /*
@@ -119,6 +123,7 @@ namespace Grading{
                        log_path_(log_path){}
 
             virtual std::unique_ptr<Executer> compile() const = 0;
+            virtual std::string get_extension() const = 0;
             virtual ~Compiler(){};
     };
 
@@ -153,6 +158,10 @@ namespace Grading{
                 if(result != 0) throw CompileException();
 
                 return std::make_unique<Executer>(result_path_);
+            }
+
+            virtual std::string get_extension() const override {
+                return "cpp";
             }
             
             virtual ~CppCompiler(){};

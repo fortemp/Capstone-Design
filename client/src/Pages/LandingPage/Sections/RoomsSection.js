@@ -51,6 +51,8 @@ function RoomsSection(props) {
       }else{
         alert('방정보를 가져오는데 실패했습니다.')
       }
+    }).catch(err=>{
+      console.log(err)
     })
   },[requesting])//소켓요청이 들어올때마다 재렌더링; useEffect문을 실행함
 

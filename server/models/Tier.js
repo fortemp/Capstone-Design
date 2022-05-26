@@ -15,15 +15,12 @@ module.exports = class Tier extends Sequelize.Model
                 {
                     allowNull: false,
                     primaryKey: true,
-                    type: Sequelize.UUID,
-                    defaultValue: Sequelize.UUIDV4,
+                    type: Sequelize.INTEGER
                 },
             },
             {
                 sequelize,
-                timestamps: true,//생성한날짜, 업데이트한날짜 row를 만들어줌.
                 underscored: true,//camel와 _의 차이
-                paranoid: true,//deletedAt일자 만들어줌(softdelete)
                 modelName: 'Tier',//모델이름
                 tableName: 'Tiers',//테이블명 즉 sql에서 쓰는이름 
                 charset: 'utf8',

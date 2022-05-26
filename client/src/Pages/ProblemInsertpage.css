@@ -29,7 +29,10 @@
     width: 7vh;
     text-align: center;
 }
-
+.testCase{
+    width:200px;
+    height:100px;
+}
 .problemapp .ck-editor__editable_inline {
     height: 55vh; /*60vh로 되어있으면 제 컴퓨터 해상도에서는 "생성하기"가 보이지 않습니다.*/
 }
