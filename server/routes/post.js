@@ -172,5 +172,11 @@ router.get('/getrecentpost',async(req,res)=>{
     })
 })
 
+//들어갈문제 임시로 컴파일하기
+router.post('/compilecode',async(req,res)=>{
+    console.log(req.body.code);
+    res.status(200);
+})
+
 
 module.exports = router;

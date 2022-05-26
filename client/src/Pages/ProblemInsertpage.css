@@ -2,13 +2,15 @@
     margin:0 auto;
     padding: 1vh;
     width: 100vh;
-    height: 85vh;
+    height: 100vh;
     background-color: orange;
 }
 .problemsession{
     width: 100vh;
     height:78vh;
-
+}
+.languageSelect{
+    float: right;
 }
 .problemtitle-tier{
     padding: 0vh 0vh 2vh 0vh;
@@ -29,5 +31,5 @@
 }
 
 .problemapp .ck-editor__editable_inline {
-    height: 60vh;
+    height: 55vh; /*60vh로 되어있으면 제 컴퓨터 해상도에서는 "생성하기"가 보이지 않습니다.*/
 }

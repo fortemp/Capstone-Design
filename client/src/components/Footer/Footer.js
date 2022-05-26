@@ -3,7 +3,8 @@ import githubImg from '../../assets/github.png'
 
 function Footer() {
   return (
-    <div style={{paddingTop:'auto', textAlign:'center', backgroundColor:'#333333'}}>
+    <div style={{paddingTop:'auto', textAlign:'center'}}>
+      <br/>
         <a href="https://github.com/fortemp/Capstone-Design">
           <img src={githubImg} art="github pic"/>  
         </a>
