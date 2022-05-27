@@ -4,7 +4,9 @@ const User = require('../models/User')
 const passport = require('passport');
 const Crypto = require('crypto');
 const db = require('../config/db')
-const Problem = require('../models/Problem')
+const Problem = require('../models/Problem');
+const { getAttributes } = require('../models/User');
+const {MakeInputOutput} = require('../util/GradingApi')
 
 //로그인
 router.post('/login', (req, res, next) => {
@@ -114,7 +116,7 @@ router.get('/changeimg', async (req, res) => {            //안씀, 삭제 예�
         res.send(data);
     })
 })
-router.get('/getranking', async (req, res) => {                  //랭킹페이지에 존재
+router.get('/getranking',(req, res) => {                  //랭킹페이지에 존재
     const sql = 'select row_number() over(order by elo desc) as num,name,elo from users limit 10';
     db.query(sql, (err, data) => {
         res.send(data);
@@ -130,9 +132,7 @@ router.post('/insertproblem', async (req, res) => {           //문제 넣기(Pr
         description: req.body.description
     };
     try {
-        object.problem_id = result.length + 1;
         await Problem.create(object);
-        console.log(object)
         return res.status(200).json({ success: true })
     }
     catch (err) {

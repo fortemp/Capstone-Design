@@ -1,0 +1,4 @@
+../testcode/12345678-1234-1234-012345678912/0123456783.cpp: In function ‘int main()’:
+../testcode/12345678-1234-1234-012345678912/0123456783.cpp:8:13: warning: unused variable ‘c’ [-Wunused-variable]
+    8 |         int c = a + b;
+      |             ^

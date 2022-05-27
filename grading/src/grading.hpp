@@ -43,9 +43,9 @@ namespace Grading{
                 if(language == "cpp"){
                     compiler_ = new CppCompiler{
                             "-O2 -Wall -lm -static -std=gnu++17",
-                            build_path("..", "testcode", UUID_, code_id_ + "." + language),
-                            build_path("..", "testcode", UUID_, code_id_ + ".out"),
-                            build_path("..", "testcode", UUID_, code_id_ + ".log")
+                            build_path("..", "usercode", UUID_, code_id_ + "." + language),
+                            build_path("..", "usercode", UUID_, code_id_ + ".out"),
+                            build_path("..", "usercode", UUID_, code_id_ + ".log")
                     };
                 }
             }
@@ -63,8 +63,8 @@ namespace Grading{
                         //paths.second = 답안 파일 경로
                         auto paths = problem_.get_problem(idx);
 
-                        std::string result_path = build_path("..", "testcode", UUID_, std::to_string(idx) + ".result");
-                        std::string log_path = build_path("..", "testcode", UUID_, code_id_ + ".log");
+                        std::string result_path = build_path("..", "usercode", UUID_, std::to_string(idx) + ".result");
+                        std::string log_path = build_path("..", "usercode", UUID_, code_id_ + ".log");
 
                         int result = executer->run(
                             paths.first,
@@ -79,9 +79,11 @@ namespace Grading{
                         try{
                             int check = execute("cmp -s %s %s", result_path.c_str(), paths.second.c_str());
                             std::cout << "correct\n";
-                             correct ++;
+                            correct ++;
                         }
-                        catch(std::exception e){};
+                        catch(std::exception e){
+                            std::cout << "incorrect\n";
+                        };
                     }
                     
 
@@ -90,7 +92,7 @@ namespace Grading{
                     std::cout << e.what() << std::endl;
                 }
 
-               // execute("rm %s", build_path("..", "testcode", UUID_, "*.result").c_str());
+                execute("rm -f %s", build_path("..", "testcode", UUID_, "*.result").c_str());
                 return  correct;
             }
 
