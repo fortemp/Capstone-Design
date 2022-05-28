@@ -24,7 +24,7 @@ function App() {
 
       <Navbar/>
 
-      <div style={{paddingTop:'20px' ,minHeight: 'calc(100vh -80px)' }}> 
+      <div style={{paddingTop:'20px'  }}> 
         <Routes>
           <Route exact path="/" element={withAuth(LandingPage,null)}/>
           <Route exact path="/login" element={ withAuth(LoginPage,false) }/>
@@ -34,18 +34,16 @@ function App() {
           <Route exact path="/community" element={ withAuth(CommunityPage,true) } />
           <Route exact path="/posting" element={ withAuth(Posting,true) } /> 
           <Route exact path="/ModifyPage" element={ withAuth(ModifyPage,true) } /> 
-          <Route  path={"/PostPage/:post_id"} element={ withAuth(PostPage,true)} />
-          <Route  path={"/ProblemInsertpage"} element={ withAuth(ProblemInsertpage,true)} />
           <Route exact path="/community" element={ withAuth(CommunityPage,null) } />
-          <Route exact path="/posting" element={ withAuth(Posting,null) } /> 
           <Route  path={"/PostPage/:post_id"} element={ withAuth(PostPage,null)} />
           <Route  path={"/ProblemInsertpage"} element={ withAuth(ProblemInsertpage,true,true)} />
           <Route exact path="/changeID" element={ withAuth(changeID,true) } /> 
           <Route exact path="/changePWD" element={ withAuth(changePWD,true) } /> 
         </Routes>
       </div>
-
       <Footer/>
+
+      
       
     </div>
   );

@@ -61,7 +61,7 @@ function ModifyPage() { //임시로 null\
         <div className='form-wrapper'>
           <input className="title-input" // 제목
             type='text'
-            placeholder={updata.title.split('V',1)}
+            placeholder={updata.title}
             onChange={getValue}
             name='title'
           />
@@ -100,7 +100,7 @@ function ModifyPage() { //임시로 null\
         console.log(values)
                           setTimeout(() => {
                             let data = {
-                              title: values.title+"V"+updata.title.split('V',2)[1],
+                              title: values.title,
                               description: values.description,
                               language: values.language,
                               post_id: updata.post_id
@@ -113,6 +113,7 @@ function ModifyPage() { //임시로 null\
                                 window.location.replace('/community');
                               }else{
                                 alert('오류가 발생했습니다.')
+                                window.location.replace('/community');
                               }
                             })
                         }, 500)

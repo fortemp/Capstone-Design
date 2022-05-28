@@ -12,10 +12,13 @@ import "ace-builds/src-noconflict/ext-language_tools";
 
 function CodeSection(props) {
 
-    const {
+    let {
         language,
         onChange
     } = props;
+    if(language==='c' || language==='cpp'){
+        language='c_cpp';
+    }
 
     return (
         <AceEditor
