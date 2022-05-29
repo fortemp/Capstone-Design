@@ -7,6 +7,11 @@ const passport = require('passport');
 const db = require('../config/db')
 const {MakeInputOutput} = require('../util/GradingApi')
 const {executeCode} = require('../util/GradingApi')
+const Problem = require('../models/Problem');
+const fs = require('fs');
+const path = require('path');
+
+
 //게시물 입력
 router.post('/postings',async (req,res)=>{
     console.log(req.body);
@@ -177,12 +182,15 @@ router.get('/getrecentpost',async(req,res)=>{
 router.post('/compilecode',async(req,res)=>{
     let language = req.body.language;
     let CodeString = req.body.code;
-    let inputArr = Object.values(req.body.inputs)
+    let inputArr = Object.values(req.body.inputs);
     let outputArr = Object.values(req.body.outputs);
-    MakeInputOutput(9999,inputArr,outputArr);
-    let result = await executeCode('testuser',language,'../problem',CodeString,9999,4)
-    
-    res.status(200).json(result);
+    let problemNum = fs.readdirSync(path.join(__dirname,'../../grading/problem'));//문제페이지에 있는것보다 +1한다.
+    let problem_id = MakeInputOutput(parseInt(problemNum[problemNum.length-1])+1,inputArr,outputArr);
+    function callback({correct:executeResult, log:executeLog, message:message, problem_id:problemId,res:response}){
+        return response.status(200).json({correct:executeResult, log:executeLog, message:message, problem_id:problemId});
+    }
+    executeCode('testuser',language,'../problem',CodeString,problem_id,4,true,callback,res)
+
 })
 
 
