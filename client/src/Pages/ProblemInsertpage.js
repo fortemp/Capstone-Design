@@ -10,12 +10,15 @@ import { Button } from '@material-ui/core';
 import { compilecode } from '../api/post';
 
 function ProblemInsertpage (){
+
+    
     const dispatch = useDispatch();
     const [code, setCode] = useState("");
-    const [langselect,setLangselect] = useState('c');
+    const [langselect,setLangselect] = useState('cpp');
     const [compileButtonString, setCompileButtonString] = useState('컴파일하기')
     const [isCompileDone,setIsCompileDone] = useState(true);
     const [readyToSubmit, setReadyToSubmit] = useState(false);
+    const [problem_id,setProblem_id] = useState('');
 
     const [input1,setinput1] = useState("");
     const [input2,setinput2] = useState("");
@@ -27,6 +30,8 @@ function ProblemInsertpage (){
     const [output3,setoutput3] = useState("");
     const [output4,setoutput4] = useState("");
 
+    useEffect(()=>{
+    },[isCompileDone])
 
     const [values,setContent] = useState({
         title: '' ,
@@ -74,7 +79,8 @@ function ProblemInsertpage (){
       setCode(e);
     }
     const goCompile=()=>{
-      if(isCompileDone){
+      if(isCompileDone)
+      {
         setCompileButtonString('컴파일중...')
         setIsCompileDone(false);
         let data = {
@@ -89,18 +95,18 @@ function ProblemInsertpage (){
         }
         compilecode(data).
         then(res=>{
+          setCompileButtonString('컴파일하기')
+          setIsCompileDone(true);
           if(res.data.correct){
-            setCompileButtonString('컴파일하기')
-            setIsCompileDone(true);
+            setProblem_id(res.data.problem_id);
             setReadyToSubmit(true);
             alert('컴파일에 성공했습니다. 제출할수 있습니다.')
           }else{
             alert('컴파일에 실패했습니다. 입출력예제, 코드를 확인해주세요')
           }
         })
-      }else{
-        alert('현재 컴파일중입니다.');
       }
+      else{alert('현재 컴파일중입니다.');}
     }
     useState(()=>{
     },[langselect])
@@ -174,18 +180,23 @@ function ProblemInsertpage (){
                     let data = {
                       title: values.title,
                       description: values.description,
-                      tier: values.tier
+                      tier: values.tier,
+                      problem_id:problem_id
                     }
-                    console.log(data)
-                    dispatch(InsertProblem(data))
-                    .then(res=>{
-                      if(res.payload.success){
-                        alert('작성완료');
-                        window.location.replace('/');
-                      }else{
-                        alert('오류가 발생했습니다.')
-                      }
-                    })
+                    if(readyToSubmit)
+                    {
+                      dispatch(InsertProblem(data))
+                      .then(res=>{
+                        if(res.payload.success){
+                          alert('작성완료');
+                          window.location.replace('/');
+                        }else{
+                          alert('오류가 발생했습니다.')
+                        }
+                      })
+                    }
+                    else{ alert('먼저 컴파일 해주세요.') }
+                    
                 }, 500)
             }}>생성하기</Button>
             
