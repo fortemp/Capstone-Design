@@ -1,0 +1,28 @@
+{
+    type: int,
+    gene: test,
+    name: T,
+    min: 1,
+    max: 3,
+    separator: "\n",
+}
+
+{
+    type: int,
+    gene: tuple,
+    name: W,
+    min: -100,
+    max: 100,
+    separator: " ",
+    prev: T,
+    count: 6,
+}
+
+{
+    type: empty,
+    gene: single,
+    name: -,
+    separator: "\n",
+    prev: W,
+}
+

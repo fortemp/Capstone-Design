@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <cstring>
 
+#include <regex>
+
 using std::random_device;
 
 class BaseData{
@@ -248,8 +250,36 @@ BaseData* create_double(std::map<std::string, std::string>& data){
 }
 
 BaseData* create_string(std::map<std::string, std::string>& data){
-    //new StringData{wordset, stoi(data["min"]), stoi(data["max"]), tmprand, data["separator"]};
-    return nullptr;
+    //
+    std::string tmp{ data["wordset"] };
+    tmp.erase(std::remove(tmp.begin(), tmp.end(), ' '), tmp.end());
+    std::vector<char> wordset{}; 
+    int mode = 0;
+    for(auto& word: tmp){
+        switch(mode){
+            case 0: {
+                if(word == '{') mode = 1;
+                break;
+            }
+
+            case 1: {
+                if(word == ',') break;
+                else if(word == '}'){
+                    mode = 2;
+                    break;
+                }
+                else{
+                    wordset.push_back(word);
+                }
+                break;
+            }
+            case 2:{
+                mode = 2;
+                break;
+            }
+        }
+    }
+    return new StringData{wordset, (unsigned int)stoi(data["min"]), (unsigned int)stoi(data["max"]), tmprand, data["separator"]};
 }
 
 static std::map<std::string, DataCreateFunction> data_creator{

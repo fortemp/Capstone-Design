@@ -77,14 +77,16 @@ int parsing(std::string range_path){
     };
 
     std::ifstream range_file(range_path);
-
     MODE mode = MODE::READY;    //파싱 단계
     std::string cursor;         //파싱 중인 문장
 
     while(!range_file.eof()){
         if(mode != MODE::END) getline(range_file, cursor);
 
-        //std::cout << "[" << cursor << "] " << (int)mode << std::endl;
+        #ifdef DEBUG
+            std::cout << "[" << cursor << "] " << (int)mode << std::endl;
+        #endif
+
         switch(mode){
             case MODE::READY:{
                 if(cursor == "") mode = MODE::READY;
@@ -94,16 +96,23 @@ int parsing(std::string range_path){
             }
 
             case MODE::PARSING:{
-                if(cursor == "}") mode = MODE::END;
+                if(cursor == "}"){
+                     mode = MODE::END;
+                     break;
+                }
                 //else if(cursor == "\n" || cursor == "" || cursor == "\t") break;
-                else if(!parsing_(&argument, cursor)) mode = MODE::DENINE;
+                else if(!parsing_(&argument, cursor)){
+                    mode = MODE::DENINE;
+                }   
                 break;
             }
 
             case MODE::END:{
-                //std::cout << "---END---\n";
-                //map_print(&argument);
-                //std::cout << "---END---\n";
+            #ifdef DEBUG
+                std::cout << "---END---\n";
+                map_print(&argument);
+                std::cout << "---END---\n";
+            #endif
 
                 std::string name = argument["name"];
 
@@ -131,7 +140,7 @@ int parsing(std::string range_path){
                 if(!is_none(prev)) gene_result[prev]->set_next(target);
 
                 //튜플인 경우만
-                if(type == "tuple" && !is_none(count)) 
+                if((gene == "tuple") && !is_none(count))
                     static_cast<TupleDataGenerator*>(target)->set_idx(stoi(count));
 
                 if(!first) first = gene_result[name];
