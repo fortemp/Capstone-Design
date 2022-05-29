@@ -38,7 +38,6 @@ function RoomsSection(props) {
     } 
     setRequesting(true);//소켓요청
     roomSocket.emit('joinRoom',room_id,title,password);
-    sessionStorage.setItem('title',title);          //방정보 가지고 있기
   }
   
   useEffect(()=>{
