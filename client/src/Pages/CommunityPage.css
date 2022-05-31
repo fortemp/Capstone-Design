@@ -6,109 +6,78 @@
 
 .posttable{
   width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    text-align: left;
-    line-height: 1.5;
-    margin: 0 auto;
-    border-collapse : collapse; 
+  font-size: medium;
 }
-
-.posttable .thid {
-  width: 50px;
-  padding: 10px;
-  font-weight: bold;
-  vertical-align: top;
-}
-
-.posttable .thtitle {
-  width: 350px;
-  padding: 10px;
-  font-weight: bold;
-  vertical-align: top;
-}
-.posttable .date {
-  width: 100px;
-  padding: 10px;
-  font-weight: bold;
-  vertical-align: top;
-}
-.posttable thead tr{
-
-  background: #5A5AFF;
-}
+/*머리*/
 .posttable thead th {
     width: 50px;
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
-    /*border: 1px solid black;*/
     text-align: center;
   }
 
+  .posttable .thiD{
+    width: 5%;
+  }
+
+  .posttable .Title{
+    width: 50%;
+  }
+
+  .posttable .Name{
+    width: 10%;
+  }
+
+  .posttable .View{
+    width: 10%;
+  }
+
+
+  .posttable .Date{
+    width: 10%;
+  }
+
+/*몸체*/
   .posttable tbody td {
     width: 50px;
     padding: 10px;
     vertical-align: top;
     background: #eee;
-    border: 1px solid black;
     text-align: center;
   }
 
-  .posttable .tdtitle {
-    width: 350px;
-    padding: 10px;
-    vertical-align: top;
-    background: #eee;
-    font:bold;
-    text-align: center;
-
+  .posttable .tdiD{
+    width: 5%;
   }
 
-  .posttable .tddate {
-    width: 100px;
-    padding: 10px;
-    vertical-align: top;
-    background: #eee;
-    font:bold;
-    text-align: center;
 
-  }
-
-  .tdid{
-    width: 50px;
-    padding: 10px;
-    vertical-align: top;
-    background: rgb(109, 57, 41);
-    text-align: center;
-  }
-.backbutton{
-  background: #eee; 
-    width: 30%;
-    height: 50px;
-    font-size: large;
-    float: right;
-    border: black 1px solid;
-}
-  .postbutton{
-
-    background: #eee;
-    width: 30%;
-    height: 50px;
-    font-size: large;
-    float: left;
-    border: black 1px solid;
-  }
-
+/*버튼*/
   a:link{color: #000;}
-
-  .communityinfo{
-    overflow: auto;
-    height: 80%;
-    border: 1px black solid;
+  .backbutton{
+    background: black; 
+      width: 200px;
+      height: 50px;
+      font-size: large;
+      float: right;
+      border: black 1px solid;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      color: white;
   }
-
-
+    .postbutton{
+      background: black;
+      color: white;
+      width: 200px;
+      height: 50px;
+      font-size: large;
+      float: left;
+      border: black 1px solid;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+  
+/*페이지네이션 용*/
   .pagination {
     display: flex;
     justify-content: center;
