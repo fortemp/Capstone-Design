@@ -1,0 +1,18 @@
+{
+    type: int,
+    gene: single,
+    name: N,
+    min: 100,
+    max: 200000,
+    separator: "\n",
+}
+
+{
+    type: int,
+    gene: single,
+    name: F,
+    min: 1,
+    max: 100,
+    separator: "\n",
+    prev: N,
+}

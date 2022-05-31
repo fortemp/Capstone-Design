@@ -70,7 +70,7 @@ namespace Grading{
                             paths.first,
                             result_path, 
                             log_path,
-                            std::chrono::seconds(1)
+                            std::chrono::seconds(1) //문제 제한 시간
                         );
 
                         std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -92,7 +92,7 @@ namespace Grading{
                     std::cout << e.what() << std::endl;
                 }
 
-                execute("rm -f %s", build_path("..", "testcode", UUID_, "*.result").c_str());
+                execute("rm -f %s", build_path("..", "usercode", UUID_, "*.result").c_str());
                 return  correct;
             }
 

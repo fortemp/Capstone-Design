@@ -1,0 +1,20 @@
+{
+    type: int,
+    gene: single,
+    name: T,
+    min: 1,
+    max: 50,
+    separator: "\n",
+}
+
+{
+    type: int,
+    gene: tuple,
+    name: W,
+    min: 1,
+    max: 1000,
+    separator: " ",
+    rule: tuple count,
+    connect: T,
+    prve: T,
+}
