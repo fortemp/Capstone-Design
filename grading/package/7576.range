@@ -1,0 +1,38 @@
+{
+    type: int,
+    gene: single,
+    name: N,
+    min: 3,
+    max: 10,
+    separator: " ",
+}
+
+{
+    type: int,
+    gene: test,
+    name: M,
+    min: 3,
+    max: 10,
+    separator: "\n",
+    prev: N,
+}
+
+{
+    type: int,
+    gene: tuple,
+    name: T,
+    min: -1,
+    max: 1,
+    separator: " ",
+    rule: tuple count,
+    connect: N,
+    prev: M,
+}
+
+{
+    type: empty,
+    gene: single,
+    name: -,
+    separator: "\n",
+    prev: T,
+}

@@ -1,0 +1,9 @@
+{
+    type: string,
+    gene: single,
+    name: X,
+    min: 1,
+    max: 10,
+    separator: "\n",
+    wordset: {0, 1, 2, 3, 4, 5, 6, 7},
+}
