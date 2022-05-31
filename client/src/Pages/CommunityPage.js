@@ -47,6 +47,7 @@ console.log(state)
           <th className="date">시간</th>
           <th className="th">작성자</th>
           <th className="th">조회수</th>
+          <th className="th">수정일</th>
         </tr>  
       </thead>
       </table>

@@ -15,7 +15,7 @@ export async function getroominfo(){
     const res = await api.get('/room/getroominfo');
     return res;
 }
-    export async function getproblem(){
-        const res = await api.get('/room/getproblem');
-        return res;
+export async function getproblem(data){
+    const res = await api.post('/room/getproblem',data);
+    return res;
 }

@@ -13,7 +13,7 @@ static struct option long_options[] = {
 };
 
 static std::map<std::string, std::string> options{
-    {"package-path", "./package"},
+    {"package-path", "../package"},
     {"range-format", ""},
     {"problem-id", ""},
     {"language", ""}
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]){
     
     parsing( Grading::build_path(options["package-path"], options["range-format"]) );
 
-    std::cout << *first << std::endl;
+    std::cout << *first;
 
 
     return 0;

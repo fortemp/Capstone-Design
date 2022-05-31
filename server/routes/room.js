@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Room = require('../models/Room')
 const db = require('../config/db')
-
+const Problem = require('../models/Problem')
 
 //방들 가져오기
 router.get('/getrooms',async (req,res)=>{
@@ -52,24 +52,14 @@ router.get('/getroominfo',async(req,res)=>{            //방정보 가져오기
     })
 })
 
-/*
-//유저 한명이 하나의 방을 만든다는 가정하에 설계
-router.get('/getround',async(req,res)=>{
-    let user = null;
-    if(req.isAuthenticated()){user={ID:req.user.user_id}};
-    const params = user.ID;
-    const sql= 'select * from rooms where user_id=?';
-    db.query(sql,params, (err,data)=>{
-        res.send(data);
+router.post('/getproblem',async(req,res)=>{
+    let problemId = req.body.problem_id
+    try{
+        let problem = await Problem.findOne({where:{problem_id:problemId}});
+        res.status(200).json({success:true,problem:problem});
+    }catch(err){
+        res.status(500).json({success:false});
+    }
     
-
-    })
-})*/
-
-router.get('/getproblem',async(req,res)=>{                         //문제가져오는 쿼리
-    const sql= 'select * from problems';
-    db.query(sql, (err,data)=>{
-        res.send(data);
-    })
 })
 module.exports = router;

@@ -11,7 +11,6 @@ module.exports = class Problem extends Sequelize.Model
                     allowNull: false,
                     primaryKey: true,
                     type: Sequelize.INTEGER,
-                    autoIncrement:true
                 },
                 tier_id://이름
                 {

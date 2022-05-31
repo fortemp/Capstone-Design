@@ -92,7 +92,7 @@ namespace Grading{
                     std::cout << e.what() << std::endl;
                 }
 
-                execute("rm -f %s", build_path("..", "testcode", UUID_, "*.result").c_str());
+                execute("rm -f %s", build_path("..", "usercode", UUID_, "*.result").c_str());
                 return  correct;
             }
 

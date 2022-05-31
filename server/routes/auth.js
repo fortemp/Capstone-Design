@@ -123,13 +123,13 @@ router.get('/getranking',(req, res) => {                  //랭킹페이지에 �
     })
 })
 
-router.post('/insertproblem', async (req, res) => {           //문제 넣기(ProblemInsertpage에 존재)
-    const result = await Problem.findAll();
+router.post('/insertproblem', async (req, res) => {//문제 넣기(ProblemInsertpage에 존재)
     let object =
     {
-        tier_id: req.body.tier,
-        dirname: req.body.title,
-        description: req.body.description
+        problem_id:req.body.problem_id,//문제id
+        tier_id: req.body.tier,//티어 아이디
+        dirname: req.body.title,//타이틀
+        description: req.body.description//문제 스트링
     };
     try {
         await Problem.create(object);
