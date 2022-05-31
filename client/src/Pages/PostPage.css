@@ -1,134 +1,83 @@
-.post-view-wrapper {
-    width: 70%;
-    margin: 0 auto;
-    background-color: aliceblue;
-  }
-  
-  .post-view-go-list-btn {
-    border: 0;
-    padding: 10px;
-    background-color: #ffd9d9;
-  }
-  
-  .post-view-row {
-    margin: 10px 0;
-    padding: 5px;
-    display: flex;
-  }
-  
-  .post-view-row > label:first-child {
-    margin: 10px 0;
-    padding: 5px;
-    width: 30%;
-    font-weight: bold;
-  }
-
-  .post-view-row > *:nth-child(2) {
-    margin: 10px 0;
-    padding: 5px;
-    width: 30%;
-    font-weight: bold;
-  }
-  .post-view-row > *:nth-child(3) {
-    margin: 10px 0;
-    padding: 5px;
-    width: 30%;
-    font-weight: bold;
-  }
-  .post-view-row > *:nth-child(4) {
-    margin: 10px 0;
-    padding: 5px;
-    width: 30%;
-    font-weight: bold;
-  }
-
-  .post-view-row > *:nth-child(4) {
-    margin: 10px 0;
-    padding: 5px;
-    width: 15%;
-    font-weight: bold;
-  }
-  .post-view-buttons{
-    float: right;
-  }
-
-
-.post-view-title{
-  margin: 10px 0;
-  padding: 5px;
-  text-align: left;
+.Info{
+  width: 100%;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color: rgb(226, 235, 248); 
 }
 
-.post-view-title > label:first-child {
-  margin: 10px 0;
-  width: 20%;
-  padding: 5px;
-  font-weight: bold;
+.Info .label{
+ font-size:1em;
+ margin-left: 20px;
+ margin-top: 10px;
+ color: black;
 }
 
-.post-view-title > *:nth-child(2) {
+.Description{
   margin: 10px 0;
-  width: 40%;
+  min-height: 300px;
   padding: 10px;
-  font-weight: bold;
-  font-size: 20px;
 }
 
-  .post-decription{
-    margin: 10px 0;
-    padding: 10px;
-    width: auto;
-    min-height: 500px;
-  }
-
-  .post-view-wrapper   .ck.ck-editor{
-    max-width: 60%;
- 
-  }
-  .ck-editor__editable_inline {
-    max-height: 45x;
+.Info .postButton{
+  border: 0.5px solid black;
+  border-radius: 30px;
+  margin-right: 5px;
+  background-color: black;
+  color: white;
+  padding: 0;
+  text-align: center;
 }
 
-.comment{
-  margin: 5px 0;
-  padding: 5px;
-  border: 2px solid black;
+.commentInfo{
+  width: 100%;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color: rgb(226, 235, 248); 
 }
 
-.comment > .post-view-title > label:first-child{
-  font-style: bold;
-  width: 40%;
-}
+.commentInfo .label{
+  font-size:1em;
+  margin-left: 20px;
+  margin-top: 10px;
+  color: black;
+ }
 
-.comment >  *:nth-child(2) {
-  width: 40%;
-}
+ .commentInfo .button{
+  border: 0.5px solid black;
+  border-radius: 30px;
+  margin-right: 5px;
+  background-color: black;
+  color: white;
+  padding: 0;
+  text-align: center;
+ }
 
-.comment >  *:nth-child(3) {
-  width: 10%;
-}
+ .fl{
+  margin-top: 5px;
+  float: right;
+ }
 
-.comment >  *:nth-child(4) {
-  width: 10%;
-}
-.submit-button{
-  float:left;
-}
-.commentButton{
-  float:right;
-}
-#delbutton{
-  float:right;
-}
-#modbutton{
-  float:right;
-}
-.commentdiv{
-  width: auto;
-  padding-top: 100px;
-}
+ .comment{
+   color: black;
+ }
 
-.commentButton{
-  text-decoration: underline;
-  float:right;
-}
+ .bu .button{
+  border: 1px solid black;
+  margin-right: 5px;
+  background-color: black;
+  color: white;
+  padding: 0;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+ }
+
+ .back{
+  background-color: black;
+  font-size: large;
+  float: right;
+  border: black 1px solid;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  color: white;
+ }
