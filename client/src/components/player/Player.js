@@ -25,7 +25,7 @@ function Player(props) {
         }
         <div className='exit'>
           {
-            (!props.me.socketId === props.Playerobject.socketId && Myobject.host) === true ?
+            (props.me.socketId !== props.Playerobject.socketId && Myobject.host) === true ?
           <button className='exit_btn' onClick={()=>props.Eject(Myobject.host,Playerobject.socketId)}>
             <img className="exit_img" src="img/delete_47751.png"></img>
             <img className="exit_img2" src="img/close_round_delete_remove_icon_177274.png"></img>

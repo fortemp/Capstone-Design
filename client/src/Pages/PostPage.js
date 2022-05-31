@@ -10,6 +10,15 @@ import { getcomment } from '../api/post';
 import { viewUpdata } from '../api/post';
 import { Button } from '@material-ui/core';
 //import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Table,
+  Row,
+  Col,
+} from "reactstrap";
 
 const PostPage = ({ onInsert }) => {
 
@@ -99,29 +108,41 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
     },[])
     return (
       <>
-
-        <div className="post-view-wrapper">
+        <div className="content">
+      <Row>
+      <Col md="12">
+      <Card >
+      <CardBody>
           {!isRequesting ?
               <>
-                <div className="post-view-title">
-                  <h1>{post.title}</h1>
+              <CardHeader>
+              <CardTitle tag="h3">{post.title}</CardTitle>
+              </CardHeader>
+
+                <div className="Info">
+                <label className='label'>[작성자 - {author}] </label> 
+                <label className='label'>[작성일 - {DateStringHandler(date)}]</label> 
+                <label className='label'>[언어 - {post.language}]</label> 
+                <label className='label'>[조회수:{post.view}]</label>
+                <label className='fl'> <Button className='postButton' onClick={()=>deletepost(post.post_id, post.user_id)}>삭제</Button></label>
+                <label className='fl'><Link to={'/ModifyPage'} state={{user_id:post.user_id, post_id:post.post_id, title:post.title, description:post.description}}> 
+                <Button className='postButton' >수정</Button></Link></label>
                 </div>
-                <div className="post-view-row">
-                <label>[작성자 - {author}] </label> <label>[작성일 - {DateStringHandler(date)}]</label> <label>[언어 - {post.language}]</label> <label>[조회수:{post.view}]</label>
-                </div>
-                <div className="post-view-buttons">
-                <Button variant="outlined" onClick={()=>deletepost(post.post_id, post.user_id)}>삭제</Button>
-                <Link to={'/ModifyPage'} state={{user_id:post.user_id, post_id:post.post_id, title:post.title, description:post.description}}> 
-                <Button variant="outlined" >수정</Button></Link>
-                </div>
-                <div className="post-decription"> 
-                  <div dangerouslySetInnerHTML={ {__html: post.description}}></div>
+
+                <div className="Description"> 
+                  <div className="Description" dangerouslySetInnerHTML={ {__html: post.description}}></div>
                 </div>
               </>:
             <>
              로딩중...
             </>
           }
+      </CardBody>
+      </Card>
+      </Col>
+      <Col md="12">
+      <Card >
+      <CardBody>
           
           <CKEditor  //CKEditor 댓글작성
           className='editor'
@@ -147,14 +168,16 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
               console.log('Focus.', editor);
             }}
           />
-          <div>
-            {!visilbe?
-          <Button variant="outlined" className="submit-button" onClick={() =>{ // 입력!
+          <div className="bu">
+
+          {!visilbe?
+          <Button variant="outlined" className="button" onClick={() =>{ // 입력!
                           setTimeout(() => {
                             let data = {
                               post_id:no,
                               description: values.description,
                             }
+
                             dispatch(SetComment(data))
                             .then(res=>{
                               if(res.payload.success){
@@ -166,8 +189,8 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
                             })
                         }, 500)
         }
-        }>댓글 입력</Button>
-        : <button className="submit-button" onClick={() =>{ // 수정!
+        }><i className="nc-icon nc-ruler-pencil" />댓글 입력</Button>
+        : <button className="button" onClick={() =>{ // 수정!
           setTimeout(() => {
             let data = {
               post_id:update.post_id,
@@ -190,25 +213,31 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
         ;setVisible(false);
       }
       }>수정</button> 
-      }{!visilbe?<></>:<button className="submit-button" onClick={()=>{setVisible(false)}}>취소</button>}
-</div>
-        <div className='commentdiv'>
+      }{!visilbe?<></>:<button className="button" onClick={()=>{setVisible(false)}}>취소</button>}
+    </div>
+
+    <div>
         {datacomment.map((element) =>
-                  <div className='comment'>
-                    <label>{element.name}     :</label><label>{DateStringHandler(element.created_at).substring(0,10)}</label>
-                    <div className="commentButton">
-                      <Button id="delbutton" variant="outlined" onClick={()=>deletecomment(element.comment_id, element.user_id, element.post_id) }>삭제</Button>  
-                      <Button id="modbutton" variant="outlined" onClick={()=>{setVisible(true);updatecomment(element.decription, element.comment_id, element.post_id, element.user_id);}}>수정</Button>
+                  <div >
+                    <div className='commentInfo'>
+                    <label className='label'>{element.name}</label>
+                    <label className='label'>{DateStringHandler(element.created_at).substring(0,10)}</label>
+                    <label className='fl'><Button className='button' onClick={()=>deletecomment(element.comment_id, element.user_id, element.post_id) }>삭제</Button>  </label>
+                    <label className='fl'><Button className='button' onClick={()=>{setVisible(true);updatecomment(element.decription, element.comment_id, element.post_id, element.user_id);}}>수정</Button></label>
                     </div>
-                    <label dangerouslySetInnerHTML={ {__html: element.description}}></label> 
+                    <div className='comment' dangerouslySetInnerHTML={ {__html: element.description}}></div>
                   </div>
           )
         }
-</div>
+      </div>
+
           <Link to='/community'> 
-        <button className="post-view-go-list-btn"> 돌아가기 </button>
+        <button className="back"><i className="nc-icon nc-user-run" /> 돌아가기 </button>
       </Link>
-      
+      </CardBody>
+      </Card>
+      </Col>
+      </Row>
         </div>
       </>
     )

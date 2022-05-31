@@ -4,7 +4,15 @@ import './CommunityPage.css'
 import {GetPost} from "../actions/index";
 import { getposts } from "../api/post";
 import Pagination from "react-js-pagination";
-import axios from "axios";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Table,
+  Row,
+  Col,
+} from "reactstrap";
 
 function CommunityPage() { //임시로 null\
   const [Posts, setPosts] = useState([])
@@ -38,33 +46,40 @@ const  handlePageChange = pageNumber => {
   }
 console.log(state)
   return(
-    <div className="communityapp">
-      <table className="posttable">
-      <thead>
+    <div className="content">
+      <Row>
+      <Col md="12">
+      <Card >
+      <CardBody>
+      <table responsive className="posttable">
+      <thead className="text-primary">
         <tr >
-          <th className="thid">번호</th>
-          <th className="thtitle">제목</th>
-          <th className="date">시간</th>
-          <th className="th">작성자</th>
-          <th className="th">조회수</th>
+          <th className="thiD">번호</th>
+          <th className="Title">제목</th>
+          <th className="Name">작성자</th>
+          <th className="View">조회수</th>
+          <th className="Date">날짜</th>
+          <th className="Date">수정일</th>
         </tr>  
       </thead>
       </table>
-      <div className="communityinfo">
+      <div>
       <table className="posttable">
 {state.data&&state.data.map(post =>
       <tbody >
         <tr>
-        <td className="tdid">{post.post_id}</td>
-        <td className="tdtitle" >< Link to={`/PostPage/${post.post_id}`} >
+        <td className="tdiD">{post.post_id}</td>
+        <td className="Title">< Link to={`/PostPage/${post.post_id}`} >
           {post.title}</Link></td>
-        <td className="tddate" style={{"fontSize":'14px'}} >{DateStringHandler(post.createdAt).substring(0,10)}</td>
-        <td className="td" >{post.User.name}</td>
-        <td className="td" >{post.view}</td>
+        <td className="Name">{post.User.name}</td>
+        <td className="View">{post.view}</td>
+        <td className="Date">{DateStringHandler(post.createdAt).slice(0,10)}</td>
+        <td className="Date">{DateStringHandler(post.updatedAt).slice(0,10)}</td>
         </tr>
       </tbody>
 )}
       </table>
+      
       </div>
       <footer>
       <Pagination
@@ -79,12 +94,16 @@ console.log(state)
       </footer>
       
       <Link to={'/Posting'}> 
-        <button className="postbutton"> 글작성 </button>
+        <button className="postbutton" ><i className="nc-icon nc-paper" /> 글작성 </button>
       </Link>
 
       <Link to='/'> 
-          <button className="backbutton"> 뒤로가기 </button>
+          <button className="backbutton"><i className="nc-icon nc-user-run" /> 뒤로가기 </button>
       </Link>
+      </CardBody>
+      </Card>
+      </Col>
+      </Row>
     </div>
   );
 }

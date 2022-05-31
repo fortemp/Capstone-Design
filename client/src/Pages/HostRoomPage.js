@@ -23,7 +23,7 @@ function HostRoomPage() {
             initialValues={{
                 title: '',
                 password:'',
-                language:"c",
+                language:"cpp",
                 maxpeople:2,
                 rounds:1,
             }}

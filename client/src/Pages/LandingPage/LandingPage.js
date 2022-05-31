@@ -9,10 +9,7 @@ import MainSection from './Sections/MainSection'
 import GameSettingSection from './Sections/GameSettingSection'
 import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
-import  Axios  from 'axios';
-import {GetName} from '../../actions/index'
 
-import {host} from'../HostRoomPage'
 function LandingPage() {
     const RankingStyle = { height: '740px' }
     const roomStyle = { height: '250px' }
@@ -25,6 +22,7 @@ function LandingPage() {
     const [ready, setready] = useState("false");  // 게임 준비 기능을 위한 useState // false = 준비 안됨 true = 준비됨
 
     const [start, setstart] = useState("false");
+
 
     const onReady = (e) => {
         setready("true");
@@ -40,6 +38,7 @@ function LandingPage() {
 
     return (
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
+
             <Grid container spacing={1}>
             {mode=='normal'?
                 <>
