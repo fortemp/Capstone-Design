@@ -12,20 +12,10 @@
     background-color: white;
 }
 .User_Avatar{
-    position:relative;
-    top:20px;   
-    left:20px;
-    border: 1px solid black;
-    width: 190px;
-    height: 310px;
-    float:left;
+    margin-top: 5px;
 }
 .User_Info{
-    padding-top:50px;
-    width: 700px;
-    height: 100%;
-    float: right;
-    overflow:none;
+    margin-top: 5px;
 }
 
 .Main_div>ul>li{

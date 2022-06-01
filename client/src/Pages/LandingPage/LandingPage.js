@@ -9,6 +9,7 @@ import MainSection from './Sections/MainSection'
 import GameSettingSection from './Sections/GameSettingSection'
 import Grid from '@material-ui/core/Grid';
 import { SocketContext, Roomsocket, Publicsocket } from '../../api/socket'
+import './LandingPage.css'
 
 function LandingPage() {
     const RankingStyle = { height: '740px' }
@@ -39,17 +40,17 @@ function LandingPage() {
     return (
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
 
-            <Grid container spacing={1}>
+            <Grid container spacing={1} className="main">
             {mode=='normal'?
                 <>
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={9} md={2}>
                         <RankingSection style={RankingStyle} />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={9} md={3}>
                         <MainSection style={gameStyle} />
                     </Grid>
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={9} md={2}>
 
                             <Grid container spacing={1} direction="column" padding={"0 0 0 0"}>
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from "react-router-dom"
 import Box from '@material-ui/core/Box'
 import './MainSection.css'
-
 import "../../../assets/scss/paper-dashboard.scss?v=1.3.0";
 import NotificationAlert from "react-notification-alert";
 import Table from '@mui/material/Table';
@@ -71,34 +70,38 @@ function MainSection(props) {
                     </> :
 
                     <>
-                        <div className='User_Avatar'>
-                            <img className="phoneImage" alt="플레이어아바타" src={data.img_url} />
-                        </div><div className='User_Info'>
+              <Row>
+              <Col md="12">
+              <Card>
+              <CardBody>
+                <Row>
+                  <Col >
+                  <div className='User_Avatar'>
+                  <img className="phoneImage" alt="플레이어아바타" src={data.img_url} />
+                  </div>
+                  </Col>
+                  <Col md="6">
+                        <div className='User_Info'>
                             <TableContainer style={{overflow:'hidden'}}>
                                 <Table aria-label="simple table" bgcolor={"#ffffff"} > 
                                     <TableRow>
                                         <Row>
-                                        <Col md="5">
+                                        <Col md="12">
                                         <Alert color="info" >
                                         <span ><b>이름</b>{data.name}</span>
-                                        </Alert>
-                                        </Col>
-                                        <Col md="5">
-                                        <Alert color="info" >
-                                        <span ><b>뭘넣지</b>{data.name}</span>
                                         </Alert>
                                         </Col>
                                         </Row>
                                     </TableRow>
                                     <TableRow>
-                                    <Col md="10">
+                                    <Col md="12">
                                     <Alert color="success" >
                                         <span ><b>포인트</b>{data.point}</span>
                                     </Alert>
                                     </Col>
                                     </TableRow>
                                     <TableRow>
-                                    <Col md="10">
+                                    <Col md="12">
                                     <Alert color="warning" >
                                         <span ><b>elo</b>{data.elo}</span>
                                     </Alert>
@@ -106,17 +109,17 @@ function MainSection(props) {
                                     </TableRow>
                                     <TableRow>
                                     <Row>
-                                    <Col md="4">
+                                    <Col md="4.5">
                                      <Alert color="primary" >
                                      <Link to="/shop"><span ><b>아바타 변경</b></span></Link>
                                     </Alert>
                                     </Col>
-                                    <Col md="3">
+                                    <Col md="4.5">
                                     <Alert color="primary" >
-                                     <Link to="/ChangeID"><span ><b>닉네임 변경</b></span></Link>
+                                     <Link to="/ChangeID"><span ><b>닉네임변경</b></span></Link>
                                     </Alert>
                                     </Col>
-                                    <Col md="3">
+                                    <Col md="4.5">
                                     <Alert color="primary" >
                                      <Link to="/ChangePWD"><span ><b>비밀번호 변경</b></span></Link>
                                     </Alert>
@@ -126,9 +129,16 @@ function MainSection(props) {
                                 </Table>
                             </TableContainer>
                         </div>
+                        </Col>
+              </Row>
+            </CardBody>
+            </Card>
+            </Col>
+            </Row>
                     </>
                 } 
             </div>
+
 
             {isloadingP === false ? 
             <div className="content">   
@@ -137,52 +147,7 @@ function MainSection(props) {
             <Card>
               <CardBody>
                 <Row>
-
-
-
-                <Col md="6">
-                    <Card className="card-plain">
-                      <CardHeader>
-                        <CardTitle tag="h5">그냥 넣어본 공간</CardTitle>
-                      </CardHeader>
-                      <CardBody>
-                        <UncontrolledAlert color="primary" fade={false}>
-                          <span>
-                            <b>여기는 소제목 - </b>
-                            여기는 내용물
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="info" fade={false}>
-                          <span>
-                            <b>Info - </b>
-
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="success" fade={false}>
-                          <span>
-                            <b>Success - </b>
-
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="warning" fade={false}>
-                          <span>
-                            <b>Warning - </b>
-
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="danger" fade={false}>
-                          <span>
-                            <b>Danger - </b>
-
-                          </span>
-                        </UncontrolledAlert>
-                      </CardBody>
-                    </Card>
-                  </Col>
-
-
-
-                  <Col md="6">
+                  <Col md="12">
                     <Card className="card-plain">
                       <CardHeader>
                         <CardTitle tag="h5">최신 글</CardTitle>
