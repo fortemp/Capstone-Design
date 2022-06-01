@@ -1,7 +1,11 @@
 .communityapp{
-  width: 80%;
-  min-height: 80vh;
   margin: 0 auto;
+  float: none;
+  text-align: center;
+}
+.app{
+  display: inline-block;
+  width: 66.66666667%;
 }
 
 .posttable{
