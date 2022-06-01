@@ -88,7 +88,7 @@ function MainSection(props) {
                                         <Row>
                                         <Col md="12">
                                         <Alert color="info" >
-                                        <span ><b>이름</b>{data.name}</span>
+                                        <span className='span'><b>이름</b>{data.name}</span>
                                         </Alert>
                                         </Col>
                                         </Row>
@@ -96,14 +96,14 @@ function MainSection(props) {
                                     <TableRow>
                                     <Col md="12">
                                     <Alert color="success" >
-                                        <span ><b>포인트</b>{data.point}</span>
+                                        <span className='span'><b>포인트</b>{data.point}</span>
                                     </Alert>
                                     </Col>
                                     </TableRow>
                                     <TableRow>
                                     <Col md="12">
                                     <Alert color="warning" >
-                                        <span ><b>elo</b>{data.elo}</span>
+                                        <span className='span'><b>elo</b>{data.elo}</span>
                                     </Alert>
                                     </Col>
                                     </TableRow>
@@ -111,17 +111,17 @@ function MainSection(props) {
                                     <Row>
                                     <Col md="4.5">
                                      <Alert color="primary" >
-                                     <Link to="/shop"><span ><b>아바타 변경</b></span></Link>
+                                     <Link to="/shop"><span className='span'><b>아바타 변경</b></span></Link>
                                     </Alert>
                                     </Col>
                                     <Col md="4.5">
                                     <Alert color="primary" >
-                                     <Link to="/ChangeID"><span ><b>닉네임변경</b></span></Link>
+                                     <Link to="/ChangeID"><span className='span'><b>닉네임변경</b></span></Link>
                                     </Alert>
                                     </Col>
                                     <Col md="4.5">
                                     <Alert color="primary" >
-                                     <Link to="/ChangePWD"><span ><b>비밀번호 변경</b></span></Link>
+                                     <Link to="/ChangePWD"><span className='span'><b>비밀번호 변경</b></span></Link>
                                     </Alert>
                                     </Col>
                                     </Row>
@@ -154,31 +154,31 @@ function MainSection(props) {
                       </CardHeader>
                       <CardBody>
                         <UncontrolledAlert color="primary" fade={false}>
-                          <span>
+                          <span className='span'>
                             < Link to={`/PostPage/${post[0].post_id}`} ><b>{post[0].title}</b></Link>
                             {post[0].created_at.substring(0,10)}
                           </span>
                         </UncontrolledAlert>
                         <UncontrolledAlert color="info" fade={false}>
-                          <span >
+                          <span className='span'>
                           < Link to={`/PostPage/${post[1].post_id}`} ><b>{post[1].title}</b></Link>
                             {post[1].created_at.substring(0,10)}
                           </span>
                         </UncontrolledAlert>
                         <UncontrolledAlert color="success" fade={false}>
-                        <span>
+                        <span className='span'>
                         < Link to={`/PostPage/${post[2].post_id}`} ><b>{post[2].title}</b></Link>
                             {post[2].created_at.substring(0,10)}
                           </span>
                         </UncontrolledAlert>
                         <UncontrolledAlert color="warning" fade={false}>
-                          <span>
+                          <span className='span'>
                           < Link to={`/PostPage/${post[3].post_id}`} ><b>{post[3].title}</b></Link>
                             {post[3].created_at.substring(0,10)}
                           </span>
                         </UncontrolledAlert>
                         <UncontrolledAlert color="danger" fade={false}>
-                          <span>
+                          <span className='span'>
                           < Link to={`/PostPage/${post[4].post_id}`} ><b>{post[4].title}</b></Link>
                             {post[4].created_at.substring(0,10)}
                           </span>

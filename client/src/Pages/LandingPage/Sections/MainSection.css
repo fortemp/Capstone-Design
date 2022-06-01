@@ -28,7 +28,7 @@
     padding-bottom: 15px;
 }
 
-span{
+.span{
     display: flex;
     justify-content: space-between;
 }
