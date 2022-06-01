@@ -14,10 +14,13 @@
 width: 900px;}
 
 .submit-button{
-    width: 110px;
-    height: 40px;
-    font-weight: bolder;
-    font-size: 20px;
-    margin-top: 30px;
-    float: right;
+    background: black;
+    color: white;
+    width: 200px;
+    height: 50px;
+    font-size: large;
+    float: left;
+    border: black 1px solid;
+    border-radius: 20px;
+    margin-bottom: 10px;
 }
