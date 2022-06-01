@@ -187,6 +187,7 @@ function MainSection(props) {
                       <CardHeader>
                         <CardTitle tag="h5">최신 글</CardTitle>
                       </CardHeader>
+                      {post != ""?
                       <CardBody>
                         <UncontrolledAlert color="primary" fade={false}>
                           <span>
@@ -219,6 +220,14 @@ function MainSection(props) {
                           </span>
                         </UncontrolledAlert>
                       </CardBody>
+                      :<CardBody>
+                      <UncontrolledAlert color="primary" fade={false}>
+                        <span>
+                          최신 게시글 없음
+                        </span>
+                      </UncontrolledAlert>
+                      </CardBody>
+                      }
                     </Card>
                     <Col>
                     </Col>
