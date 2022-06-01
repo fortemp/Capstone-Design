@@ -54,7 +54,7 @@ function RightSide() {
                     <div className='Info'>
                         <textarea className='InfoMsg' resize='none' placeholder='로그인 후 이용해 주세요' disabled='false'>
                         </textarea>
-                    </div>
+                    
                     <div className='Info2'>
                         <Button color="inherit">
                             <a href="/community">
@@ -94,6 +94,7 @@ function RightSide() {
                             </a>
                         </Button>
                     </div>
+                </div>
                 </div>
             </div>
         )
