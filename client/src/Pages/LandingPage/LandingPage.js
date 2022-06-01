@@ -40,7 +40,7 @@ function LandingPage() {
     return (
         <SocketContext.Provider value={{ room: Roomsocket, public: Publicsocket }}>
 
-            <Grid container spacing={1} className="main">
+            <Grid container spacing={1} className="main1">
             {mode=='normal'?
                 <>
                     <Grid item xs={9} md={2}>

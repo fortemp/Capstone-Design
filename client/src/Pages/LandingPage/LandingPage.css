@@ -1,7 +1,8 @@
-.main{
+.main1{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 10vh;
     background: none;
+    box-sizing:contents-box;
 }

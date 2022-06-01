@@ -1,4 +1,5 @@
 .User_Info_div{
+    box-sizing:border-box;
     width: 100%;
     height: 50%;
     background-color: white;
@@ -6,6 +7,10 @@
     margin-bottom: 10px;
     overflow: hidden;
 }
+.CCC{
+    box-sizing:border-box;
+}
+
 .Main_div{
     width: 100%;
     height: 45%;
@@ -31,3 +36,4 @@ span{
 .User_Info::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
 }
+
