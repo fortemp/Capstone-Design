@@ -44,10 +44,9 @@ text-decoration: none;
     margin-left: auto !important;
 }
 .Info {
-    width: 500px;
+    width: 100%;
     float: left;
-
-
+    background-color: #A47C6D;
 }
 
 
@@ -74,7 +73,8 @@ text-decoration: none;
 }
 .Info2 {
     float: right;
-        padding-top: 15px;
+    padding-top: 15px;
+    background-color: #A47C6D;
 }
 .Info2 Button{
     margin-right: 50px;

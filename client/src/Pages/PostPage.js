@@ -120,7 +120,7 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
               <CardTitle tag="h3">{post.title}</CardTitle>
               </CardHeader>
 
-                <div className="Info">
+                <div className="Info1">
                 <label className='label'>[작성자 - {author}] </label> 
                 <label className='label'>[작성일 - {DateStringHandler(date)}]</label> 
                 <label className='label'>[언어 - {post.language}]</label> 
