@@ -56,7 +56,7 @@ function ChangePWD() {
             <Paper elevation={7} style={{ justifyContent: 'center', minHeight: '25vh', padding: '40px' }}>
 
               <Typography style={{ textAlign: 'center' }} component="h1" variant="h5">
-                CHANGE PASSWORD
+                비밀번호 변경
               </Typography>
               <br />
               <FormControl style={{ width: '100%' }} onSubmit={handleSubmit} component="fieldset">
@@ -97,7 +97,7 @@ function ChangePWD() {
               <FormControl style={{ width: '100%' }} onSubmit={handleSubmit} component="fieldset">
 
                 <Button onClick={handleSubmit} variant="outlined" type="submit" disabled={isSubmitting}>
-                  닉네임 변경
+                  비밀번호변경
                 </Button>
 
               </FormControl>

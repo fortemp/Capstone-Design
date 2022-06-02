@@ -21,6 +21,7 @@ import {
 } from "reactstrap";
 
 const PostPage = ({ onInsert }) => {
+  
 
     const [ post, setPost ] = useState({}); // 게시물 데이터
     const [ datacomment, setDatacomment ] = useState([]);//댓글데이터
@@ -108,9 +109,9 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
     },[])
     return (
       <>
-        <div className="content">
-      <Row>
-      <Col md="12">
+        <div className='main1'>
+      <Row className='sub'>
+      <Col className='sub2'>
       <Card >
       <CardBody>
           {!isRequesting ?
@@ -119,7 +120,7 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
               <CardTitle tag="h3">{post.title}</CardTitle>
               </CardHeader>
 
-                <div className="Info">
+                <div className="Info1">
                 <label className='label'>[작성자 - {author}] </label> 
                 <label className='label'>[작성일 - {DateStringHandler(date)}]</label> 
                 <label className='label'>[언어 - {post.language}]</label> 
@@ -140,7 +141,7 @@ const updatecomment = (data1, data2, data3, data4)=>{ // 댓글 업데이트
       </CardBody>
       </Card>
       </Col>
-      <Col md="12">
+      <Col className='sub2'>
       <Card >
       <CardBody>
           

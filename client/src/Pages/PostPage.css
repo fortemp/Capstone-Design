@@ -1,11 +1,24 @@
-.Info{
+.main1{
+  margin: 0 auto;
+  float: none;
+  text-align: center;
+}
+.sub{
+  display: inline-block;
+}
+.sub2{
+  width: 1000px;
+  text-align: left;
+}
+
+.Info1{
   width: 100%;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   background-color: rgb(226, 235, 248); 
 }
 
-.Info .label{
+.Info1 .label{
  font-size:1em;
  margin-left: 20px;
  margin-top: 10px;

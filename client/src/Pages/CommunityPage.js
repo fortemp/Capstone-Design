@@ -46,9 +46,9 @@ const  handlePageChange = pageNumber => {
   }
 console.log(state)
   return(
-    <div className="content">
-      <Row>
-      <Col md="12">
+    <div className="communityapp">
+      <Row className="app">
+      <Col >
       <Card >
       <CardBody>
       <table responsive className="posttable">
@@ -59,7 +59,6 @@ console.log(state)
           <th className="Name">작성자</th>
           <th className="View">조회수</th>
           <th className="Date">날짜</th>
-          <th className="Date">수정일</th>
         </tr>  
       </thead>
       </table>
@@ -74,7 +73,6 @@ console.log(state)
         <td className="Name">{post.User.name}</td>
         <td className="View">{post.view}</td>
         <td className="Date">{DateStringHandler(post.createdAt).slice(0,10)}</td>
-        <td className="Date">{DateStringHandler(post.updatedAt).slice(0,10)}</td>
         </tr>
       </tbody>
 )}
