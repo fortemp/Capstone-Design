@@ -74,20 +74,17 @@ function MainSection(props) {
                         <div className='User_Avatar'>
                             <img className="phoneImage" alt="플레이어아바타" src={data.img_url} />
                         </div><div className='User_Info'>
-                            <TableContainer style={{overflow:'hidden'}}>
+                            <TableContainer >
                                 <Table aria-label="simple table" bgcolor={"#ffffff"} > 
                                     <TableRow>
                                         <Row>
+
                                         <Col md="5">
                                         <Alert color="info" >
                                         <span ><b>이름</b>{data.name}</span>
                                         </Alert>
                                         </Col>
-                                        <Col md="5">
-                                        <Alert color="info" >
-                                        <span ><b>뭘넣지</b>{data.name}</span>
-                                        </Alert>
-                                        </Col>
+
                                         </Row>
                                     </TableRow>
                                     <TableRow>
@@ -188,36 +185,14 @@ function MainSection(props) {
                         <CardTitle tag="h5">최신 글</CardTitle>
                       </CardHeader>
                       <CardBody>
+
                         <UncontrolledAlert color="primary" fade={false}>
                           <span>
                             < Link to={`/PostPage/${post[0].post_id}`} ><b>{post[0].title}</b></Link>
                             {post[0].created_at.substring(0,10)}
                           </span>
                         </UncontrolledAlert>
-                        <UncontrolledAlert color="info" fade={false}>
-                          <span >
-                          < Link to={`/PostPage/${post[1].post_id}`} ><b>{post[1].title}</b></Link>
-                            {post[1].created_at.substring(0,10)}
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="success" fade={false}>
-                        <span>
-                        < Link to={`/PostPage/${post[2].post_id}`} ><b>{post[2].title}</b></Link>
-                            {post[2].created_at.substring(0,10)}
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="warning" fade={false}>
-                          <span>
-                          < Link to={`/PostPage/${post[3].post_id}`} ><b>{post[3].title}</b></Link>
-                            {post[3].created_at.substring(0,10)}
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="danger" fade={false}>
-                          <span>
-                          < Link to={`/PostPage/${post[4].post_id}`} ><b>{post[4].title}</b></Link>
-                            {post[4].created_at.substring(0,10)}
-                          </span>
-                        </UncontrolledAlert>
+                        
                       </CardBody>
                     </Card>
                     <Col>

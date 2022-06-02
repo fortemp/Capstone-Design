@@ -56,7 +56,7 @@ function ChangePWD() {
             <Paper elevation={7} style={{ justifyContent: 'center', minHeight: '25vh', padding: '40px' }}>
 
               <Typography style={{ textAlign: 'center' }} component="h1" variant="h5">
-                HOST GAME
+                CHANGE PASSWORD
               </Typography>
               <br />
               <FormControl style={{ width: '100%' }} onSubmit={handleSubmit} component="fieldset">
