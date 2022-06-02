@@ -21,7 +21,6 @@ router.post('/login', (req, res, next) => {
         return req.logIn(user, (loginError) => {
             if (loginError) {
                 console.log(err);
-            
                 return next(loginError)
             }
             console.log('로그인 성공')
@@ -58,15 +57,12 @@ router.post('/register', async (req, res) => {
     }
 })
 //로그아웃
-router.get('/logout', (req, res) => {
-    if (req.isAuthenticated()) {
-        req.logout();
-        req.session.destroy();
-        return res.status(200).json({ success: true })
-    } else {
-        return res.status(400).json({ success: false, message: "not authenticated" })
-    }
-})
+router.post('/logout', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) {return next(err); }
+      res.redirect('/');
+    });
+  });
 
 //로그인한 사용자의 브라우저에게 로그인여부와 정보를 보냄
 router.get('/auth',(req,res)=>{
