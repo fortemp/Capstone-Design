@@ -11,7 +11,6 @@ const Problem = require('../models/Problem');
 const fs = require('fs');
 const path = require('path');
 
-
 //게시물 입력
 router.post('/postings',async (req,res)=>{
     console.log(req.body);
@@ -94,11 +93,18 @@ router.get('/getcomment',async (req, res)=>{
        })
 })
 
+const comm = (data)=>{
+    db.query('select comment_id from comments ORDER BY ROWID DESC LIMIT 1 where post_id'+data+';', (err, data1) => {
+        return data1}
+       )
+    }
+
 //댓글입력
 router.post('/setcomment',async (req, res)=>{
     console.log(req.body);
-    const result1 = await Comment.findAll();// 전체 댓글수 알오오기
-    console.log(result1.length);
+    const result = (comm(req.body.post_id))
+    console.log(result)
+
     let object =
     {
         description:req.body.description, 
@@ -107,11 +113,10 @@ router.post('/setcomment',async (req, res)=>{
     try{
         let user1 = null;
         if(req.isAuthenticated()){user1={ID:req.user.user_id}};
-        const user1_id= user1.ID; // 유저아이디를 로그인 아이디로 변경해야함 수정해야함
-        object.comment_id=result1.length+1;
+        const user1_id= user1.ID; 
         object.user_id=user1_id;
+        object.comment_id = result==null? 1: result+1;
         object.commented_date=new Date();
-        console.log(object);
         await Comment.create(object);
         return res.status(200).json({success:true})
     }

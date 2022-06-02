@@ -8,7 +8,7 @@ module.exports = class Comment extends Sequelize.Model
             {
                 description://내용
                 {
-                    type: Sequelize.STRING(200),
+                    type: Sequelize.TEXT,
                     allowNull: false,
                 },
                 user_id://FK
