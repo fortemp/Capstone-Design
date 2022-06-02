@@ -17,7 +17,7 @@ export async function auth(){
 }
 //로그아웃
 export async function logout(){
-    const res = await api.post('/auth/logout');
+    const res = await api.get('/auth/logout');
     return res;
 }
 //아이디중복검사

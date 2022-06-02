@@ -57,12 +57,15 @@ router.post('/register', async (req, res) => {
     }
 })
 //로그아웃
-router.post('/logout', function(req, res, next) {
-    req.logout(function(err) {
-      if (err) {return next(err); }
-      res.redirect('/');
-    });
-  });
+router.get('/logout', (req, res) => {
+    if (req.isAuthenticated()) {
+        req.logout();
+        req.session.destroy();
+        return res.status(200).json({ success: true })
+    } else {
+        return res.status(400).json({ success: false, message: "not authenticated" })
+    }
+})
 
 //로그인한 사용자의 브라우저에게 로그인여부와 정보를 보냄
 router.get('/auth',(req,res)=>{
