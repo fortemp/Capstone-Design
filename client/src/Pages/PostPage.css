@@ -1,3 +1,16 @@
+.main1{
+  margin: 0 auto;
+  float: none;
+  text-align: center;
+}
+.sub{
+  display: inline-block;
+}
+.sub2{
+  width: 1000px;
+  text-align: left;
+}
+
 .Info{
   width: 100%;
   border-top: 1px solid black;
