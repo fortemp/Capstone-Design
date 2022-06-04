@@ -153,14 +153,14 @@ function MainSection(props) {
                         <CardTitle tag="h5">최신 글</CardTitle>
                       </CardHeader>
                       <CardBody>
-
+                 {post.map(element=>
                         <UncontrolledAlert color="primary" fade={false}>
                           <span className='span'>
-                            < Link to={`/PostPage/${post[0].post_id}`} ><b>{post[0].title}</b></Link>
-                            {post[0].created_at.substring(0,10)}
+                            < Link to={`/PostPage/${post.post_id}`} ><b>{post.title}</b></Link>
+                            {element.created_at.substring(0,10)}
                           </span>
                         </UncontrolledAlert>
-                        
+)}
                       </CardBody>
                     </Card>
                     <Col>
