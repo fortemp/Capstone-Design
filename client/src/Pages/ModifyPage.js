@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import {UserPosting,PostUpdata} from '../actions/index';
-
+import {postupdata} from '../api/post'
 
 const useStyles = makeStyles((theme) => ({   //grid 속성
   container: {
@@ -106,9 +106,10 @@ function ModifyPage() { //임시로 null\
                               post_id: updata.post_id
                             }
                             console.log(data)
-                            dispatch(PostUpdata(data))
+
+                            postupdata(data)
                             .then(res=>{
-                              if(res.payload.success){
+                              if(res.data.success){
                                 alert('수정완료');
                                 window.location.replace('/community');
                               }else{

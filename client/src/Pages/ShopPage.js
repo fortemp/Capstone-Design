@@ -46,8 +46,8 @@ const rows = [
 ];
 
 function ShopPage(props) {
-  var playerpoint = useSelector(state => state.authReducer.authData.user);
-  const playername= useSelector(state=>state.authReducer.authData.user);
+  var playerpoint = useSelector(state => state.authReducer.authData.user.point);
+  const playername= useSelector(state=>state.authReducer.authData.user.name);
   const classes = useStyles();
 
   const [data, setdata] = useState([]);

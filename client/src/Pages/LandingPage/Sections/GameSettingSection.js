@@ -15,11 +15,12 @@ function GameSettingSection(props) {
   const [room, setroom] = useState({});
 
   const [amIHost,setAmIHost] = useState(false);
-  const [round, setRound] = useState(1);//1라운드부터 시작하니까 1로 초기화, 늘어나는건 socket응답 받을때 마다함
+  const [round, setRound] = useState(0);//1라운드부터 시작하니까 1로 초기화, 늘어나는건 socket응답 받을때 마다함
   var myObjectGlobal = undefined;
-  var TimerVariable = undefined;
+  var TimerVariable;
   var secondsGlobal = 0;
   var minutesGlobal = 0;
+  var timeriter = 0;
   useEffect(()=>{
     
     roomSocket.off('youAreBanned').on('youAreBanned',(data)=>{
@@ -31,22 +32,47 @@ function GameSettingSection(props) {
       props.onChangeMode('normal');
     })
 
+    roomSocket.off('gameEnded').on('gameEnded',(data)=>{
+      props.onChangeStart('false');
+    })
+
     roomSocket.off('roomInfoGS').on('roomInfoGS',(data)=>{
       setroom(data)
     })
 
+    roomSocket.on('timeout',(data)=>{
+      console.log('세팅섹션에서')
+      setSeconds(0);
+      setMinutes(0);
+      secondsGlobal = 0;
+      minutesGlobal = 0;
+      clearInterval(TimerVariable)
+    })
+    roomSocket.on('allPass',(data)=>{
+      console.log('세팅섹션에서')
+      setSeconds(0);
+      setMinutes(0);
+      secondsGlobal = 0;
+      minutesGlobal = 0;
+      clearInterval(TimerVariable)
+    })
+
     roomSocket.off('gameStartingGS').on('gameStartingGS',(data)=>{
+      setRound(round=>{
+        return round+1;
+      });
+
       TimerVariable = setInterval(()=>{
         if(secondsGlobal<59){
           setSeconds(seconds=>{
-            secondsGlobal = seconds+1;
+            secondsGlobal++;
             return seconds+1;
           });
         }
         else{
           setSeconds(seconds=>{
             secondsGlobal = 0;
-            return seconds-seconds;
+            return 0;
           });
           setMinutes(minutes=>{
             return minutes+1
@@ -95,6 +121,7 @@ function GameSettingSection(props) {
   const startHandler=()=>{
     roomSocket.emit('startGame');
   }
+  
 
   return (
     <Box style={props.style} bgcolor={'#eeeeee'} p={2}>
@@ -111,10 +138,9 @@ function GameSettingSection(props) {
            :
            <button className="raady_btn2" onClick={unReadyHandler}>레디 풀기</button>}</> }
 
-          <h3>평균 ELO: </h3> 
-          <h3>언어 : {room.language}</h3>
-          <h3>인원 {room.people}&nbsp;/&nbsp;{room.max_people}</h3>
-          <h3>라운드 : {room.rounds}</h3>
+          <p>언어 : {room.language}</p>
+          <p>인원 {room.people}&nbsp;/&nbsp;{room.max_people}</p>
+          <p>라운드 : {room.rounds}</p>
           </>
         :
         <>

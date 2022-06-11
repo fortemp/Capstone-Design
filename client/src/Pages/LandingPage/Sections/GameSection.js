@@ -12,6 +12,7 @@ function GameSection(props) {
   const socket = useContext(SocketContext);
   const roomSocket = socket.room;
   const [problemId,setproblemId] = useState(null);
+  const [problemIdArr,setProbleIdmArr] = useState([]);
   const [requestingProblem, setRequestingProblem] = useState(false);
   const [roomId, setRoomId] = useState('');
   const [code, setCode] = useState("");
@@ -64,7 +65,9 @@ function GameSection(props) {
       myObjectGlobal = data.me;
     })
     roomSocket.off('gameStarting').on('gameStarting',(data)=>{
+      setCode("");
       setproblemId(data.problem_id.problem_id);//문제 아이디를 저장한다.
+      setProbleIdmArr(problemIdArr=>[...problemIdArr, data.problem_id.problem_id])
       setRequestingProblem(true);
     })
     roomSocket.off('startGameErr').on('startGameErr',(data)=>{
@@ -73,13 +76,13 @@ function GameSection(props) {
     roomSocket.off('timeout').on('timeout',(data)=>{
       alert('타임아웃! 라운드가 끝났습니다.')
       if(Myobject.host){
-        roomSocket.emit('roundEnded',problemId)
+        roomSocket.emit('roundEnded',problemIdArr)
       }
     })
     roomSocket.off('allPass').on('allPass',(data)=>{
-      alert('모든사람이 문제를 맞췄습니다. 라운드가 끝났습니다.')
+      alert('한계인원까지 문제를 맞췄습니다. 라운드가 끝났습니다.')
       if(Myobject.host){
-        roomSocket.emit('roundEnded',problemId)
+        roomSocket.emit('roundEnded',problemIdArr)
       }
     })
     roomSocket.off('WrongAnswer').on('WrongAnswer',(data)=>{
@@ -93,7 +96,6 @@ function GameSection(props) {
     if(problemId){
         getproblem({problem_id:problemId})
       .then((res)=>{
-        console.log(res.data)
         setproblem(res.data.problem);
         setRequestingProblem(false);
         props.onChangeStart(true)

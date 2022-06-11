@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL:'/api',
+    baseURL:process.env.REACT_APP_DB_HOST+'/api',
     withCredentials: true,
     timeout: 100000
 })

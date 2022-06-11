@@ -3,9 +3,10 @@ const express = require('express');
 const app = express();
 const expressSession = require('express-session');
 const helmet = require('helmet');
+const cors = require('cors');
 const port = '3001';
 const MySqlStore = require('express-mysql-session')(expressSession);
-
+//app.use(cors({credentials:true, origin: ['http://localhost:3000','http://14.38.252.76:3000','http://14.38.252.76:3001']}));
 const roomRouter = require('./routes/room');
 const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post');
@@ -54,7 +55,9 @@ app.use('/api/auth',authRouter);
 app.use('/api/post',postRouter);
 
 
-
+app.get('/',(req,res)=>{
+  res.send('hello');
+})
   
 const server = app.listen(port, ()=>{
   console.log(`${port}번 포트에서 돌아가는중`)

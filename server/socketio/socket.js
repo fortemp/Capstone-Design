@@ -1,16 +1,23 @@
 const SocketIO = require('socket.io');
 const passport = require('passport')
 const Room = require('../models/Room')
+const User = require('../models/User')
 const Problem = require('../models/Problem');
 const {executeCode} = require('../util/GradingApi')
-const Sequelize = require('sequelize')
+const {eloRating} = require('../util/elo');
+const db = require('../models/index');
+const { Sequelize } = require('../models/index');
 module.exports = (server,app,sessionMid)=>{
 
     var winnerArr = new Array();//방을 데이터베이스에서 메모리로 옮기고싶음(원래 이렇게해야됨), 구현에대한 구상이 떠오르는대로 실행에 옮길예정
     var Timer = new Array();//타이머 배열
     var TimerFlag = new Array();//타이머가 작동중인지 아닌지 배열
     var roomRoundStatus = new Array();//방의 라운드 상황을저장하는 배열
-
+    var players = new Array();//방에있는 플레이어 현황
+    var elo = new Array();//각방의 elo계산결과를 담아두는 배열
+    var winnerLimit = {//승자 한계
+        '2':1,'3':2,'4':2,'5':2,'6':2,'7':3,'8':3
+    }
     function getObjectbyValueInArray(arr,value){//어레이 안에서 객체를 key값만으로 찾을때 쓰는 함수
         let result = arr.find(x=>{
             return x.socketId===value
@@ -36,10 +43,26 @@ module.exports = (server,app,sessionMid)=>{
         TimerFlag[socket.room] = false;
     }
     
+    function getRandomProblemExceptThat(problemArr,playedProblem){
+        console.log(playedProblem)
+        while(true){
+            let randomProblemNumber = Math.floor(Math.random() * problemArr.length);//중복이 안될때 까지 임의의 숫자를 뽑음
+            let dupflag = false;
+            for(let i=0; i<playedProblem.length; i++){
+                if(problemArr[randomProblemNumber].problem_id === playedProblem[i]){ //같은거 있으면 안됨
+                    dupflag = true;
+                    break;
+                }
+            }
+            if(!dupflag){
+                return randomProblemNumber;
+            }
+        }
+    }
     //R은 room섹션, C는 chat섹션, G는 game섹션 
     //같은 emit이름에 R,C,G만 붙여서 보내는 경우가 있음.
     const wrap = middleware=>(socket,next) =>middleware(socket.request, {}, next);
-    const io = SocketIO(server,{maxHttpBufferSize:1e7, pingInterval:2500,pingTimeout: 60000,})
+    const io = SocketIO(server,{maxHttpBufferSize:1e7, pingInterval:2500,pingTimeout: 60000})
 
     app.set('io',io);
 
@@ -118,6 +141,7 @@ module.exports = (server,app,sessionMid)=>{
                         amIHost = true;
                         readyState = true;
                         roomObject = room;
+                        players[room_id] = [];//배열로 초기화
                         return true
                         //입장하는게 호스트이면 is_waiting을 false로 바꾸고 return true한다.
                     }
@@ -142,7 +166,6 @@ module.exports = (server,app,sessionMid)=>{
             })
 
             if(socket.room){//만약 사용자가 어떤 방에 들어가 있다면 먼저 나간다.
-                console.log('여긴가')
                 if(socket.room===room_id){//같은방에 들어 갈려고 시도했다면
                     return socket.emit("roomError",{message:"이미 들어간 방입니다."})
                 }
@@ -169,6 +192,9 @@ module.exports = (server,app,sessionMid)=>{
                 socket.join(room_id);//방에 입장함
                 await Room.increment({people:1},{where:{room_id:room_id}});//roomobject갱신
                 roomObject.people = roomObject.people+1;
+                players[socket.room] = [...players[socket.room],{[socket.who.user_id]:socket.who.elo}];//배열로 자신의 user_id를 넣음
+                console.log('player배열: ')
+                console.log(players[socket.room]);
                 const roomAdapter = socket.adapter.rooms.get(room_id);
                 const Myobject = Object.assign({},passportInfoFilter(socket.who), {"host":amIHost}, {"roomName":title},{"socketId":socket.id}, {"ready":readyState}) // 자신의 정보를 담은 객체이다.
                 roomAdapter.add(Myobject)//roomAdapter에 자신의 정보를 추가한다.
@@ -246,6 +272,12 @@ module.exports = (server,app,sessionMid)=>{
                 await Room.increment({people:-1},{where:{room_id:socket.room}});
                 //방에서 나간다.
                 socket.leave(socket.room);
+                let newPlayerArr = players[socket.room].filter(function(data){
+                    return Object.keys(data)[0] !== socket.who.user_id;
+                });
+                console.log('삭제뒤의 newPlayerArr');
+                console.log(newPlayerArr);
+                players[socket.room] = newPlayerArr;
                 //저장해두었던 roomId변수를 없앤다.
                 amIHost = false;//나갈때 false값으로 바꿔줘야됌 안그러면 다시 들어갈때 또 방장이 되어버림.
                 readyState = false;//나갈때 false값으로 바꿔줘야됌 안그러면 방장이 다시들어가면 레디된상태가 되어버림
@@ -323,6 +355,12 @@ module.exports = (server,app,sessionMid)=>{
                 await Room.increment({people:-1},{where:{room_id:socket.room}});
                 //방에서 나간다.
                 socket.leave(socket.room);
+                let newPlayerArr = players[socket.room].filter(function(data){
+                    return Object.keys(data)[0] !== socket.who.user_id;
+                });
+                console.log('삭제뒤의 newPlayerArr');
+                console.log(newPlayerArr);
+                players[socket.room] = newPlayerArr;
                 //저장해두었던 roomId변수를 없앤다.
                 amIHost = false;//나갈때 false값으로 바꿔줘야됌 안그러면 다시 들어갈때 또 방장이 되어버림
                 readyState = false;//나갈때 false값으로 바꿔줘야됌 안그러면 방장이 다시들어가면 레디된상태가 되어버림
@@ -387,15 +425,18 @@ module.exports = (server,app,sessionMid)=>{
                 }
                 if(readyFlag && players>1 ){//모두 준비가 되어있어야하고 인원이 적어도 1명보다는 많아야함.
                     await Room.update({is_running:true},{where:{room_id:socket.room}});
-                    let problemId = await Problem.findAll({attributes:['problem_id']},{order: Sequelize.literal('rand()')} )
-                    console.log(problemId)
-                    socket.broadcast.to(socket.room).emit('gameStarting',{problem_id:problemId[1]})
-                    socket.emit('gameStarting',{problem_id:problemId[1]})
+                    let problems = await Problem.findAll({attributes:['problem_id'],order:['problem_id',db.Sequelize.fn('RAND')]} )
+                    let problemLength = problems.length;
+                    let randomProblemNumber = Math.floor(Math.random() * problemLength);
+                    socket.broadcast.to(socket.room).emit('gameStarting',{problem_id:problems[randomProblemNumber]})
+                    socket.emit('gameStarting',{problem_id:problems[randomProblemNumber]})
                     socket.broadcast.to(socket.room).emit('gameStartingGS')
                     socket.emit('gameStartingGS')
                     Timer[socket.room] = setTimeout(GameTimeOut,1000*60*20,socket);//게임 타이머
                     TimerFlag[socket.room] = true;//타이머 켜짐
                     roomRoundStatus[socket.room] = 1;//라운드 진행
+                    winnerArr[socket.room] = {'1':null, '2':null, '3':null,'4':null,'5':null,'6':null,'7':null,'8':null}//승자 초기화
+                    elo[socket.room] = {'1':null, '2':null, '3':null,'4':null,'5':null,'6':null,'7':null,'8':null}//elo 초기화
                 }
             }
         })
@@ -415,26 +456,43 @@ module.exports = (server,app,sessionMid)=>{
                 //누군가 맞으면 정답자 처리를 하고, 정답을 맞췄다는것을 알린다.
                 console.log("게임타이머: "+TimerFlag[socket.room])
                 if(executeResult && TimerFlag[socket.room]){
-                    if(!winnerArr[socket.room]){//처음을 정답을 제출했으면
+                    if(!winnerArr[socket.room][roomRoundStatus[socket.room]]){//이번 라운드에 정답을 처음 제출했으면
+                        socket.broadcast.to(socket.room).emit("roomMessage",{message:`${socket.who.name}님 정답!! 1등!`,fromWhom:'announce',name:'announce'})
+                        socket.emit("roomMessage",{message:`${socket.who.name}님 정답!! 1등!`,fromWhom:'announce',name:'announce'});
+                        socket.emit("WrongAnswer",{message:'정답!',log:''});//원래는 정답이 틀렸을때만 쓸려고 했는데 맞을때도 모달을 띄우는게 맞다고 생각
+                        winnerArr[socket.room][roomRoundStatus[socket.room]] = [{'1':socket.who.user_id}]
+
+                        console.log(`내가 들어와있는 방의 승자한계: ${winnerLimit[players[socket.room].length]}`);
+
+                        if(winnerLimit[players[socket.room].length]>1){//두명이상 정답자를 허용하는 방이라면
+                            clearTimeout(Timer[socket.room]);
+                            Timer[socket.room] = setTimeout(GameTimeOut,1000*60,socket);//게임 타이머
+                            TimerFlag[socket.room] = true;//타이머 작동중 표시
+                            socket.broadcast.to(socket.room).emit("roomMessage",{message:`남은시간 1분`,fromWhom:'announce',name:'announce'})
+                            socket.emit("roomMessage",{message:`남은시간 1분`,fromWhom:'announce',name:'announce'});
+                        }else{//정답자는 한명만 받는 방이라면
+                            socket.broadcast.to(socket.room).emit("allPass");
+                            socket.emit('allPass')
+                            clearTimeout(Timer[socket.room]);//타이머끄고
+                            TimerFlag[socket.room] = false;//타이머 작동안함으로 표시한다.
+                        }
+
+                        
+                    }else{
+                        console.log('누군가 맞힌뒤에 정답')
+                        let playerRank = winnerArr[socket.room][roomRoundStatus[socket.room]].length + 1;//자신의 순위
                         socket.broadcast.to(socket.room).emit("roomMessage",{message:`${socket.who.name}님 정답!!`,fromWhom:'announce',name:'announce'})
                         socket.emit("roomMessage",{message:`${socket.who.name}님 정답!!`,fromWhom:'announce',name:'announce'});
                         socket.emit("WrongAnswer",{message:'정답!',log:''});//원래는 정답이 틀렸을때만 쓸려고 했는데 맞을때도 모달을 띄우는게 맞다고 생각
-                        winnerArr[socket.room] = {winner:{1:socket.who.user_id}}
-                        clearTimeout(Timer[socket.room]);
-                        Timer[socket.room] = setTimeout(GameTimeOut,1000*60,socket);//게임 타이머
-                        TimerFlag[socket.room] = true;
-                        socket.broadcast.to(socket.room).emit("roomMessage",{message:`남은시간 1분`,fromWhom:'announce',name:'announce'})
-                        socket.emit("roomMessage",{message:`남은시간 1분`,fromWhom:'announce',name:'announce'});
-                    }else{
-                        console.log('누군가 맞힌뒤에 정답')
-                        let playerRank = Object.keys(winnerArr[socket.room].winner).length + 1;
-                        winnerArr[socket.room].winner = Object.assign(winnerArr[socket.room].winner,{[playerRank]:socket.who.user_id});
-                        if(roomObject.max_people === playerRank){//만약 모든사람이 정답을 맞추면 바로 다음 라운드로 넘어간다.
+                        winnerArr[socket.room][roomRoundStatus[socket.room]] = [...winnerArr[socket.room][roomRoundStatus[socket.room]],{[playerRank]:socket.who.user_id}]          //.winner = Object.assign(winnerArr[socket.room][roomRoundStatus[socket.room]].winner,{[playerRank]:socket.who.user_id});
+
+                        if(winnerLimit[players[socket.room].length] <= playerRank){//만약 승자 한계까지 정답을 맞추면 
                             socket.broadcast.to(socket.room).emit("allPass");
                             socket.emit('allPass')
                             clearTimeout(Timer[socket.room]);
                             TimerFlag[socket.room] = false;
                         }
+
                     }
                 }else{//틀리면 틀린 이유를 보내줌
                     if(TimerFlag[socket.room]){
@@ -459,17 +517,42 @@ module.exports = (server,app,sessionMid)=>{
         socket.on('roundEnded',async (problemId)=>{
             const roomAdapter = socket.adapter.rooms.get(socket.room);
             const Myobject = getObjectbyValueInArray([...roomAdapter],socket.id);
-            if(Myobject.host){//호스트인지 확인한다.
+            if(Myobject.host){//호스트인지 확인한다. 호스트만 이 작업을 실시한다.
+                let resultElo = eloRating(winnerArr[socket.room][roomRoundStatus[socket.room]],players[socket.room])
+                elo[socket.room][roomRoundStatus[socket.room]] = resultElo
+
                 if(roomRoundStatus[socket.room] >= roomObject.rounds){//게임이 다 끝났을때(여기서 계산된 elo를 반영하고, 플레이어들의 준비를 푼뒤에, gameEnded를 보내고, 플레이어 객체배열을 보내준다.)
-                    socket.broadcast.to(socket.room).emit("WrongAnswer",{message:'게임이 끝났습니다 수고하셨습니다.',log:''});
-                    socket.emit("WrongAnswer",{message:'게임이 끝났습니다 수고하셨습니다.',log:''});
+                    socket.broadcast.to(socket.room).emit("WrongAnswer",{message:'게임이 끝났습니다 수고하셨습니다. 메인페이지로 가셔서 elo를 확인해보실수 있습니다.',log:''});
+                    socket.emit("WrongAnswer",{message:'게임이 끝났습니다 수고하셨습니다. 메인페이지로 가셔서 elo를 확인해보실수 있습니다.',log:''});
+                    for(let i=1;i<=[roomRoundStatus[socket.room]];i++){//라운드 수만큼
+
+                        for(let j=0;j<elo[socket.room][i].length;j++){//사람수만큼
+                            await User.update({elo:Sequelize.literal(`elo + ${Object.values(elo[socket.room][i][j])[0]}`)},{where:{user_id:Object.keys(elo[socket.room][i][j])[0] }});
+                        }
+                        for(let j=0;j<elo[socket.room][i].length;j++){//사람수만큼
+                            await User.update({point:Sequelize.literal(`point + 1000`)},{where:{user_id:Object.keys(players[socket.room][0]) }});
+                        }
+
+                    }
                     socket.broadcast.to(socket.room).emit("gameEnded");
                     socket.emit("gameEnded");
                     await Room.update({is_running:false},{where:{room_id:socket.room}});
-                }else{//게임이 아직다 안끝났을때(여기서 각 라운드의 elo 계산을 해주고, 푼 플레이어들에게 포인트 지급, 새로운 문제를 보내준다.)
-                    socket.broadcast.to(socket.room).emit("roomMessage",{message:`라운드가 끝났습니다, 10초 뒤 다음라운드가 시작됩니다..`,fromWhom:'announce',name:'announce'})
-                    socket.emit("roomMessage",{message:`라운드가 끝났습니다, 10초 뒤 다음라운드가 시작됩니다..`,fromWhom:'announce',name:'announce'});
                     
+                }else{//게임이 아직다 안끝났을때(여기서 각 라운드의 elo 계산을 해주고, 푼 플레이어들에게 포인트 지급, 새로운 문제를 보내준다.)
+                    socket.broadcast.to(socket.room).emit("roomMessage",{message:`라운드가 끝났습니다, 5초 뒤 다음라운드가 시작됩니다..`,fromWhom:'announce',name:'announce'})
+                    socket.emit("roomMessage",{message:`라운드가 끝났습니다, 5초 뒤 다음라운드가 시작됩니다..`,fromWhom:'announce',name:'announce'});
+                    
+                    let problems = await Problem.findAll({attributes:['problem_id'],order:['problem_id',db.Sequelize.fn('RAND')]} )
+                    let generatedRandomProblemNumber = getRandomProblemExceptThat(problems,problemId);
+                    setTimeout(()=>{
+                    socket.broadcast.to(socket.room).emit('gameStarting',{problem_id:problems[generatedRandomProblemNumber]})
+                    socket.emit('gameStarting',{problem_id:problems[generatedRandomProblemNumber]})
+                    socket.broadcast.to(socket.room).emit('gameStartingGS')
+                    socket.emit('gameStartingGS')
+                    Timer[socket.room] = setTimeout(GameTimeOut,1000*60*20,socket);//게임 타이머
+                    TimerFlag[socket.room] = true;//타이머 켜짐
+                    roomRoundStatus[socket.room] = roomRoundStatus[socket.room]+1;//라운드 진행
+                    },5000)
                 }
             }
         })

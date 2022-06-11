@@ -3,6 +3,7 @@ import React,{useEffect, useState,useContext} from 'react'
 import Box from '@material-ui/core/Box'
 import {useDispatch} from 'react-redux';
 import { getRoom } from '../../../api/room'
+import axios  from 'axios';
 import {SocketContext} from '../../../api/socket'
 import LockIcon from '@mui/icons-material/Lock';
 import TableRows from '../../../components/TableRow/TableRows'
@@ -41,6 +42,7 @@ function RoomsSection(props) {
   }
   
   useEffect(()=>{
+
     getRoom()
     .then(res=>{
       if(res.data.success){

@@ -145,7 +145,7 @@ router.post('/postupdata',async (req, res)=>{
     Posting.update({ title : req.body.title, description: req.body.description, language: req.body.language }, {
         where : { post_id : req.body.post_id }
     })
-    .then( result => { res.send(result) })
+    .then( result => { res.status(200).json({success:true,result}) })
     .catch( err => { throw err })
 })
 
