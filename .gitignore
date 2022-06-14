@@ -3,6 +3,7 @@ node_modules/
 server/config/config.json
 server/config/db.js
 yarn.lock
+package-lock.json
 grading/usercode/*/*.cpp
 grading/usercode/*/*.log
 grading/problem/*/in/*.in

@@ -43,14 +43,14 @@ function LandingPage() {
             <Grid container spacing={1} className="main1">
             {mode=='normal'?
                 <>
-                    <Grid item xs={9} md={2}>
+                    <Grid item xs={9} md={3}>
                         <RankingSection style={RankingStyle} />
                     </Grid>
 
-                    <Grid item xs={9} md={3}>
+                    <Grid item xs={9} md={6}>
                         <MainSection style={gameStyle} />
                     </Grid>
-                        <Grid item xs={9} md={2}>
+                        <Grid item xs={9} md={3}>
 
                             <Grid container spacing={1} direction="column" padding={"0 0 0 0"}>
 

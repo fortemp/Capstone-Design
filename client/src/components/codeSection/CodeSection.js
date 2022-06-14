@@ -37,7 +37,7 @@ function CodeSection(props) {
         value={null}
         editorProps={{ $blockScrolling: true }}
         setOptions={{
-        enableBasicAutocompletion: true,
+        enableBasicAutocompletion: false,
         enableLiveAutocompletion: false,
         enableSnippets: false,
         showLineNumbers: true,

@@ -109,17 +109,17 @@ function MainSection(props) {
                                     </TableRow>
                                     <TableRow>
                                     <Row>
-                                    <Col md="4.5">
+                                    <Col md="4">
                                      <Alert color="primary" >
                                      <Link to="/shop"><span className='span'><b>아바타 변경</b></span></Link>
                                     </Alert>
                                     </Col>
-                                    <Col md="4.5">
+                                    <Col md="4">
                                     <Alert color="primary" >
                                      <Link to="/ChangeID"><span className='span'><b>닉네임변경</b></span></Link>
                                     </Alert>
                                     </Col>
-                                    <Col md="4.5">
+                                    <Col md="4">
                                     <Alert color="primary" >
                                      <Link to="/ChangePWD"><span className='span'><b>비밀번호 변경</b></span></Link>
                                     </Alert>
@@ -153,14 +153,14 @@ function MainSection(props) {
                         <CardTitle tag="h5">최신 글</CardTitle>
                       </CardHeader>
                       <CardBody>
-                 {post.map(element=>
+                      {post.map(element=>
                         <UncontrolledAlert color="primary" fade={false}>
                           <span className='span'>
-                            < Link to={`/PostPage/${post.post_id}`} ><b>{post.title}</b></Link>
+                            < Link to={ `/PostPage/${element.post_id}` } ><b>{element.title}</b></Link>
                             {element.created_at.substring(0,10)}
                           </span>
                         </UncontrolledAlert>
-)}
+                        )}
                       </CardBody>
                     </Card>
                     <Col>

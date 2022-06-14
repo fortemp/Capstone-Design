@@ -20,8 +20,8 @@ function Player(props) {
       </div>
       <div className="player_infodiv">
         {
-          props.me.socketId === props.Playerobject.socketId ? <span className='playername' style={{color:"cyan"}}>당신: {props.playername}</span>:
-          <span className='playername'>{props.playername}</span>
+          props.me.socketId === props.Playerobject.socketId ? <span className='playername' style={{color:"cyan"}}>{props.playername}: {props.Playerobject.elo}</span>:
+          <span className='playername'>{props.playername}:{props.Playerobject.elo}</span>
         }
         <div className='exit'>
           {

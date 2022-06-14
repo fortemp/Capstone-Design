@@ -14,7 +14,6 @@ export default function Auth(SpecificComponent,option,adminRoute=null){
         useEffect(() => {
          dispatch(authUser())
          .then(res=>{
-             console.log(res.payload)
              if(!res.payload.auth){//로그인을 안했을 경우
                 if(option){//option이 true이면,
                     return navigate('/login');
